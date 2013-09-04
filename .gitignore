@@ -1,0 +1,37 @@
+# django-mcadmin
+# .gitignore
+
+.*.swp
+*.pyc
+*.log
+*.pot
+*.pyo
+*.pyd
+*~
+*.orig
+*.bak
+.DS_Store
+*.save
+
+.idea/*
+*sublime*
+*geany*
+*komodo*
+*-venv*/
+build/*
+dist/*
+*.egg-info/*
+tmp/*
+logs/*
+log/*
+parts
+.project
+.pydevproject
+.settings/*
+media/*
+data/*
+*env*/
+static/*
+*.mo
+*.pid
+CACHE/*
