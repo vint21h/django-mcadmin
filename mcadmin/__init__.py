@@ -3,4 +3,4 @@
 # django-mcadmin
 # mcadmin/__init__.py
 
-__all__ = []
+__all__ = ['admin', 'forms', 'management', 'models', 'urls', 'utils', 'views', ]

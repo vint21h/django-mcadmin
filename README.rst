@@ -1,0 +1,2 @@
+.. django-mcadmin
+.. README.rst
