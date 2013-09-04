@@ -3,3 +3,30 @@
 
 # django-mcadmin
 # setup.py
+
+from setuptools import setup, find_packages
+
+from mcadmin.version import __version__
+
+setup(
+    name="django-mcadin",
+    version=__version__,
+    packages=find_packages(),
+    install_requires=['django-annoying', ],
+    author="Alexei Andrushievich",
+    author_email="vint21h@vint21h.pp.ua",
+    description="Easy run django management commands from admin",
+    license="GPLv3 or later",
+    url="https://github.com/vint21h/django-mcadmin",
+    download_url="https://github.com/vint21h/django-mcadmin/archive/%s.tar.gz" % __version__,
+    zip_safe=False,
+    include_package_data=True,
+    classifiers=[
+        "Environment :: Plugins",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "Operating System :: Unix",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Topic :: Utilities",
+    ]
+)
