@@ -3,7 +3,14 @@
 # django-mcadmin
 # mcadmin/utils.py
 
+import inspect
+
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ImproperlyConfigured
+
+from mcadmin.settings import COMMANDS
+from mcadmin.command import BaseManagementCommandAdmin
+
 
 __all__ = ['ManagementCommandAdminTemplateFile', ]
 
@@ -23,3 +30,20 @@ class ManagementCommandAdminTemplateFile(object):
         """
 
         return reverse('mcadmin-template-file', args=[self.path, ])
+
+
+def commands_loader():
+
+    if not len(COMMANDS):
+        raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
+
+    commands = {}
+    for classes in COMMANDS:
+        module = __import__(classes, fromlist=COMMANDS[classes])  # getting classes in module
+        for cls in COMMANDS[classes]:
+            command = getattr(module, cls)
+            if inspect.isclass(command) and issubclass(command, BaseManagementCommandAdmin):  # check if it's our class
+                command = command()
+                commands.update({command.command: command})
+
+    return commands

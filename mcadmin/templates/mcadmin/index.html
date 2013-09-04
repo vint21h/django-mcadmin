@@ -29,5 +29,9 @@
 {% load i18n %}
 
 {% block content %}
-    <div id="content-main"></div>
+    <div id="content-main">
+        {% for command in commands.values %}
+            {% include "mcadmin/includes/command.html" %}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -12,7 +12,7 @@ setup(
     name="django-mcadin",
     version=__version__,
     packages=find_packages(),
-    install_requires=['django-annoying', ],
+    install_requires=['django-annoying==0.7.7', ],
     author="Alexei Andrushievich",
     author_email="vint21h@vint21h.pp.ua",
     description="Easy run django management commands from admin",

@@ -5,7 +5,8 @@
 
 from django.conf import settings
 
-__all__ = ['UPLOAD_TEMPLATES_PATH', 'COMMANDS_FILES', ]
+__all__ = ['UPLOAD_TEMPLATES_PATH', 'COMMANDS', ]
 
+COMMANDS = getattr(settings, 'MCADMIN_COMMANDS', [])
 UPLOAD_TEMPLATES_PATH = getattr(settings, 'MCADMIN_UPLOAD_TEMPLATES_PATH', settings.STATIC_ROOT)
-COMMANDS_FILES = getattr(settings, 'MCADMIN_COMMANDS_FILES', [])
+UPLOADS_PATH = getattr(settings, 'MCADMIN_UPLOADS_PATH', settings.MEDIA_ROOT)

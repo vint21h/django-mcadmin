@@ -1,0 +1,33 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/includes/command.html #}
+
+{% load i18n %}
+{% load url from future %}
+
+<form action="{% url "mcadmin-index" %}" method="post" name="{{ command.command }}" id="id-{{ command.command }}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <fieldset class="module aligned extrapretty wide">
+            <h2>{{ command.name }}</h2>
+            {% for field in command.form %}
+                <div class="form-row {{ field.auto_id }}">
+                    <div class="field-box{% if field.errors %} errors{% endif %}">
+                        {{ field.errors }}
+                        <label for="{{ field.auto_id }}">{% if field.field.required %}<strong>{{ field.label|safe }}</strong>{% else %}{{ field.label|safe }}{% endif %}</label>
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+            {% for file in command.files %}
+                <div class="form-row">
+                    <div class="field-box">
+                        <a href="{{ file.get_absolute_url }}">{% if file.description %}{{ file.description }}{% else %}{% trans "Example file" %}{% endif %}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </fieldset>
+        <div class="submit-row">
+            <p class="deletelink-box"><input name="{{ command.command }}" type="submit" value="{{ command.command }}" class="default"/></p>
+        </div>
+    </div>
+</form>

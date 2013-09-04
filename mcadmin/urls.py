@@ -6,9 +6,11 @@
 from django.conf.urls.defaults import patterns, url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.static import serve
-from django.conf import settings
+
+from mcadmin.settings import UPLOAD_TEMPLATES_PATH
 
 # mcadmin urls
 urlpatterns = patterns('mcadmin.views',
-    url(r'^templates/(?P<path>.*)$', staff_member_required(serve), {'document_root': settings.MCADMIN_UPLOAD_TEMPLATES_PATH,  'show_indexes': False, }, name="mcadmin-template-file"),
+    url(r'^$', 'index', name='mcadmin-index'),
+    url(r'^templates/(?P<path>.*)$', staff_member_required(serve), {'document_root': UPLOAD_TEMPLATES_PATH,  'show_indexes': False, }, name="mcadmin-template-file"),
 )
