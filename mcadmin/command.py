@@ -6,8 +6,6 @@
 from django import forms
 from django.core.management import call_command
 
-from mcadmin.forms import BaseManagementCommandAdminForm
-
 __all__ = ['BaseManagementCommandAdmin', ]
 
 
@@ -20,7 +18,7 @@ class BaseManagementCommandAdmin(object):
     name = u''
     args = [True, ]
     kwargs = {'quiet': True, }
-    form = BaseManagementCommandAdminForm
+    form = forms.Form
     templates = []  # must contain instances of ManagementCommandAdminTemplateFile
 
     def form2kwargs(self, POST):

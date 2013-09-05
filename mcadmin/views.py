@@ -10,6 +10,7 @@ from django.contrib import messages
 from annoying.decorators import render_to
 
 from mcadmin.utils import commands_loader
+from mcadmin.forms import ManagementCommandAdminFormWithFiles
 
 __all__ = ['index', ]
 
@@ -29,12 +30,13 @@ def index(request):
 
         command.form = command.form(request.POST, request.FILES)
         if command.form.is_valid():
-            if command.templates:
+            if isinstance(command.form, ManagementCommandAdminFormWithFiles) and command.templates:  # check if form have files
                 command.form.save_files()
+
             try:
                 command.handle(*command.form2args(request.POST), **command.form2kwargs(request.POST))
                 messages.success(request, _(u"Run '%s' management command success") % command.name)
             except Exception, err:
-                messages.error(request, _(u"Running '%s' management command error: %s") % (command.err, err, ))
+                messages.error(request, _(u"Running '%s' management command error: %s") % (command.name, err, ))
 
     return locals()

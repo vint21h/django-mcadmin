@@ -12,18 +12,18 @@ from django.utils.translation import ugettext_lazy as _
 
 from mcadmin.settings import UPLOADS_PATH
 
-__all__ = ['BaseManagementCommandAdminForm', 'ManagementCommandAdminFormWithFiles', ]
+__all__ = ['ManagementCommandAdminFormWithTask', 'ManagementCommandAdminFormWithFiles', ]
 
 
-class BaseManagementCommandAdminForm(forms.Form):
+class ManagementCommandAdminFormWithTask(forms.Form):
     """
-    Management commands admin base form.
+    Management commands admin form with celery task option.
     """
 
-    as_task = forms.BooleanField(label=_(u'Run management command as celery task'), initial=False, required=False)
+    as_task = forms.BooleanField(label=_(u'Run management command as celery task'), initial=True, required=False)
 
 
-class ManagementCommandAdminFormWithFiles(BaseManagementCommandAdminForm):
+class ManagementCommandAdminFormWithFiles(forms.Form):
     """
     Management commands admin form with file upload handle.
     """
