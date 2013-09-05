@@ -33,6 +33,9 @@ class ManagementCommandAdminTemplateFile(object):
 
 
 def commands_loader():
+    """
+    Load and initialize commands from settings.
+    """
 
     if not len(COMMANDS):
         raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
@@ -47,3 +50,14 @@ def commands_loader():
                 commands.update({command.command: command})
 
     return commands
+
+
+def commands_choices():
+    """
+    Get commands choices for admin from commands structure.
+    """
+
+    commands = commands_loader()
+    choices = [(command, commands[command].name) for command in commands]
+
+    return choices
