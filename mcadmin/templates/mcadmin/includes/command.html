@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% for file in command.files %}
+                {% for file in command.templates %}
                     <div class="form-row">
                         <div class="field-box">
                             <a href="{{ file.get_absolute_url }}">{% if file.description %}{{ file.description }}{% else %}{% trans "Example file" %}{% endif %}</a>

@@ -9,9 +9,8 @@ from django.contrib import messages
 
 from annoying.decorators import render_to
 
-from mcadmin.utils import commands_loader
+from mcadmin.utils import CommandsLoader
 from mcadmin.forms import ManagementCommandAdminFormWithFiles
-from mcadmin.models import ManagementCommandAdminGroup
 
 __all__ = ['index', ]
 
@@ -24,11 +23,10 @@ def index(request):
 
     title = _(u'Management commands')  # need to show in page title
 
-    commands = commands_loader()
-    groups = ManagementCommandAdminGroup.objects.all()
+    loader = CommandsLoader(request=request)
 
     if request.method == 'POST':
-        command = commands[list(set(commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
+        command = loader.commands[list(set(loader.commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
 
         command.form = command.form(request.POST, request.FILES)
         if command.form.is_valid():

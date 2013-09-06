@@ -30,8 +30,8 @@
 
 {% block content %}
     <div id="content-main">
-        {% if groups %}
-            {% for group in groups %}
+        {% if loader.groups %}
+            {% for group in loader.groups %}
                 {% include "mcadmin/includes/group.html" %}
             {% endfor %}
         {% endif %}
@@ -39,7 +39,7 @@
             <table summary="{% trans "Rest" %}">
                 <caption><a href="#rest">{% trans "Rest" %}</a></caption>
                 <tbody>
-                    {% for command in commands.values %}
+                    {% for command in loader.commands.values %}
                         <tr>
                             <th scope="row">
                                 {% include "mcadmin/includes/command.html" %}

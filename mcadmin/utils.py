@@ -10,9 +10,10 @@ from django.core.exceptions import ImproperlyConfigured
 
 from mcadmin.settings import COMMANDS
 from mcadmin.command import BaseManagementCommandAdmin
+from mcadmin.models.groups import ManagementCommandAdminGroup
 
 
-__all__ = ['ManagementCommandAdminTemplateFile', ]
+__all__ = ['ManagementCommandAdminTemplateFile', 'CommandsLoader', ]
 
 
 class ManagementCommandAdminTemplateFile(object):
@@ -32,32 +33,39 @@ class ManagementCommandAdminTemplateFile(object):
         return reverse('mcadmin-template-file', args=[self.path, ])
 
 
-def commands_loader():
+class CommandsLoader(object):
     """
-    Load and initialize commands from settings.
+    Load commands and filter it's by permissions.
     """
-
-    if not len(COMMANDS):
-        raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
     commands = {}
-    for classes in COMMANDS:
-        module = __import__(classes, fromlist=COMMANDS[classes])  # getting classes in module
-        for cls in COMMANDS[classes]:
-            command = getattr(module, cls)
-            if inspect.isclass(command) and issubclass(command, BaseManagementCommandAdmin):  # check if it's our class
-                command = command()
-                commands.update({command.command: command})
+    groups = ManagementCommandAdminGroup.objects.all()
 
-    return commands
+    def __init__(self, request=None):
+        self.request = request
 
+        if not len(COMMANDS):
+            raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
-def commands_choices():
-    """
-    Get commands choices for admin from commands structure.
-    """
+        self.load()
 
-    commands = commands_loader()
-    choices = [(command, commands[command].name) for command in commands]
+    def load(self):
+        """
+        Load and initialize commands from settings.
+        """
 
-    return choices
+        for classes in COMMANDS:
+            module = __import__(classes, fromlist=COMMANDS[classes])  # getting classes in module
+            for cls in COMMANDS[classes]:
+                command = getattr(module, cls)
+                if inspect.isclass(command) and issubclass(command, BaseManagementCommandAdmin):  # check if it's our class
+                    command = command()
+                    self.commands.update({command.command: command})
+
+    @property
+    def choices(self):
+        """
+        Get commands choices for admin from commands structure.
+        """
+
+        return [(command, self.commands[command].name) for command in self.commands]
