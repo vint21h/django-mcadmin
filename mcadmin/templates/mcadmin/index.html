@@ -19,7 +19,7 @@
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
-        <a href="/">{% trans 'Home' %}</a>
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
         &rsaquo;
         {% trans "Management commands" %}
     </div>
@@ -30,8 +30,24 @@
 
 {% block content %}
     <div id="content-main">
-        {% for command in commands.values %}
-            {% include "mcadmin/includes/command.html" %}
-        {% endfor %}
+        {% if groups %}
+            {% for group in groups %}
+                {% include "mcadmin/includes/group.html" %}
+            {% endfor %}
+        {% endif %}
+        <div id="rest">
+            <table summary="{% trans "Rest" %}">
+                <caption><a href="#rest">{% trans "Rest" %}</a></caption>
+                <tbody>
+                    {% for command in commands.values %}
+                        <tr>
+                            <th scope="row">
+                                {% include "mcadmin/includes/command.html" %}
+                            </th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

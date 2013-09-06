@@ -1,0 +1,24 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/includes/group.html #}
+
+{% load i18n %}
+{% load url from future %}
+
+{% load mcadin_tags %}
+
+<div id="{{ group.name|lower }}">
+    <table summary="{{ group.name }}">
+        <caption><a href="#{{ group.name|lower }}">{{ group.name }}</a></caption>
+        <tbody>
+            {% for command in group.commands %}
+                <tr>
+                    <th scope="row">
+                        {% with commands|pop:command.command as command %}
+                            {% include "mcadmin/includes/command.html" %}
+                        {% endwith %}
+                    </th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

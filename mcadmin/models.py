@@ -28,6 +28,14 @@ class ManagementCommandAdminGroup(models.Model):
         verbose_name_plural = _(u'management commands groups')
         ordering = ['name']
 
+    @property
+    def commands(self):
+        """
+        Return commands in group.
+        """
+
+        return ManagementCommandAdminCommand.objects.filter(group=self)
+
 
 class ManagementCommandAdminCommand(models.Model):
     """
@@ -35,7 +43,7 @@ class ManagementCommandAdminCommand(models.Model):
     """
 
     command = models.CharField(max_length=255, verbose_name=_(u'management command name'), choices=commands_choices(), help_text=_(u'this list get from settings'), db_index=True)
-    group = models.ForeignKey('mcadmin.ManagementCommandAdminGroup', verbose_name=_(u'group'), db_index=True)
+    group = models.ForeignKey('mcadmin.ManagementCommandAdminGroup', verbose_name=_(u'group'), db_index=True, related_name='command_group')
 
     def __unicode__(self):
 

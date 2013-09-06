@@ -11,6 +11,7 @@ from annoying.decorators import render_to
 
 from mcadmin.utils import commands_loader
 from mcadmin.forms import ManagementCommandAdminFormWithFiles
+from mcadmin.models import ManagementCommandAdminGroup
 
 __all__ = ['index', ]
 
@@ -24,6 +25,7 @@ def index(request):
     title = _(u'Management commands')  # need to show in page title
 
     commands = commands_loader()
+    groups = ManagementCommandAdminGroup.objects.all()
 
     if request.method == 'POST':
         command = commands[list(set(commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
@@ -38,5 +40,7 @@ def index(request):
                 messages.success(request, _(u"Run '%s' management command success") % command.name)
             except Exception, err:
                 messages.error(request, _(u"Running '%s' management command error: %s") % (command.name, err, ))
+        else:
+            messages.error(request, _(u"This form was completed with errors: %s") % command.name)
 
     return locals()

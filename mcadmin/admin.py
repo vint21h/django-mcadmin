@@ -20,6 +20,15 @@ class ManagementCommandAdminCommandAdmin(admin.ModelAdmin):
     search_fields = ('command', 'group__name', )
 
 
+class ManagementCommandAdminCommandInline(admin.TabularInline):
+    """
+    ManagementCommandAdminCommand inline for ManagementCommandAdminGroupAdmin
+    """
+
+    model = ManagementCommandAdminCommand
+    extra = 1
+
+
 class ManagementCommandAdminGroupAdmin(admin.ModelAdmin):
     """
     Customize ManagementCommandAdminGroup model for admin area.
@@ -28,6 +37,7 @@ class ManagementCommandAdminGroupAdmin(admin.ModelAdmin):
     list_display = ('name', )
     list_filter = ('name', )
     search_fields = ('name', )
+    inlines = (ManagementCommandAdminCommandInline, )
 
 
 admin.site.register(ManagementCommandAdminCommand, ManagementCommandAdminCommandAdmin)
