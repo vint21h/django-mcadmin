@@ -21,7 +21,7 @@ class ManagementCommandAdminCommand(models.Model):
 
     def __unicode__(self):
 
-        return self.command
+        return u"%s - %s" % (self.command, self.group)
 
     class Meta:
 
@@ -29,4 +29,4 @@ class ManagementCommandAdminCommand(models.Model):
         unique_together = ['command', 'group', ]
         verbose_name = _(u'management command')
         verbose_name_plural = _(u'management commands')
-        ordering = ['command']
+        ordering = ['command', ]

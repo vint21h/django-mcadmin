@@ -35,19 +35,21 @@
                 {% include "mcadmin/includes/group.html" %}
             {% endfor %}
         {% endif %}
-        <div id="rest">
-            <table summary="{% trans "Rest" %}">
-                <caption><a href="#rest">{% trans "Rest" %}</a></caption>
-                <tbody>
-                    {% for command in loader.commands.values %}
-                        <tr>
-                            <th scope="row">
-                                {% include "mcadmin/includes/command.html" %}
-                            </th>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        {% if loader.commands %}
+            <div id="rest">
+                <table summary="{% trans "Rest" %}">
+                    <caption><a href="#rest">{% trans "Rest" %}</a></caption>
+                    <tbody>
+                        {% for command in loader.commands.values %}
+                            <tr>
+                                <th scope="row">
+                                    {% include "mcadmin/includes/command.html" %}
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

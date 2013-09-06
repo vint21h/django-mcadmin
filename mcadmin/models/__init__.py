@@ -5,5 +5,6 @@
 
 from mcadmin.models.commands import ManagementCommandAdminCommand
 from mcadmin.models.groups import ManagementCommandAdminGroup
+from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
 
-__all__ = ['ManagementCommandAdminCommand', 'ManagementCommandAdminGroup', ]
+__all__ = ['ManagementCommandAdminCommand', 'ManagementCommandAdminGroup', 'ManagementCommandAdminGroupPermission', ]

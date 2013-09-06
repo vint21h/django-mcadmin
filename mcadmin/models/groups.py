@@ -26,4 +26,4 @@ class ManagementCommandAdminGroup(models.Model):
         app_label = 'mcadmin'
         verbose_name = _(u'management commands group')
         verbose_name_plural = _(u'management commands groups')
-        ordering = ['name']
+        ordering = ['name', ]

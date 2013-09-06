@@ -11,6 +11,7 @@ from django.core.exceptions import ImproperlyConfigured
 from mcadmin.settings import COMMANDS
 from mcadmin.command import BaseManagementCommandAdmin
 from mcadmin.models.groups import ManagementCommandAdminGroup
+from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
 
 
 __all__ = ['ManagementCommandAdminTemplateFile', 'CommandsLoader', ]
@@ -48,6 +49,7 @@ class CommandsLoader(object):
             raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
         self.load()
+        self.filter()
 
     def load(self):
         """
@@ -69,3 +71,18 @@ class CommandsLoader(object):
         """
 
         return [(command, self.commands[command].name) for command in self.commands]
+
+    def filter(self):
+        """
+        Filter commands by permissions.
+        """
+
+        if self.request and not self.request.user.is_superuser:  # superusers get all commands list
+            commands = []
+            for group in ManagementCommandAdminGroup.objects.filter(pk__in=ManagementCommandAdminGroupPermission.objects.filter(user_group__in=self.request.user.groups.all()).values_list('group', flat=True)):
+                commands += group.commands.all().values_list('command', flat=True)
+
+            # remove commands without permissions to access to
+            for command in self.commands.keys():
+                if command not in commands:
+                    del self.commands[command]

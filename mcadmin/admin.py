@@ -5,7 +5,7 @@
 
 from django.contrib import admin
 
-from mcadmin.models import ManagementCommandAdminCommand, ManagementCommandAdminGroup
+from mcadmin.models import ManagementCommandAdminCommand, ManagementCommandAdminGroup, ManagementCommandAdminGroupPermission
 
 __all__ = ['ManagementCommandAdminGroupAdmin', 'ManagementCommandAdminCommandAdmin', ]
 
@@ -40,5 +40,16 @@ class ManagementCommandAdminGroupAdmin(admin.ModelAdmin):
     inlines = (ManagementCommandAdminCommandInline, )
 
 
+class ManagementCommandAdminGroupPermissionAdmin(admin.ModelAdmin):
+    """
+    Customize ManagementCommandAdminGroupPermission model for admin area.
+    """
+
+    list_display = ('group', 'user_group', )
+    list_filter = ('group', 'user_group', )
+    search_fields = ('group', 'user_group__name', )
+
+
 admin.site.register(ManagementCommandAdminCommand, ManagementCommandAdminCommandAdmin)
 admin.site.register(ManagementCommandAdminGroup, ManagementCommandAdminGroupAdmin)
+admin.site.register(ManagementCommandAdminGroupPermission, ManagementCommandAdminGroupPermissionAdmin)
