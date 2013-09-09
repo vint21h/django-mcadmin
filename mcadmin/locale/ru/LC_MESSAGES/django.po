@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-05 17:55+0300\n"
+"POT-Creation-Date: 2013-09-09 18:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -20,21 +20,21 @@ msgstr ""
 msgid "Run management command as celery task"
 msgstr "Запустить команду как задачу celery"
 
-#: views.py:24 templates/mcadmin/index.html:24
+#: views.py:34 templates/mcadmin/index.html:24
 msgid "Management commands"
 msgstr "Команды"
 
-#: views.py:38
+#: views.py:56
 #, python-format
 msgid "Run '%s' management command success"
 msgstr "Команда %s успешно запущена"
 
-#: views.py:40
+#: views.py:58
 #, python-format
 msgid "Running '%(name)s' management command error: %(err)s"
 msgstr "Ошибка при запуске команды %(name)s: %(err)s"
 
-#: views.py:42
+#: views.py:60
 #, python-format
 msgid "This form was completed with errors: %(name)s"
 msgstr "Форма заполнена с ошибками: %(name)s"
