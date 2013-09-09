@@ -79,6 +79,7 @@ class CommandsLoader(object):
 
         if self.request and not self.request.user.is_superuser:  # superusers get all commands list
             commands = []
+            groups = []
             for group in ManagementCommandAdminGroup.objects.filter(pk__in=ManagementCommandAdminGroupPermission.objects.filter(user_group__in=self.request.user.groups.all()).values_list('group', flat=True)):
                 commands += group.commands.all().values_list('command', flat=True)
 
@@ -86,3 +87,10 @@ class CommandsLoader(object):
             for command in self.commands.keys():
                 if command not in commands:
                     del self.commands[command]
+
+            # collect groups with commands with permissions to access to
+            for group in self.groups:
+                if group.commands.filter(command__in=self.commands.keys()).exists():
+                    group.append(group.pk)
+
+            self.groups = ManagementCommandAdminGroup.objects.filter(pk__in=groups)

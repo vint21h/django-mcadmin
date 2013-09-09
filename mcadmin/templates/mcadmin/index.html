@@ -51,5 +51,8 @@
                 </table>
             </div>
         {% endif %}
+        {% if not loader.groups and not loader.commands %}
+            <h1>{% trans "You do not have access to any command" %}</h1>
+        {% endif %}
     </div>
 {% endblock %}

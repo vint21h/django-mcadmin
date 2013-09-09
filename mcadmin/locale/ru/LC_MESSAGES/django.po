@@ -1,0 +1,104 @@
+# django-mcadmin
+# mcadmin/locale/ru/LC_MESSAGES/django.po
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: mcadmin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-05 17:55+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
+"Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: forms.py:23
+msgid "Run management command as celery task"
+msgstr "Запустить команду как задачу celery"
+
+#: views.py:24 templates/mcadmin/index.html:24
+msgid "Management commands"
+msgstr "Команды"
+
+#: views.py:38
+#, python-format
+msgid "Run '%s' management command success"
+msgstr "Команда %s успешно запущена"
+
+#: views.py:40
+#, python-format
+msgid "Running '%(name)s' management command error: %(err)s"
+msgstr "Ошибка при запуске команды %(name)s: %(err)s"
+
+#: views.py:42
+#, python-format
+msgid "This form was completed with errors: %(name)s"
+msgstr "Форма заполнена с ошибками: %(name)s"
+
+#: models/commands.py:19
+msgid "management command name"
+msgstr "имя команды"
+
+#: models/commands.py:19
+msgid "this list get from settings"
+msgstr "этот список сгенерирован из настроек"
+
+#: models/commands.py:20 models/permissions.py:16
+msgid "group"
+msgstr "группа"
+
+#: models/commands.py:30
+msgid "management command"
+msgstr "команда"
+
+#: models/commands.py:31
+msgid "management commands"
+msgstr "команды"
+
+#: models/groups.py:18
+msgid "management commands group title"
+msgstr "имя группы команд"
+
+#: models/groups.py:27
+msgid "management commands group"
+msgstr "группа команд"
+
+#: models/groups.py:28
+msgid "management commands groups"
+msgstr "группы команд"
+
+#: models/permissions.py:17
+msgid "user group"
+msgstr "группа пользователей"
+
+#: models/permissions.py:27
+msgid "management command group permission"
+msgstr "право доступа к группе команд"
+
+#: models/permissions.py:28
+msgid "management command group permissions"
+msgstr "права доступа к группе команд"
+
+#: templates/mcadmin/index.html:22
+msgid "Home"
+msgstr "Главная"
+
+#: templates/mcadmin/index.html:40 templates/mcadmin/index.html.py:41
+msgid "Rest"
+msgstr "Остальные"
+
+#: templates/mcadmin/index.html:55
+msgid "You do not have access to any command"
+msgstr "Нет прав доступа ни к одной клманде"
+
+#: templates/mcadmin/includes/command.html:25
+msgid "Example file"
+msgstr "Файл пример"
+
+#: templates/mcadmin/includes/command.html:30
+msgid "Management command does not require additional options"
+msgstr "Команде не нужны дополнительные параметры для запуска"

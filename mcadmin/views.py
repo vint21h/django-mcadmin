@@ -37,8 +37,8 @@ def index(request):
                 command.handle(*command.form2args(request.POST), **command.form2kwargs(request.POST))
                 messages.success(request, _(u"Run '%s' management command success") % command.name)
             except Exception, err:
-                messages.error(request, _(u"Running '%s' management command error: %s") % (command.name, err, ))
+                messages.error(request, _(u"Running '%(name)s' management command error: %(err)s") % {'name': command.name, 'err': err, })
         else:
-            messages.error(request, _(u"This form was completed with errors: %s") % command.name)
+            messages.error(request, _(u"This form was completed with errors: %(name)s") % {'name': command.name, })
 
     return locals()
