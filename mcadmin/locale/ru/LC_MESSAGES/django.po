@@ -93,7 +93,7 @@ msgstr "Остальные"
 
 #: templates/mcadmin/index.html:55
 msgid "You do not have access to any command"
-msgstr "Нет прав доступа ни к одной клманде"
+msgstr "Нет прав доступа ни к одной команде"
 
 #: templates/mcadmin/includes/command.html:25
 msgid "Example file"
