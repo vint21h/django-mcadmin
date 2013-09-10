@@ -1,0 +1,49 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/index/index.html #}
+
+{% extends "admin/base_site.html" %}
+
+{% load i18n %}
+{% load admin_static %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+        &rsaquo;
+        {% trans "Management commands" %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        {% if loader.groups %}
+            {% for group in loader.groups %}
+                {% include "mcadmin/includes/group.html" %}
+            {% endfor %}
+        {% endif %}
+        {% if loader.commands %}
+            <div id="rest">
+                <table summary="{% trans "Rest" %}">
+                    <caption><a href="#rest">{% trans "Rest" %}</a></caption>
+                    <tbody>
+                        {% for command in loader.commands.values %}
+                            <tr>
+                                <th scope="row">
+                                    {% include "mcadmin/includes/command.html" %}
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+        {% if not loader.groups and not loader.commands %}
+            <h1>{% trans "You do not have access to any command" %}</h1>
+        {% endif %}
+    </div>
+{% endblock %}

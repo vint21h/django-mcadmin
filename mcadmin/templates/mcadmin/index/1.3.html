@@ -1,21 +1,16 @@
 {# django-mcadmin #}
-{# mcadmin/templates/mcadmin/index.html #}
+{# mcadmin/templates/mcadmin/index/1.3.html #}
 
 {% extends "admin/base_site.html" %}
-{% load adminmedia i18n admin_modify %}
 
-{% load i18n admin_modify adminmedia %}
+{% load i18n %}
+{% load adminmedia %}
 {% load url from future %}
 
-{% block extrahead %}
+{% block extrastyle %}
     {{ block.super }}
-    {% url 'admin:jsi18n' as jsi18nurl %}
-    <script type="text/javascript" src="{{ jsi18nurl }}"></script>
-    {{ media }}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
 {% endblock %}
-
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />{% endblock %}
-
 
 {% block breadcrumbs %}
     <div class="breadcrumbs">
@@ -24,9 +19,6 @@
         {% trans "Management commands" %}
     </div>
 {% endblock %}
-
-
-{% load i18n %}
 
 {% block content %}
     <div id="content-main">

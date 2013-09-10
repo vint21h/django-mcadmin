@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-09 18:33+0300\n"
+"POT-Creation-Date: 2013-09-10 11:41+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -20,21 +20,22 @@ msgstr ""
 msgid "Run management command as celery task"
 msgstr "Запустить команду как задачу celery"
 
-#: views.py:34 templates/mcadmin/index.html:24
+#: views.py:40 templates/mcadmin/index/1.3.html:19
+#: templates/mcadmin/index/index.html:18
 msgid "Management commands"
 msgstr "Команды"
 
-#: views.py:56
+#: views.py:58
 #, python-format
 msgid "Run '%s' management command success"
 msgstr "Команда %s успешно запущена"
 
-#: views.py:58
+#: views.py:60
 #, python-format
 msgid "Running '%(name)s' management command error: %(err)s"
 msgstr "Ошибка при запуске команды %(name)s: %(err)s"
 
-#: views.py:60
+#: views.py:62
 #, python-format
 msgid "This form was completed with errors: %(name)s"
 msgstr "Форма заполнена с ошибками: %(name)s"
@@ -83,18 +84,6 @@ msgstr "право доступа к группе команд"
 msgid "management command group permissions"
 msgstr "права доступа к группе команд"
 
-#: templates/mcadmin/index.html:22
-msgid "Home"
-msgstr "Главная"
-
-#: templates/mcadmin/index.html:40 templates/mcadmin/index.html.py:41
-msgid "Rest"
-msgstr "Остальные"
-
-#: templates/mcadmin/index.html:55
-msgid "You do not have access to any command"
-msgstr "Нет прав доступа ни к одной команде"
-
 #: templates/mcadmin/includes/command.html:25
 msgid "Example file"
 msgstr "Файл пример"
@@ -102,3 +91,16 @@ msgstr "Файл пример"
 #: templates/mcadmin/includes/command.html:30
 msgid "Management command does not require additional options"
 msgstr "Команде не нужны дополнительные параметры для запуска"
+
+#: templates/mcadmin/index/1.3.html:17 templates/mcadmin/index/index.html:16
+msgid "Home"
+msgstr "Главная"
+
+#: templates/mcadmin/index/1.3.html:32 templates/mcadmin/index/1.3.html:33
+#: templates/mcadmin/index/index.html:31 templates/mcadmin/index/index.html:32
+msgid "Rest"
+msgstr "Остальные"
+
+#: templates/mcadmin/index/1.3.html:47 templates/mcadmin/index/index.html:46
+msgid "You do not have access to any command"
+msgstr "Нет прав доступа ни к одной команде"
