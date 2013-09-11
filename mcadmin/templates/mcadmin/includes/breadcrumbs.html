@@ -1,0 +1,11 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/includes/breadcrumbs.html #}
+
+{% load i18n %}
+{% load url from future %}
+
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo;
+    {% trans "Management commands" %}
+</div>

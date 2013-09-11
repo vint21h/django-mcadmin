@@ -8,7 +8,7 @@ import inspect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 
-from mcadmin.settings import COMMANDS
+from mcadmin.settings import COMMANDS, USE_PERMISSIONS
 from mcadmin.command import BaseManagementCommandAdmin
 from mcadmin.models.groups import ManagementCommandAdminGroup
 from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
@@ -49,7 +49,8 @@ class CommandsLoader(object):
             raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
         self.load()
-        self.filter()
+        if USE_PERMISSIONS:  # filter commands and groups
+            self.filter()
 
     def load(self):
         """
@@ -74,7 +75,7 @@ class CommandsLoader(object):
 
     def filter(self):
         """
-        Filter commands by permissions.
+        Filter commands and groups by permissions.
         """
 
         if self.request and not self.request.user.is_superuser:  # superusers get all commands list
