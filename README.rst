@@ -12,6 +12,35 @@ Warning
 ------------
 * This is a deep BETA and not contain documentation
 
+Installation
+------------
+* Obtain your copy of source code from git repository: ``git clone https://github.com/vint21h/django-mcadmin.git``. Or download latest release from https://github.com/vint21h/django-mcadmin/tags.
+* Run ``python ./setup.py install`` from repository source tree or unpacked archive. Or use pip: ``pip install django-mcadmin``.
+
+Configuration
+-------------
+Add ``'mcadmin'`` to ``settings.INSTALLED_APPS``.
+
+    INSTALLED_APPS = (
+        ...,
+
+        'mcadmin',
+
+        ...,
+
+    )
+And to ``urls.py``.
+
+    urlpatterns = patterns('',
+        ...,
+
+        url(r'^admin/mcadmin/', include('mcadmin.urls')),
+
+        ...,
+
+    )
+upper of django admin urls.
+
 Licensing
 ---------
 django-mcadmin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
