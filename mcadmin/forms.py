@@ -44,7 +44,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         But always receive field arg.
         """
 
-        filename = u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data['file'].size))).hexdigest(), self.cleaned_data[field])
+        filename = u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field])
 
         directory = os.path.join(UPLOADS_PATH)
 
