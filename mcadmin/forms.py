@@ -53,7 +53,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
 
         path = os.path.join(directory, filename)
         destination = open(path, 'wb+')
-        for chunk in self.cleaned_data['file'].chunks():
+        for chunk in self.cleaned_data[field].chunks():
             destination.write(chunk)
         destination.close()
 
