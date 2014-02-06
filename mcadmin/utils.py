@@ -92,6 +92,6 @@ class CommandsLoader(object):
             # collect groups with commands with permissions to access to
             for group in self.groups:
                 if group.commands.filter(command__in=self.commands.keys()).exists():
-                    group.append(group.pk)
+                    groups.append(group.pk)
 
             self.groups = ManagementCommandAdminGroup.objects.filter(pk__in=groups)
