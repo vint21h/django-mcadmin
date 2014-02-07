@@ -3,10 +3,15 @@
 # django-mcadmin
 # mcadmin/utils.py
 
-import inspect
+import sys
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.importlib import import_module
+try:
+    from django.utils import six
+except ImportError:
+    import six
 
 from mcadmin.settings import COMMANDS, USE_PERMISSIONS
 from mcadmin.command import BaseManagementCommandAdmin
@@ -14,7 +19,7 @@ from mcadmin.models.groups import ManagementCommandAdminGroup
 from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
 
 
-__all__ = ['ManagementCommandAdminTemplateFile', 'CommandsLoader', ]
+__all__ = ['ManagementCommandAdminTemplateFile', 'CommandsLoader', 'import_by_path', ]
 
 
 class ManagementCommandAdminTemplateFile(object):
@@ -57,13 +62,11 @@ class CommandsLoader(object):
         Load and initialize commands from settings.
         """
 
-        for classes in COMMANDS:
-            module = __import__(classes, fromlist=COMMANDS[classes])  # getting classes in module
-            for cls in COMMANDS[classes]:
-                command = getattr(module, cls)
-                if inspect.isclass(command) and issubclass(command, BaseManagementCommandAdmin):  # check if it's our class
-                    command = command()
-                    self.commands.update({command.command: command})
+        for module in COMMANDS.keys():
+            for cls in COMMANDS[module]:
+                command = import_by_path(u'%s.%s' % (module, cls))
+                if issubclass(command, BaseManagementCommandAdmin):
+                    self.commands.update({command().command: command})
 
     @property
     def choices(self):
@@ -95,3 +98,30 @@ class CommandsLoader(object):
                     groups.append(group.pk)
 
             self.groups = ManagementCommandAdminGroup.objects.filter(pk__in=groups)
+
+
+def import_by_path(dotted_path, error_prefix=''):
+    """
+    From Django==1.6.1, use to compatibility with old django versions.
+    Import a dotted module path and return the attribute/class designated by the
+    last name in the path. Raise ImproperlyConfigured if something goes wrong.
+    """
+
+    try:
+        module_path, class_name = dotted_path.rsplit('.', 1)
+    except ValueError:
+        raise ImproperlyConfigured("%s%s doesn't look like a module path" % (
+            error_prefix, dotted_path))
+    try:
+        module = import_module(module_path)
+    except ImportError as e:
+        msg = '%sError importing module %s: "%s"' % (
+            error_prefix, module_path, e)
+        six.reraise(ImproperlyConfigured, ImproperlyConfigured(msg),
+                    sys.exc_info()[2])
+    try:
+        attr = getattr(module, class_name)
+    except AttributeError:
+        raise ImproperlyConfigured('%sModule "%s" does not define a "%s" attribute/class' % (
+            error_prefix, module_path, class_name))
+    return attr

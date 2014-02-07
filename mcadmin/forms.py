@@ -9,10 +9,18 @@ import hashlib
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+try:
+    from django.utils.module_loading import import_by_path
+except ImportError:
+    from mcadmin.utils import import_by_path
 
 from mcadmin.settings import UPLOADS_PATH
 
 __all__ = ['ManagementCommandAdminFormWithTask', 'ManagementCommandAdminFormWithFiles', ]
+
+
+storage = import_by_path(settings.DEFAULT_FILE_STORAGE)
 
 
 class ManagementCommandAdminFormWithTask(forms.Form):
@@ -44,17 +52,10 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         But always receive field arg.
         """
 
-        filename = u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field])
+        path = os.path.join(UPLOADS_PATH, u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field]))
 
-        directory = os.path.join(UPLOADS_PATH)
-
-        if not os.path.exists(directory):
-            os.mkdir(directory)
-
-        path = os.path.join(directory, filename)
-        destination = open(path, 'wb+')
-        for chunk in self.cleaned_data[field].chunks():
-            destination.write(chunk)
-        destination.close()
+        upload_storage = storage()
+        upload_storage.save(name=path, content=self.cleaned_data[field])
+        print path
 
         self.fields[field].path = path

@@ -12,7 +12,7 @@ setup(
     name="django-mcadin",
     version=__version__,
     packages=find_packages(),
-    install_requires=['Django', ],
+    install_requires=['Django', 'six', ],
     author="Alexei Andrushievich",
     author_email="vint21h@vint21h.pp.ua",
     description="Easily run django management commands from admin",
