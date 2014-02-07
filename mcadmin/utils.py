@@ -66,7 +66,7 @@ class CommandsLoader(object):
             for cls in COMMANDS[module]:
                 command = import_by_path(u'%s.%s' % (module, cls))
                 if issubclass(command, BaseManagementCommandAdmin):
-                    self.commands.update({command().command: command})
+                    self.commands.update({command().command: command()})
 
     @property
     def choices(self):
