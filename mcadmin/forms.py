@@ -52,7 +52,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         But always receive field arg.
         """
 
-        path = os.path.join(UPLOADS_PATH, u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field].encode('utf-8')))
+        path = os.path.join(UPLOADS_PATH, u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field]))
 
         upload_storage = storage()
         upload_storage.save(name=path, content=self.cleaned_data[field])
