@@ -39,6 +39,7 @@ class Index(TemplateView):
         context = super(Index, self).get_context_data(**kwargs)
         context['title'] = _(u'Management commands')  # need to show in page title
         context['loader'] = self.get_loader(self.request)
+
         return context
 
     def post(self, request, *args, **kwargs):
