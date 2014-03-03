@@ -21,8 +21,6 @@ class Index(TemplateView):
     Main management commands admin view.
     """
 
-    loader = None
-
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, *args, **kwargs):
         """
@@ -38,7 +36,7 @@ class Index(TemplateView):
 
         context = super(Index, self).get_context_data(**kwargs)
         context['title'] = _(u'Management commands')  # need to show in page title
-        context['loader'] = self.get_loader(self.request)
+        context['loader'] = self.loader(self.request)
 
         return context
 
@@ -47,7 +45,7 @@ class Index(TemplateView):
         POST request processing.
         """
 
-        command = self.get_loader(request).commands[list(set(self.get_loader(request).commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
+        command = self.loader(request).commands[list(set(self.loader(request).commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
         command.form = command.form(request.POST, request.FILES)
 
         if command.form.is_valid():
@@ -63,15 +61,12 @@ class Index(TemplateView):
 
         return self.render_to_response(self.get_context_data(**kwargs))
 
-    def get_loader(self, request):
+    def loader(self, request):
         """
         Cache loader.
         """
 
-        if not self.loader:
-            self.loader = CommandsLoader(request=request)
-
-        return self.loader
+        return CommandsLoader(request=request)
 
     def get_template_names(self):
         """
