@@ -1,6 +1,8 @@
 include README.rst
 include mcadmin/templates/mcadmin/includes/command.html
 include mcadmin/templates/mcadmin/includes/group.html
+include mcadmin/templates/mcadmin/includes/breadcrumbs.html
+include mcadmin/templates/mcadmin/includes/content.html
 include mcadmin/templates/mcadmin/index/index.html
 include mcadmin/templates/mcadmin/index/1.3.html
 include mcadmin/locale/en/LC_MESSAGES/django.po
