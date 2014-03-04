@@ -9,26 +9,7 @@
     <div>
         <fieldset class="module aligned extrapretty wide">
             <h2>{{ command.name }}</h2>
-            {% if command.form %}
-                {% for field in command.form %}
-                    <div class="form-row {{ field.auto_id }}">
-                        <div class="field-box{% if field.errors %} errors{% endif %}">
-                            {{ field.errors }}
-                            <label for="{{ field.auto_id }}"{% if field.field.required %} class="required"{% endif %}>{{ field.label|safe|capfirst }}</label>
-                            {{ field }}
-                        </div>
-                    </div>
-                {% endfor %}
-                {% for file in command.templates %}
-                    <div class="form-row">
-                        <div class="field-box">
-                            <a href="{{ file.get_absolute_url }}">{% if file.description %}{{ file.description }}{% else %}{% trans "Example file" %}{% endif %}</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p class="help">{% trans 'Management command does not require additional options' %}</p>
-            {% endif %}
+            {% include "mcadmin/includes/form.html" %}
         </fieldset>
         <div class="submit-row">
             <p class="deletelink-box"><input name="{{ command.command }}" type="submit" value="{{ command.command }}" class="default"/></p>

@@ -1,0 +1,15 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/includes/form.html #}
+
+{% load i18n %}
+
+{% if command.form %}
+    {% for field in command.form %}
+        {% include "mcadmin/includes/field.html" %}
+    {% endfor %}
+    {% for file in command.templates %}
+        {% include "mcadmin/includes/file.html" %}
+    {% endfor %}
+{% else %}
+    <p class="help">{% trans 'Management command does not require additional options' %}</p>
+{% endif %}

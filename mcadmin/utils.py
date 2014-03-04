@@ -50,7 +50,7 @@ class CommandsLoader(object):
     def __init__(self, request=None):
         self.request = request
 
-        if not len(COMMANDS):
+        if not len(COMMANDS.keys()):
             raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
         self.load()

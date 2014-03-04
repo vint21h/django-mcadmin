@@ -1,0 +1,10 @@
+{# django-mcadmin #}
+{# mcadmin/templates/mcadmin/includes/file.html #}
+
+{% load i18n %}
+
+<div class="form-row">
+    <div class="field-box">
+        <a href="{{ file.get_absolute_url }}">{% if file.description %}{{ file.description }}{% else %}{% trans "Example file" %}{% endif %}</a>
+    </div>
+</div>
