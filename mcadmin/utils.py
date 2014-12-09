@@ -6,7 +6,6 @@
 import sys
 
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 try:
     from django.utils import six
@@ -29,6 +28,7 @@ class ManagementCommandAdminTemplateFile(object):
 
     path = u''  # path in MCADMIN_UPLOAD_TEMPLATES_PATH
     description = u''
+    relative = True
 
     @property
     def get_absolute_url(self):
@@ -36,7 +36,12 @@ class ManagementCommandAdminTemplateFile(object):
         Return url to template file.
         """
 
-        return reverse('mcadmin-template-file', args=[self.path, ])
+        if self.relative:
+
+            return reverse('mcadmin-template-file', args=[self.path, ])
+        else:
+
+            return self.path
 
 
 class CommandsLoader(object):
@@ -49,9 +54,6 @@ class CommandsLoader(object):
 
     def __init__(self, request=None):
         self.request = request
-
-        if not len(COMMANDS.keys()):
-            raise ImproperlyConfigured(u'Empty MCADMIN_COMMANDS option')
 
         self.load()
         if USE_PERMISSIONS:  # filter commands and groups
