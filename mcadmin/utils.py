@@ -28,7 +28,7 @@ class ManagementCommandAdminTemplateFile(object):
 
     path = u''  # path in MCADMIN_UPLOAD_TEMPLATES_PATH
     description = u''
-    relative = True
+    raw = False
 
     @property
     def get_absolute_url(self):
@@ -36,12 +36,12 @@ class ManagementCommandAdminTemplateFile(object):
         Return url to template file.
         """
 
-        if self.relative:
-
-            return reverse('mcadmin-template-file', args=[self.path, ])
-        else:
+        if self.raw:
 
             return self.path
+        else:
+
+            return reverse('mcadmin-template-file', args=[self.path, ])
 
 
 class CommandsLoader(object):
