@@ -7,6 +7,7 @@ import sys
 
 from django.core.urlresolvers import reverse
 from django.utils.importlib import import_module
+from django.core.exceptions import ImproperlyConfigured
 try:
     from django.utils import six
 except ImportError:
