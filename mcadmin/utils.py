@@ -67,10 +67,13 @@ class CommandsLoader(object):
 
         for module in COMMANDS.keys():
             for cls in COMMANDS[module]:
-                command = import_by_path(u'%s.%s' % (module, cls))
-                if issubclass(command, BaseManagementCommandAdmin):
-                    command = command()
-                    self.commands.update({command.command: command})
+                try:
+                    command = import_by_path(u'%s.%s' % (module, cls))
+                    if issubclass(command, BaseManagementCommandAdmin):
+                        command = command()
+                        self.commands.update({command.command: command})
+                except Exception, err:
+                    sys.stdout.write(u"Couldn't load %s.%s command. %s" % (module, cls, err))
 
     @property
     def choices(self):
