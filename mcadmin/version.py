@@ -3,5 +3,5 @@
 # django-mcadmin
 # mcadmin/version.py
 
-VERSION = (0, 1, 7)
+VERSION = (0, 1, 8)
 __version__ = '.'.join(map(str, VERSION))

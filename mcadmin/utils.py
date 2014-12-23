@@ -73,7 +73,7 @@ class CommandsLoader(object):
                         command = command()
                         self.commands.update({command.command: command})
                 except Exception, err:
-                    sys.stdout.write(u"Couldn't load %s.%s command. %s" % (module, cls, err))
+                    sys.stderr.write("Couldn't load %s.%s command. %s" % (module, cls, err))
 
     @property
     def choices(self):
