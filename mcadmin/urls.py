@@ -3,11 +3,7 @@
 # django-mcadmin
 # mcadmin/urls.py
 
-try:
-    from django.conf.urls.defaults import patterns, url
-except ImportError:
-    from django.conf.urls import patterns, url
-
+from django.conf.urls import patterns, url
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.static import serve
 

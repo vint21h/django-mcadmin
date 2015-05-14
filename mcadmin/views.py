@@ -8,7 +8,6 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.views.generic import TemplateView
-from django import get_version
 
 from mcadmin.utils import CommandsLoader
 from mcadmin.forms import ManagementCommandAdminFormWithFiles
@@ -70,12 +69,7 @@ class Index(TemplateView):
 
     def get_template_names(self):
         """
-        Get template. Template for 1.3.x and higher are different.
+        Get template.
         """
 
-        if get_version().startswith(u'1.3'):
-
-            return ["mcadmin/index/1.3.html", ]
-        else:
-
-            return ["mcadmin/index/index.html", ]
+        return ["mcadmin/index.html", ]

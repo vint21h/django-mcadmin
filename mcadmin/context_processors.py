@@ -5,7 +5,7 @@
 
 from settings import USE_PERMISSIONS
 
-__all__ = ['mcadmin']
+__all__ = ['mcadmin', ]
 
 
 def mcadmin(request):

@@ -5,7 +5,7 @@
 
 from django import template
 
-__all__ = ['get', ]
+__all__ = ['get', 'pop', ]
 
 
 register = template.Library()

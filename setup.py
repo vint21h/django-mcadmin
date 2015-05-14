@@ -6,10 +6,13 @@
 
 from setuptools import setup, find_packages
 
-from mcadmin.version import __version__
+# metadata
+VERSION = (0, 2, 0)
+__version__ = '.'.join(map(str, VERSION))
+
 
 setup(
-    name="django-mcadin",
+    name="django-mcadmin",
     version=__version__,
     packages=find_packages(),
     install_requires=['Django', 'six', ],

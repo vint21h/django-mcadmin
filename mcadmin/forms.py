@@ -10,10 +10,7 @@ import hashlib
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-try:
-    from django.utils.module_loading import import_by_path
-except ImportError:
-    from mcadmin.utils import import_by_path
+from django.utils.module_loading import import_by_path
 
 from mcadmin.settings import UPLOADS_PATH
 
