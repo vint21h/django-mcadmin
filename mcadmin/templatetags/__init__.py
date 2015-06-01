@@ -3,4 +3,6 @@
 # django-mcadmin
 # mcadmin/templatetags/__init__.py
 
-__all__ = ['mcadmin_tags', ]
+from __future__ import unicode_literals
+
+__all__ = ["mcadmin_tags", ]

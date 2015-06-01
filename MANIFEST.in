@@ -1,4 +1,9 @@
+# django-mcadmin
+# MANIFEST.in
+
 include README.rst
+include COPYING
+include AUTHORS
 include mcadmin/templates/mcadmin/includes/command.html
 include mcadmin/templates/mcadmin/includes/group.html
 include mcadmin/templates/mcadmin/includes/breadcrumbs.html
@@ -11,3 +16,5 @@ include mcadmin/locale/en/LC_MESSAGES/django.po
 include mcadmin/locale/en/LC_MESSAGES/django.mo
 include mcadmin/locale/ru/LC_MESSAGES/django.po
 include mcadmin/locale/ru/LC_MESSAGES/django.mo
+include mcadmin/locale/uk/LC_MESSAGES/django.po
+include mcadmin/locale/uk/LC_MESSAGES/django.mo

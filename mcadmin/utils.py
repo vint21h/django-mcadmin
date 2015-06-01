@@ -3,6 +3,7 @@
 # django-mcadmin
 # mcadmin/utils.py
 
+from __future__ import unicode_literals
 import sys
 
 from django.core.urlresolvers import reverse
@@ -14,7 +15,10 @@ from mcadmin.models.groups import ManagementCommandAdminGroup
 from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
 
 
-__all__ = ['ManagementCommandAdminTemplateFile', 'CommandsLoader', ]
+__all__ = [
+    "ManagementCommandAdminTemplateFile",
+    "CommandsLoader",
+]
 
 
 class ManagementCommandAdminTemplateFile(object):
@@ -22,8 +26,8 @@ class ManagementCommandAdminTemplateFile(object):
     Management command admin example file class.
     """
 
-    path = u''  # path in MCADMIN_UPLOAD_TEMPLATES_PATH
-    description = u''
+    path = ""  # path in MCADMIN_UPLOAD_TEMPLATES_PATH
+    description = ""
     raw = False
 
     @property
@@ -37,7 +41,7 @@ class ManagementCommandAdminTemplateFile(object):
             return self.path
         else:
 
-            return reverse('mcadmin-template-file', args=[self.path, ])
+            return reverse("mcadmin-template-file", args=[self.path, ])
 
 
 class CommandsLoader(object):
@@ -63,12 +67,12 @@ class CommandsLoader(object):
         for module in COMMANDS.keys():
             for cls in COMMANDS[module]:
                 try:
-                    command = import_by_path(u'%s.%s' % (module, cls))
+                    command = import_by_path("{module}.{cls}".format(module=module, cls=cls))
                     if issubclass(command, BaseManagementCommandAdmin):
                         command = command()
                         self.commands.update({command.command: command})
                 except Exception, err:
-                    sys.stderr.write("Couldn't load %s.%s command. %s" % (module, cls, err))
+                    sys.stderr.write("Couldn't load {module}.{cls} command. {err}".format(module=module, cls=cls, err=err))
 
     @property
     def choices(self):
@@ -86,8 +90,8 @@ class CommandsLoader(object):
         if self.request and not self.request.user.is_superuser:  # superusers get all commands list
             commands = []
             groups = []
-            for group in ManagementCommandAdminGroup.objects.filter(pk__in=ManagementCommandAdminGroupPermission.objects.filter(user_group__in=self.request.user.groups.all()).values_list('group', flat=True)):
-                commands += group.commands.all().values_list('command', flat=True)
+            for group in ManagementCommandAdminGroup.objects.filter(pk__in=ManagementCommandAdminGroupPermission.objects.filter(user_group__in=self.request.user.groups.all()).values_list("group", flat=True)):
+                commands += group.commands.all().values_list("command", flat=True)
 
             # remove commands without permissions to access to
             for command in self.commands.keys():

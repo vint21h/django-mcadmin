@@ -3,4 +3,6 @@
 # django-mcadmin
 # mcadmin/management/__init__.py
 
-__all__ = ['commands', ]
+from __future__ import unicode_literals
+
+__all__ = ["commands", ]

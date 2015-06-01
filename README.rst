@@ -2,7 +2,7 @@
 .. README.rst
 
 A django-mcadmin documentation
-====================================
+==============================
 
     *django-mcadmin is a django reusable app that provide simple run management commands from admin*
 
@@ -19,22 +19,22 @@ Installation
 
 Configuration
 -------------
-Add ``'mcadmin'`` to ``settings.INSTALLED_APPS``.
+Add ``"mcadmin"`` to ``settings.INSTALLED_APPS``.
 
     INSTALLED_APPS = (
         ...,
 
-        'mcadmin',
+        "mcadmin",
 
         ...,
 
     )
 And to ``urls.py``.
 
-    urlpatterns = patterns('',
+    urlpatterns = patterns("",
         ...,
 
-        url(r'^admin/mcadmin/', include('mcadmin.urls')),
+        url(r"^admin/mcadmin/", include("mcadmin.urls")),
 
         ...,
 
@@ -51,3 +51,5 @@ Contacts
 **Project Website**: https://github.com/vint21h/django-mcadmin
 
 **Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
+
+For other authors list see AUTHORS file.

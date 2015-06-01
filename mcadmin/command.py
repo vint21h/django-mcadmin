@@ -3,10 +3,12 @@
 # django-mcadmin
 # mcadmin/command.py
 
+from __future__ import unicode_literals
+
 from django import forms
 from django.core.management import call_command
 
-__all__ = ['BaseManagementCommandAdmin', ]
+__all__ = ["BaseManagementCommandAdmin", ]
 
 
 class BaseManagementCommandAdmin(object):
@@ -14,10 +16,10 @@ class BaseManagementCommandAdmin(object):
     Base management command admin class.
     """
 
-    command = u''
-    name = u''
+    command = ""
+    name = ""
     args = [True, ]
-    kwargs = {'quiet': True, }
+    kwargs = {"quiet": True, }
     form = forms.Form
     templates = []  # must contain instances of ManagementCommandAdminTemplateFile
 

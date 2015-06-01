@@ -3,6 +3,8 @@
 # django-mcadmin
 # mcadmin/views.py
 
+from __future__ import unicode_literals
+
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
@@ -12,7 +14,7 @@ from django.views.generic import TemplateView
 from mcadmin.utils import CommandsLoader
 from mcadmin.forms import ManagementCommandAdminFormWithFiles
 
-__all__ = ['Index', ]
+__all__ = ["Index", ]
 
 
 class Index(TemplateView):
@@ -34,8 +36,8 @@ class Index(TemplateView):
         """
 
         context = super(Index, self).get_context_data(**kwargs)
-        context['title'] = _(u'Management commands')  # need to show in page title
-        context['loader'] = self.loader(self.request)
+        context["title"] = _("Management commands")  # need to show in page title
+        context["loader"] = self.loader(self.request)
 
         return context
 
@@ -52,11 +54,11 @@ class Index(TemplateView):
                 command.form.save_files()
             try:
                 command.handle(*command.form2args(request.POST), **command.form2kwargs(request.POST))
-                messages.success(request, _(u"Run '%s' management command success") % command.name)
+                messages.success(request, _("Run '{command}' management command success").format(command=command.name))
             except Exception, err:
-                messages.error(request, _(u"Running '%(name)s' management command error: %(err)s") % {'name': command.name, 'err': err, })
+                messages.error(request, _("Running '{command}' management command error: {err}").format(command=command.name, err=err))
         else:
-            messages.error(request, _(u"This form was completed with errors: %(name)s") % {'name': command.name, })
+            messages.error(request, _("This form was completed with errors: {command}").format(command=command.name))
 
         return self.render_to_response(self.get_context_data(**kwargs))
 

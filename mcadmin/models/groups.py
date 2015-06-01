@@ -3,11 +3,12 @@
 # django-mcadmin
 # mcadmin/models/groups.py
 
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-__all__ = ['ManagementCommandAdminGroup', ]
+__all__ = ["ManagementCommandAdminGroup", ]
 
 
 class ManagementCommandAdminGroup(models.Model):
@@ -15,7 +16,7 @@ class ManagementCommandAdminGroup(models.Model):
     Group for management commands admin.
     """
 
-    name = models.CharField(max_length=255, verbose_name=_(u'management commands group title'), db_index=True)
+    name = models.CharField(max_length=255, verbose_name=_("management commands group title"), db_index=True)
 
     def __unicode__(self):
 
@@ -23,7 +24,7 @@ class ManagementCommandAdminGroup(models.Model):
 
     class Meta:
 
-        app_label = 'mcadmin'
-        verbose_name = _(u'management commands group')
-        verbose_name_plural = _(u'management commands groups')
-        ordering = ['name', ]
+        app_label = "mcadmin"
+        verbose_name = _("management commands group")
+        verbose_name_plural = _("management commands groups")
+        ordering = ["name", ]

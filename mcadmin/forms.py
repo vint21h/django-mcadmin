@@ -3,6 +3,7 @@
 # django-mcadmin
 # mcadmin/forms.py
 
+from __future__ import unicode_literals
 import os
 from datetime import datetime
 import hashlib
@@ -14,7 +15,10 @@ from django.utils.module_loading import import_by_path
 
 from mcadmin.settings import UPLOADS_PATH
 
-__all__ = ['ManagementCommandAdminFormWithTask', 'ManagementCommandAdminFormWithFiles', ]
+__all__ = [
+    "ManagementCommandAdminFormWithTask",
+    "ManagementCommandAdminFormWithFiles",
+]
 
 
 storage = import_by_path(settings.DEFAULT_FILE_STORAGE)
@@ -25,7 +29,7 @@ class ManagementCommandAdminFormWithTask(forms.Form):
     Management commands admin form with celery task option.
     """
 
-    as_task = forms.BooleanField(label=_(u'Run management command as celery task'), initial=True, required=False)
+    as_task = forms.BooleanField(label=_("Run management command as celery task"), initial=True, required=False)
 
 
 class ManagementCommandAdminFormWithFiles(forms.Form):
@@ -49,7 +53,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         But always receive field arg.
         """
 
-        path = os.path.join(UPLOADS_PATH, u"%s:%s__%s__%s" % (self.__class__.__name__, datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hashlib.md5(u'%s%s' % (str(datetime.now()), str(self.cleaned_data[field].size))).hexdigest(), self.cleaned_data[field]))
+        path = os.path.join(UPLOADS_PATH, "{cls}:{time}_{hash}s__{file}".format(cls=self.__class__.__name__, time=datetime.now().strftime("%Y-%m-%d_%H:%M:%S"), hash=hashlib.md5("{dt}{size}".format(dt=str(datetime.now()), size=str(self.cleaned_data[field].size))).hexdigest(), file=self.cleaned_data[field]))
 
         upload_storage = storage()
         upload_storage.save(name=path, content=self.cleaned_data[field])

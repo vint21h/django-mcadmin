@@ -3,9 +3,11 @@
 # django-mcadmin
 # mcadmin/templatetags/mcadmin_tags.py
 
+from __future__ import unicode_literals
+
 from django import template
 
-__all__ = ['get', 'pop', ]
+__all__ = ["get", "pop", ]
 
 
 register = template.Library()
