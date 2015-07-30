@@ -23,7 +23,7 @@ class ManagementCommandAdminCommand(models.Model):
 
     def __unicode__(self):
 
-        return "{command} - {groups}".format(command=self.command, group=self.group)
+        return "{command} - {group}".format(command=self.command, group=self.group)
 
     class Meta:
 
