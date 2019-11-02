@@ -4,7 +4,6 @@
 # tests/settings.py
 
 
-from datetime import date
 import pathlib
 import random
 import sys

@@ -10,11 +10,10 @@ import hashlib
 import os
 
 from django import forms
-from django.conf import settings
 from django.utils.module_loading import import_by_path
 from django.utils.translation import ugettext_lazy as _
 
-from mcadmin.settings import UPLOADS_PATH
+from mcadmin.conf import settings
 
 
 __all__ = [
@@ -58,7 +57,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         """
 
         path = os.path.join(
-            UPLOADS_PATH,
+            settings.MCADMIN_UPLOADS_PATH,
             "{cls}:{time}_{hash}s__{file}".format(
                 cls=self.__class__.__name__,
                 time=datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),

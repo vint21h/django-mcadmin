@@ -11,9 +11,9 @@ from django.urls import reverse
 from django.utils.module_loading import import_by_path
 
 from mcadmin.command import BaseManagementCommandAdmin
+from mcadmin.conf import settings
 from mcadmin.models.groups import ManagementCommandAdminGroup
 from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
-from mcadmin.settings import COMMANDS, USE_PERMISSIONS
 
 
 __all__ = [
@@ -42,7 +42,7 @@ class ManagementCommandAdminTemplateFile(object):
             return self.path
         else:
 
-            return reverse("mcadmin-template-file", args=[self.path,])
+            return reverse("mcadmin-template-file", args=[self.path])
 
 
 class CommandsLoader(object):
@@ -57,7 +57,7 @@ class CommandsLoader(object):
         self.request = request
 
         self.load()
-        if USE_PERMISSIONS:  # filter commands and groups
+        if settings.MCADMIN_USE_PERMISSIONS:  # filter commands and groups
             self.filter()
 
     def load(self):
@@ -65,8 +65,8 @@ class CommandsLoader(object):
         Load and initialize commands from settings.
         """
 
-        for module in COMMANDS.keys():
-            for cls in COMMANDS[module]:
+        for module in settings.MCADMIN_COMMANDS.keys():
+            for cls in settings.MCADMIN_COMMANDS[module]:
                 try:
                     command = import_by_path(
                         "{module}.{cls}".format(module=module, cls=cls)

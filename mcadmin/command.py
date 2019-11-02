@@ -48,7 +48,7 @@ class ManagementCommandAdmin(object):
 
         for key in self.form.fields.keys():
             kwargs.update(
-                {key: self.value(key, post), }
+                {key: self.value(key, post)}
             )
         kwargs.update(self.kwargs)  # add default options
 
