@@ -10,7 +10,7 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict
 
-from mcadmin.utils import ManagementCommandAdminTemplateFile
+from mcadmin.utils import ManagementCommandAdminTemplateFile  # pylint: disable=W0611
 
 
 __all__ = [
@@ -47,9 +47,7 @@ class ManagementCommandAdmin(object):
         kwargs = {}  # type: Dict[str, Any]
 
         for key in self.form.fields.keys():
-            kwargs.update(
-                {key: self.value(key, post)}
-            )
+            kwargs.update({key: self.value(key, post)})
         kwargs.update(self.kwargs)  # add default options
 
         return kwargs

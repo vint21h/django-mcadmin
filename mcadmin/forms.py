@@ -3,11 +3,11 @@
 # django-mcadmin
 # mcadmin/forms.py
 
-from __future__ import unicode_literals
 
 from datetime import datetime
 import hashlib
 import os
+from typing import List  # pylint: disable=W0611
 
 from django import forms
 from django.utils.module_loading import import_by_path
@@ -19,7 +19,7 @@ from mcadmin.conf import settings
 __all__ = [
     "ManagementCommandAdminFormWithTask",
     "ManagementCommandAdminFormWithFiles",
-]
+]  # type: List[str]
 
 
 storage = import_by_path(settings.DEFAULT_FILE_STORAGE)
@@ -40,23 +40,31 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
     Management commands admin form with file upload handle.
     """
 
-    def save_files(self):
+    def save_files(self) -> None:
         """
         Save all files in form.
-        Must called only after form validation.
+        Must be called only after form validation.
+
+        :return: nothing.
+        :rtype: None.
         """
 
         for field in self.fields:
             if isinstance(self.fields[field], forms.FileField):
                 self.save_file(field)
 
-    def save_file(self, field):
+    def save_file(self, field: str) -> None:
         """
-        Default save file handler. May be replaced.
-        But always receive field arg.
+        Default save file handler. Can be overloaded.
+        But always must receive field arg.
+
+        :param field: field name.
+        :type field: str.
+        :return: nothing.
+        :rtype: None.
         """
 
-        path = os.path.join(
+        path = os.path.join(  # TODO: use pathlib.
             settings.MCADMIN_UPLOADS_PATH,
             "{cls}:{time}_{hash}s__{file}".format(
                 cls=self.__class__.__name__,

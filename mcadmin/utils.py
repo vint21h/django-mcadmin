@@ -3,23 +3,24 @@
 # django-mcadmin
 # mcadmin/utils.py
 
-from __future__ import unicode_literals
 
 import sys
+from typing import Any, Dict, List  # pylint: disable=W0611
 
+from django.http import HttpRequest
 from django.urls import reverse
 from django.utils.module_loading import import_by_path
 
-from mcadmin.command import BaseManagementCommandAdmin
+from mcadmin.command import ManagementCommandAdmin
 from mcadmin.conf import settings
-from mcadmin.models.groups import ManagementCommandAdminGroup
-from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
+from mcadmin.models.group import Group
+from mcadmin.models.permission import GroupPermission
 
 
 __all__ = [
     "ManagementCommandAdminTemplateFile",
     "CommandsLoader",
-]
+]  # type: List[str]
 
 
 class ManagementCommandAdminTemplateFile(object):
@@ -27,14 +28,18 @@ class ManagementCommandAdminTemplateFile(object):
     Management command admin example file class.
     """
 
-    path = ""  # path in MCADMIN_UPLOAD_TEMPLATES_PATH
-    description = ""
-    raw = False
+    # path in MCADMIN_UPLOAD_TEMPLATES_PATH
+    path = ""  # type: str
+    description = ""  # type: str
+    raw = False  # type: bool
 
     @property
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """
-        Return url to template file.
+        Return URL to template file.
+
+        :return: template file URL.
+        :rtype: str.
         """
 
         if self.raw:
@@ -47,15 +52,23 @@ class ManagementCommandAdminTemplateFile(object):
 
 class CommandsLoader(object):
     """
-    Load commands and filter it's by permissions.
+    Load commands and filter them by permissions.
     """
 
-    commands = {}
-    groups = ManagementCommandAdminGroup.objects.all()
+    commands = {}  # type: Dict[str, Any]
+    groups = Group.objects.all()
 
-    def __init__(self, request=None):
+    def __init__(self, request: HttpRequest = None) -> None:
+        """
+        Init loader.
+
+        :param request: request.
+        :type request: HttpRequest.
+        :return: nothing.
+        :rtype: None.
+        """
+
         self.request = request
-
         self.load()
         if settings.MCADMIN_USE_PERMISSIONS:  # filter commands and groups
             self.filter()
@@ -68,18 +81,12 @@ class CommandsLoader(object):
         for module in settings.MCADMIN_COMMANDS.keys():
             for cls in settings.MCADMIN_COMMANDS[module]:
                 try:
-                    command = import_by_path(
-                        "{module}.{cls}".format(module=module, cls=cls)
-                    )
-                    if issubclass(command, BaseManagementCommandAdmin):
+                    command = import_by_path(f"{module}.{cls}")
+                    if issubclass(command, ManagementCommandAdmin):
                         command = command()
                         self.commands.update({command.command: command})
-                except Exception as err:
-                    sys.stderr.write(
-                        "Couldn't load {module}.{cls} command. {err}".format(
-                            module=module, cls=cls, err=err
-                        )
-                    )
+                except Exception as error:
+                    sys.stderr.write(f"Could not load {module}.{cls} command. {error}")
 
     @property
     def choices(self):
@@ -99,8 +106,8 @@ class CommandsLoader(object):
         ):  # superusers get all commands list
             commands = []
             groups = []
-            for group in ManagementCommandAdminGroup.objects.filter(
-                pk__in=ManagementCommandAdminGroupPermission.objects.filter(
+            for group in Group.objects.filter(
+                pk__in=GroupPermission.objects.filter(
                     user_group__in=self.request.user.groups.all()
                 ).values_list("group", flat=True)
             ):
@@ -116,4 +123,4 @@ class CommandsLoader(object):
                 if group.commands.filter(command__in=self.commands.keys()).exists():
                     groups.append(group.pk)
 
-            self.groups = ManagementCommandAdminGroup.objects.filter(pk__in=groups)
+            self.groups = Group.objects.filter(pk__in=groups)

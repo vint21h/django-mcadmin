@@ -24,8 +24,11 @@ class GroupPermission(models.Model):
         verbose_name=_("group"),
         db_index=True,
         related_name="permissions",
+        on_delete=models.CASCADE,
     )
-    user_group = models.ForeignKey(Group, verbose_name=_("user group"), db_index=True)
+    user_group = models.ForeignKey(
+        Group, verbose_name=_("user group"), db_index=True, on_delete=models.CASCADE
+    )
 
     def __unicode__(self) -> str:
 

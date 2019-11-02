@@ -34,6 +34,7 @@ class Command(models.Model):
         verbose_name=_("group"),
         db_index=True,
         related_name="commands",
+        on_delete=models.CASCADE,
     )
 
     def __unicode__(self) -> str:

@@ -3,10 +3,13 @@
 # django-mcadmin
 # mcadmin/views.py
 
-from __future__ import unicode_literals
 
+from typing import Any, Dict, List  # pylint: disable=W0611
+
+from django import forms  # pylint: disable=W0611
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpRequest, HttpResponse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
@@ -16,45 +19,78 @@ from mcadmin.utils import CommandsLoader
 
 
 __all__ = [
-    "Index",
-]
+    "ManagementCommandsAdminIndex",
+]  # type: List[str]
 
 
-class Index(TemplateView):
+class ManagementCommandsAdminIndex(TemplateView):
     """
     Main management commands admin view.
     """
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
-    def dispatch(self, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args, **kwargs) -> Any:
         """
         Overload dispatch to add staff user required checking.
+
+        :param request: request.
+        :type request: HttpRequest.
+        :param args: additional args.
+        :type args: List[Any].
+        :param kwargs: additional args.
+        :type kwargs: Dict[str, Any].
+        :return: dispatched request method.
+        :rtype: Any.
         """
 
-        return super(Index, self).dispatch(*args, **kwargs)
+        return super(ManagementCommandsAdminIndex, self).dispatch(
+            request=request, *args, **kwargs
+        )
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Populate context.
+        Overload to update context.
+
+        :param kwargs: additional args.
+        :type kwargs: Dict[str, Any].
+        :return: updated context.
+        :rtype: Dict[str, Any].
         """
 
-        context = super(Index, self).get_context_data(**kwargs)
-        context["title"] = _("Management commands")  # need to show in page title
-        context["loader"] = self.loader(self.request)
+        context = super(ManagementCommandsAdminIndex, self).get_context_data(**kwargs)
+        context.update(
+            {
+                "title": _("Management commands"),  # need to show in page title,
+                "loader": self.loader(request=self.request),
+            }
+        )
 
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: List[Any], **kwargs: Dict[str, Any]
+    ) -> HttpResponse:
         """
         POST request processing.
+
+        :param request: request.
+        :type request: HttpRequest.
+        :param args: additional args.
+        :type args: List[Any].
+        :param kwargs: additional args.
+        :type kwargs: Dict[str, Any].
+        :return: rendered template.
+        :rtype: HttpResponse.
         """
 
-        command = self.loader(request).commands[
+        command = self.loader(request=request).commands[
             list(set(self.loader(request).commands.keys()) & set(request.POST.keys()))[
                 0
             ]
         ]  # get first command from POST data
-        command.form = command.form(request.POST, request.FILES)
+        command.form = command.form(
+            data=request.POST, files=request.FILES
+        )  # type: forms.Form
 
         if command.form.is_valid():
             if (
@@ -64,42 +100,43 @@ class Index(TemplateView):
                 command.form.save_files()
             try:
                 command.handle(
-                    *command.form2args(request.POST),
-                    **command.form2kwargs(request.POST)
+                    *command.form2args(post=request.POST),
+                    **command.form2kwargs(post=request.POST),
                 )
                 messages.success(
-                    request,
-                    _("Run '{command}' management command success").format(
-                        command=command.name
-                    ),
+                    request, _(f"Run '{command.name}' management command success"),
                 )
-            except Exception as err:
+            except Exception as error:
                 messages.error(
                     request,
-                    _("Running '{command}' management command error: {err}").format(
-                        command=command.name, err=err
-                    ),
+                    _(f"Running '{command.name}' management command error: {error}"),
                 )
         else:
             messages.error(
-                request,
-                _("This form was completed with errors: {command}").format(
-                    command=command.name
-                ),
+                request, _(f"This form was completed with errors: {command.name}"),
             )
 
         return self.render_to_response(self.get_context_data(**kwargs))
 
-    def loader(self, request):
+    @staticmethod
+    def loader(request: HttpRequest) -> CommandsLoader:
         """
-        Cache loader.
+        Get loader.
+
+        :param request: request.
+        :type request: HttpRequest.
+        :return: commands loader.
+        :rtype: CommandsLoader.
         """
 
         return CommandsLoader(request=request)
 
-    def get_template_names(self):
+    def get_template_names(self) -> List[str]:
         """
         Get template.
+
+        :return: list of templates.
+        :rtype: List[str].
         """
 
         return [
