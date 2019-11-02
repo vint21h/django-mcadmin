@@ -1,0 +1,6 @@
+# django-mcadmin
+# .bandit
+
+
+[bandit]
+skips: ['B507']

@@ -3,14 +3,16 @@
 # django-mcadmin
 # mcadmin/models/__init__.py
 
-from __future__ import unicode_literals
 
-from mcadmin.models.commands import ManagementCommandAdminCommand
-from mcadmin.models.groups import ManagementCommandAdminGroup
-from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
+from typing import List  # pylint: disable=W0611
+
+from mcadmin.models.command import Command
+from mcadmin.models.group import Group
+from mcadmin.models.permission import GroupPermission
+
 
 __all__ = [
-    "ManagementCommandAdminCommand",
-    "ManagementCommandAdminGroup",
-    "ManagementCommandAdminGroupPermission",
-]
+    "Command",
+    "Group",
+    "GroupPermission",
+]  # type: List[str]

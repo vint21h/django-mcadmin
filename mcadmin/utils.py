@@ -4,15 +4,16 @@
 # mcadmin/utils.py
 
 from __future__ import unicode_literals
+
 import sys
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.module_loading import import_by_path
 
-from mcadmin.settings import COMMANDS, USE_PERMISSIONS
 from mcadmin.command import BaseManagementCommandAdmin
 from mcadmin.models.groups import ManagementCommandAdminGroup
 from mcadmin.models.permissions import ManagementCommandAdminGroupPermission
+from mcadmin.settings import COMMANDS, USE_PERMISSIONS
 
 
 __all__ = [
@@ -41,7 +42,7 @@ class ManagementCommandAdminTemplateFile(object):
             return self.path
         else:
 
-            return reverse("mcadmin-template-file", args=[self.path, ])
+            return reverse("mcadmin-template-file", args=[self.path,])
 
 
 class CommandsLoader(object):
@@ -67,12 +68,18 @@ class CommandsLoader(object):
         for module in COMMANDS.keys():
             for cls in COMMANDS[module]:
                 try:
-                    command = import_by_path("{module}.{cls}".format(module=module, cls=cls))
+                    command = import_by_path(
+                        "{module}.{cls}".format(module=module, cls=cls)
+                    )
                     if issubclass(command, BaseManagementCommandAdmin):
                         command = command()
                         self.commands.update({command.command: command})
-                except Exception, err:
-                    sys.stderr.write("Couldn't load {module}.{cls} command. {err}".format(module=module, cls=cls, err=err))
+                except Exception as err:
+                    sys.stderr.write(
+                        "Couldn't load {module}.{cls} command. {err}".format(
+                            module=module, cls=cls, err=err
+                        )
+                    )
 
     @property
     def choices(self):
@@ -87,10 +94,16 @@ class CommandsLoader(object):
         Filter commands and groups by permissions.
         """
 
-        if self.request and not self.request.user.is_superuser:  # superusers get all commands list
+        if (
+            self.request and not self.request.user.is_superuser
+        ):  # superusers get all commands list
             commands = []
             groups = []
-            for group in ManagementCommandAdminGroup.objects.filter(pk__in=ManagementCommandAdminGroupPermission.objects.filter(user_group__in=self.request.user.groups.all()).values_list("group", flat=True)):
+            for group in ManagementCommandAdminGroup.objects.filter(
+                pk__in=ManagementCommandAdminGroupPermission.objects.filter(
+                    user_group__in=self.request.user.groups.all()
+                ).values_list("group", flat=True)
+            ):
                 commands += group.commands.all().values_list("command", flat=True)
 
             # remove commands without permissions to access to

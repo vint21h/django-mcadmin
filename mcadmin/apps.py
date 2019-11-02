@@ -3,14 +3,20 @@
 # django-mcadmin
 # mcadmin/apps.py
 
-from __future__ import unicode_literals
+
+from typing import List  # pylint: disable=W0611
 
 from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
 
-__all__ = ["MCAdminConfig", ]
+
+__all__ = ["DjangoManagementCommandsAdminConfig"]  # type: List[str]
 
 
-class MCAdminConfig(AppConfig):
+class DjangoManagementCommandsAdminConfig(AppConfig):
+    """
+    Application config.
+    """
 
     name = "mcadmin"
-    verbose_name = "Management commands admin"
+    verbose_name = _("Management commands admin")

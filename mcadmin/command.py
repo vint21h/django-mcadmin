@@ -3,58 +3,97 @@
 # django-mcadmin
 # mcadmin/command.py
 
-from __future__ import unicode_literals
+
+from typing import Any, Dict, List, Type  # pylint: disable=W0611
 
 from django import forms
 from django.core.management import call_command
+from django.http import QueryDict
 
-__all__ = ["BaseManagementCommandAdmin", ]
+from mcadmin.utils import ManagementCommandAdminTemplateFile
 
 
-class BaseManagementCommandAdmin(object):
+__all__ = [
+    "ManagementCommandAdmin",
+]  # type: List[str]
+
+
+class ManagementCommandAdmin(object):
     """
     Base management command admin class.
     """
 
-    command = ""
-    name = ""
-    args = [True, ]
-    kwargs = {"quiet": True, }
-    form = forms.Form
-    templates = []  # must contain instances of ManagementCommandAdminTemplateFile
+    command = ""  # type: str
+    name = ""  # type: str
+    args = [
+        True,
+    ]  # type: List[Any]
+    kwargs = {
+        "quiet": True,
+    }  # type: Dict[str, Any]
+    form = forms.Form  # type: Type[forms.Form]
+    templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
-    def form2kwargs(self, POST):
+    def form2kwargs(self, post: QueryDict) -> Dict[str, Any]:
         """
-        Serialize validated form to kwargs.
+        Convert validated form data to command kwargs.
+
+        :param post: request POST data.
+        :type post: QueryDict.
+        :return: command kwargs.
+        :rtype: Dict[str, Any].
         """
 
-        kwargs = {}
+        kwargs = {}  # type: Dict[str, Any]
 
-        for k in self.form.fields.keys():
-            kwargs.update({k: self.value(k, POST), })
-
+        for key in self.form.fields.keys():
+            kwargs.update(
+                {key: self.value(key, post), }
+            )
         kwargs.update(self.kwargs)  # add default options
 
         return kwargs
 
-    def form2args(self, POST):
+    def form2args(self, post: QueryDict) -> List[Any]:
         """
-        Serialize validated form to args.
-        """
+        Convert validated form data to command args.
 
-        args = [self.value(k, POST) for k in self.form.fields.keys()]
-
-        return args + self.args  # add default options
-
-    def value(self, k, POST):
-        """
-        Return form field value.
+        :param post: request POST data.
+        :type post: QueryDict.
+        :return: command args.
+        :rtype: List[Any].
         """
 
-        if isinstance(self.form.fields[k], forms.FileField):
-            return self.form.fields[k].path  # for files
+        args = [
+            self.value(key, post) for key in self.form.fields.keys()
+        ]  # type: List[Any]
+        args.extend(self.args)  # add default options
+
+        return args
+
+    def value(self, key: str, post: QueryDict) -> Any:
+        """
+        Get form field value.
+
+        :param key: key name.
+        :type key: str.
+        :param post: request POST data.
+        :type post: QueryDict.
+        :return: key value.
+        :rtype: Any.
+        """
+
+        if any(
+            [
+                isinstance(self.form.fields[key], forms.FileField),
+                isinstance(self.form.fields[key], forms.ImageField),
+            ]
+        ):
+            # return file path for file field
+            return self.form.fields[key].path
         else:
-            return POST.get(k, None)
+
+            return post.get(key, None)
 
     def handle(self, *args, **kwargs):
         """

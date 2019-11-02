@@ -3,6 +3,8 @@
 # django-mcadmin
 # mcadmin/management/__init__.py
 
-from __future__ import unicode_literals
 
-__all__ = ["commands", ]
+from typing import List  # pylint: disable=W0611
+
+
+__all__ = []  # type: List[str]

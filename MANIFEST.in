@@ -1,6 +1,8 @@
 # django-mcadmin
 # MANIFEST.in
 
+
+prune tests*
 include README.rst
 include COPYING
 include AUTHORS
@@ -12,9 +14,5 @@ include mcadmin/templates/mcadmin/includes/file.html
 include mcadmin/templates/mcadmin/includes/form.html
 include mcadmin/templates/mcadmin/includes/field.html
 include mcadmin/templates/mcadmin/index.html
-include mcadmin/locale/en/LC_MESSAGES/django.po
-include mcadmin/locale/en/LC_MESSAGES/django.mo
-include mcadmin/locale/ru/LC_MESSAGES/django.po
-include mcadmin/locale/ru/LC_MESSAGES/django.mo
-include mcadmin/locale/uk/LC_MESSAGES/django.po
-include mcadmin/locale/uk/LC_MESSAGES/django.mo
+recursive-include mcadmin *.po
+recursive-include mcadmin *.mo

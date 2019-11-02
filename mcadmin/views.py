@@ -5,16 +5,19 @@
 
 from __future__ import unicode_literals
 
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.contrib import messages
 from django.views.generic import TemplateView
 
-from mcadmin.utils import CommandsLoader
 from mcadmin.forms import ManagementCommandAdminFormWithFiles
+from mcadmin.utils import CommandsLoader
 
-__all__ = ["Index", ]
+
+__all__ = [
+    "Index",
+]
 
 
 class Index(TemplateView):
@@ -46,19 +49,44 @@ class Index(TemplateView):
         POST request processing.
         """
 
-        command = self.loader(request).commands[list(set(self.loader(request).commands.keys()) & set(request.POST.keys()))[0]]  # get first command from POST data
+        command = self.loader(request).commands[
+            list(set(self.loader(request).commands.keys()) & set(request.POST.keys()))[
+                0
+            ]
+        ]  # get first command from POST data
         command.form = command.form(request.POST, request.FILES)
 
         if command.form.is_valid():
-            if isinstance(command.form, ManagementCommandAdminFormWithFiles) and command.templates:  # check if form have files
+            if (
+                isinstance(command.form, ManagementCommandAdminFormWithFiles)
+                and command.templates
+            ):  # check if form have files
                 command.form.save_files()
             try:
-                command.handle(*command.form2args(request.POST), **command.form2kwargs(request.POST))
-                messages.success(request, _("Run '{command}' management command success").format(command=command.name))
-            except Exception, err:
-                messages.error(request, _("Running '{command}' management command error: {err}").format(command=command.name, err=err))
+                command.handle(
+                    *command.form2args(request.POST),
+                    **command.form2kwargs(request.POST)
+                )
+                messages.success(
+                    request,
+                    _("Run '{command}' management command success").format(
+                        command=command.name
+                    ),
+                )
+            except Exception as err:
+                messages.error(
+                    request,
+                    _("Running '{command}' management command error: {err}").format(
+                        command=command.name, err=err
+                    ),
+                )
         else:
-            messages.error(request, _("This form was completed with errors: {command}").format(command=command.name))
+            messages.error(
+                request,
+                _("This form was completed with errors: {command}").format(
+                    command=command.name
+                ),
+            )
 
         return self.render_to_response(self.get_context_data(**kwargs))
 
@@ -74,4 +102,6 @@ class Index(TemplateView):
         Get template.
         """
 
-        return ["mcadmin/index.html", ]
+        return [
+            "mcadmin/index.html",
+        ]

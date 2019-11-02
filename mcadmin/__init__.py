@@ -3,24 +3,11 @@
 # django-mcadmin
 # mcadmin/__init__.py
 
-from __future__ import unicode_literals
 
-__all__ = [
-    "admin",
-    "command",
-    "forms",
-    "management",
-    "models",
-    "urls",
-    "utils",
-    "views",
-    "settings",
-    "templatetags",
-    "context_processors",
-    "migrations",
-    "south_migrations",
-    "apps",
-    "default_app_config",
-]
+from typing import List  # pylint: disable=W0611
 
-default_app_config = "mcadmin.apps.MCAdminConfig"
+
+__all__ = ["default_app_config"]  # type: List[str]
+
+
+default_app_config = "mcadmin.apps.DjangoManagementCommandsAdminConfig"
