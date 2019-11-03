@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2015-06-01 06:57+0300\n"
+"POT-Creation-Date: 2019-11-03 12:18+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -18,90 +18,98 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 
-#: forms.py:32
+#: mcadmin/apps.py:22
+msgid "Management commands admin"
+msgstr ""
+
+#: mcadmin/forms.py:31
 msgid "Run management command as celery task"
 msgstr "Запустити команду як задачу celery"
 
-#: views.py:39 templates/mcadmin/includes/breadcrumbs.html:10
-msgid "Management commands"
-msgstr "Команди"
+#: mcadmin/management/commands/__init__.py:39
+msgid "Be quiet"
+msgstr ""
 
-#: views.py:57
-#, python-brace-format
-msgid "Run '{command}' management command success"
-msgstr "Команду '{command}' успішно запущено"
+#: mcadmin/management/commands/__init__.py:49
+msgid "Run command as celery task"
+msgstr ""
 
-#: views.py:59
-#, python-brace-format
-msgid "Running '{command}' management command error: {err}"
-msgstr "Помилка під час запуску команди '{command}': {err}"
+#: mcadmin/models/command.py:27 mcadmin/models/group.py:23
+msgid "name"
+msgstr ""
 
-#: views.py:61
-#, python-brace-format
-msgid "This form was completed with errors: {command}"
-msgstr "Форма заповнена з помилками: {command}"
-
-#: models/commands.py:21
-msgid "management command name"
-msgstr "ім'я команди"
-
-#: models/commands.py:21
+#: mcadmin/models/command.py:29
 msgid "this list get from settings"
 msgstr "цей список згенерован з налаштувань"
 
-#: models/commands.py:22 models/permissions.py:18
+#: mcadmin/models/command.py:34 mcadmin/models/permission.py:24
 msgid "group"
 msgstr "група"
 
-#: models/commands.py:32
+#: mcadmin/models/command.py:51
 msgid "management command"
 msgstr "команда"
 
-#: models/commands.py:33
+#: mcadmin/models/command.py:52
 msgid "management commands"
 msgstr "команди"
 
-#: models/groups.py:19
-msgid "management commands group title"
-msgstr "ім'я групи команд"
-
-#: models/groups.py:28
+#: mcadmin/models/group.py:32
 msgid "management commands group"
 msgstr "група команд"
 
-#: models/groups.py:29
+#: mcadmin/models/group.py:33
 msgid "management commands groups"
 msgstr "групи команд"
 
-#: models/permissions.py:19
+#: mcadmin/models/permission.py:30
 msgid "user group"
 msgstr "група користувачей"
 
-#: models/permissions.py:29
+#: mcadmin/models/permission.py:44
 msgid "management command group permission"
 msgstr "право доступу до групи команд"
 
-#: models/permissions.py:30
+#: mcadmin/models/permission.py:45
 msgid "management command group permissions"
 msgstr "права доступу до групи команд"
 
-#: templates/mcadmin/includes/breadcrumbs.html:8
+#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:8
 msgid "Home"
 msgstr "Головна"
 
-#: templates/mcadmin/includes/content.html:15
-#: templates/mcadmin/includes/content.html:16
+#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:10 mcadmin/views.py:63
+msgid "Management commands"
+msgstr "Команди"
+
+#: mcadmin/templates/mcadmin/includes/content.html:15
+#: mcadmin/templates/mcadmin/includes/content.html:16
 msgid "Rest"
 msgstr "Інші"
 
-#: templates/mcadmin/includes/content.html:30
+#: mcadmin/templates/mcadmin/includes/content.html:30
 msgid "You do not have access to any command"
 msgstr "Немає прав доступу до жодної команди"
 
-#: templates/mcadmin/includes/file.html:8
+#: mcadmin/templates/mcadmin/includes/file.html:8
 msgid "Example file"
 msgstr "Файл зразок"
 
-#: templates/mcadmin/includes/form.html:14
+#: mcadmin/templates/mcadmin/includes/form.html:14
 msgid "Management command does not require additional options"
 msgstr "Команді не потрібні додаткові параметри для запуску"
+
+#: mcadmin/views.py:107
+#, python-brace-format
+msgid "Run '{command.name}' management command success"
+msgstr ""
+
+#: mcadmin/views.py:112
+#, python-brace-format
+msgid "Running '{command.name}' management command error: {error}"
+msgstr ""
+
+#: mcadmin/views.py:116
+#, python-brace-format
+msgid "This form was completed with errors: {command.name}"
+msgstr ""
