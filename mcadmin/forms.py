@@ -10,8 +10,8 @@ import os
 from typing import List  # pylint: disable=W0611
 
 from django import forms
-from django.utils.module_loading import import_by_path
 from django.utils.translation import ugettext_lazy as _
+from django.core.files.storage import DefaultStorage
 
 from mcadmin.conf import settings
 
@@ -20,9 +20,6 @@ __all__ = [
     "ManagementCommandAdminFormWithTask",
     "ManagementCommandAdminFormWithFiles",
 ]  # type: List[str]
-
-
-storage = import_by_path(settings.DEFAULT_FILE_STORAGE)
 
 
 class ManagementCommandAdminFormWithTask(forms.Form):
@@ -69,7 +66,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
             "{cls}:{time}_{hash}s__{file}".format(
                 cls=self.__class__.__name__,
                 time=datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
-                hash=hashlib.md5(
+                hash=hashlib.md5(  # nosec
                     "{dt}{size}".format(
                         dt=str(datetime.now()), size=str(self.cleaned_data[field].size)
                     )
@@ -78,7 +75,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
             ),
         )
 
-        upload_storage = storage()
-        upload_storage.save(name=path, content=self.cleaned_data[field])
+        storage = DefaultStorage()
+        storage.save(name=path, content=self.cleaned_data[field])
 
         self.fields[field].path = path
