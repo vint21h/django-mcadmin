@@ -10,8 +10,6 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict
 
-from mcadmin.utils import ManagementCommandAdminTemplateFile  # pylint: disable=W0611
-
 
 __all__ = [
     "ManagementCommandAdmin",
@@ -32,7 +30,7 @@ class ManagementCommandAdmin(object):
         "quiet": True,
     }  # type: Dict[str, Any]
     form = forms.Form  # type: Type[forms.Form]
-    templates = []  # type: List[ManagementCommandAdminTemplateFile]
+    templates = []  # type: List["mcadmin.utils.ManagementCommandAdminTemplateFile"]
 
     def form2kwargs(self, post: QueryDict) -> Dict[str, Any]:
         """

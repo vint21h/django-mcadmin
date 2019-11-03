@@ -5,11 +5,11 @@
 
 
 import sys
-from typing import Any, Dict, List  # pylint: disable=W0611
+from typing import Any, Dict, List, Optional  # pylint: disable=W0611
 
 from django.http import HttpRequest
 from django.urls import reverse
-from django.utils.module_loading import import_by_path
+from django.utils.module_loading import import_string
 
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.conf import settings
@@ -58,7 +58,7 @@ class CommandsLoader(object):
     commands = {}  # type: Dict[str, Any]
     groups = Group.objects.all()
 
-    def __init__(self, request: HttpRequest = None) -> None:
+    def __init__(self, request: Optional[HttpRequest] = None) -> None:
         """
         Init loader.
 
@@ -73,15 +73,18 @@ class CommandsLoader(object):
         if settings.MCADMIN_USE_PERMISSIONS:  # filter commands and groups
             self.filter()
 
-    def load(self):
+    def load(self) -> None:
         """
         Load and initialize commands from settings.
+
+        :return: nothing.
+        :rtype: None.
         """
 
         for module in settings.MCADMIN_COMMANDS.keys():
             for cls in settings.MCADMIN_COMMANDS[module]:
                 try:
-                    command = import_by_path(f"{module}.{cls}")
+                    command = import_string(f"{module}.{cls}")
                     if issubclass(command, ManagementCommandAdmin):
                         command = command()
                         self.commands.update({command.command: command})
@@ -96,9 +99,12 @@ class CommandsLoader(object):
 
         return [(command, self.commands[command].name) for command in self.commands]
 
-    def filter(self):
+    def filter(self) -> None:
         """
         Filter commands and groups by permissions.
+
+        :return: nothing.
+        :rtype: None.
         """
 
         if (
