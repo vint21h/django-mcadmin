@@ -1,8 +1,9 @@
 {# django-mcadmin #}
 {# mcadmin/templates/mcadmin/includes/command.html #}
 
+
 {% load i18n %}
-{% load url from future %}
+
 
 <form action="{% url "mcadmin-index" %}" method="post" name="{{ command.command }}" id="id-{{ command.command }}" enctype="multipart/form-data">
     {% csrf_token %}

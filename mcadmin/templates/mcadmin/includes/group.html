@@ -1,10 +1,8 @@
 {# django-mcadmin #}
 {# mcadmin/templates/mcadmin/includes/group.html #}
 
-{% load i18n %}
-{% load url from future %}
 
-{% load mcadin_tags %}
+{% load i18n %}
 
 {% if group.commands.all %}
     <div id="{{ group.name|lower }}">
@@ -14,7 +12,8 @@
                 {% for command in group.commands.all %}
                     <tr>
                         <th scope="row">
-                            {% with loader.commands|pop:command.command as command %}
+                            {# TODO: deal with command from group. #}
+                            {% with command.command as command %}
                                 {% include "mcadmin/includes/command.html" %}
                             {% endwith %}
                         </th>
