@@ -14,7 +14,7 @@ from django.utils.module_loading import import_string
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.conf import settings
 from mcadmin.models.group import Group
-from mcadmin.models.permission import GroupPermission
+from mcadmin.models.permissions.group import GroupPermission
 
 
 __all__ = [

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # django-mcadmin
-# mcadmin/admin/permission.py
+# mcadmin/admin/permission/group.py
 
 
 from typing import List  # pylint: disable=W0611
@@ -19,13 +19,13 @@ class GroupPermissionAdmin(admin.ModelAdmin):
 
     list_display = [
         "group",
-        "user_group",
+        "user",
     ]  # type: List[str]
     list_filter = [
         "group",
-        "user_group",
+        "user",
     ]  # type: List[str]
     search_fields = [
         "group",
-        "user_group__name",
+        "user__name",
     ]  # type: List[str]
