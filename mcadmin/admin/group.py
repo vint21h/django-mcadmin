@@ -4,9 +4,10 @@
 # mcadmin/admin/group.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List, Type, Sequence  # pylint: disable=W0611
 
 from django.contrib import admin
+from django.contrib.admin.options import InlineModelAdmin
 
 from mcadmin.models.command import Command
 
@@ -39,4 +40,4 @@ class GroupAdmin(admin.ModelAdmin):
     ]  # type: List[str]
     inlines = [
         CommandInline,
-    ]  # type: List[admin.TabularInline]
+    ]  # type: Sequence[Type[InlineModelAdmin]]

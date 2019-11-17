@@ -68,14 +68,14 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
                 time=datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
                 hash=hashlib.md5(  # nosec
                     "{dt}{size}".format(
-                        dt=str(datetime.now()), size=str(self.cleaned_data[field].size)
-                    )
+                        dt=str(datetime.now()), size=str(self.cleaned_data[field].size),
+                    ).encode()
                 ).hexdigest(),
                 file=self.cleaned_data[field],
             ),
         )
 
         storage = DefaultStorage()
-        storage.save(name=path, content=self.cleaned_data[field])
+        storage.save(name=path, content=self.cleaned_data[field])  # type: ignore
 
         self.fields[field].path = path

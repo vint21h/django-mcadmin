@@ -6,7 +6,6 @@
 
 from typing import Any, Dict, List  # pylint: disable=W0611
 
-from django import forms  # pylint: disable=W0611
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpRequest, HttpResponse
@@ -43,7 +42,7 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: Any.
         """
 
-        return super(ManagementCommandsAdminIndex, self).dispatch(
+        return super(ManagementCommandsAdminIndex, self).dispatch(  # type: ignore
             request=request, *args, **kwargs
         )
 
@@ -88,9 +87,7 @@ class ManagementCommandsAdminIndex(TemplateView):
                 0
             ]
         ]  # get first command from POST data
-        command.form = command.form(
-            data=request.POST, files=request.FILES
-        )  # type: forms.Form
+        command.form = command.form(data=request.POST, files=request.FILES)
 
         if command.form.is_valid():
             if (

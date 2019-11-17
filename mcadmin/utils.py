@@ -110,7 +110,7 @@ class CommandsLoader(object):
         if (
             self.request and not self.request.user.is_superuser
         ):  # superusers get all commands list
-            commands = []
+            commands = []  # type: ignore
             groups = []
             for group in Group.objects.filter(
                 pk__in=GroupPermission.objects.filter(

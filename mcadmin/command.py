@@ -30,7 +30,7 @@ class ManagementCommandAdmin(object):
         "quiet": True,
     }  # type: Dict[str, Any]
     form = forms.Form  # type: Type[forms.Form]
-    templates = []  # type: List["mcadmin.utils.ManagementCommandAdminTemplateFile"]
+    templates = []  # type: ignore
 
     def form2kwargs(self, post: QueryDict) -> Dict[str, Any]:
         """

@@ -21,24 +21,21 @@ Configuration
 -------------
 Add ``"mcadmin"`` to ``settings.INSTALLED_APPS``.
 
-    INSTALLED_APPS = (
-        ...,
+.. code-block:: python
 
+    INSTALLED_APPS += [
         "mcadmin",
+    ]
 
-        ...,
-
-    )
 And to ``urls.py``.
 
+.. code-block:: python
+
     urlpatterns = patterns("",
-        ...,
-
         url(r"^admin/mcadmin/", include("mcadmin.urls")),
-
-        ...,
-
     )
+
+
 upper of django admin urls.
 
 Licensing
