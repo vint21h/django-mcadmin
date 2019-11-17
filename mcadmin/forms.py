@@ -4,13 +4,13 @@
 # mcadmin/forms.py
 
 
-from datetime import datetime
 import hashlib
-import os
+import pathlib
 from typing import List  # pylint: disable=W0611
 
 from django import forms
 from django.core.files.storage import DefaultStorage
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from mcadmin.conf import settings
@@ -61,21 +61,37 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
         :rtype: None.
         """
 
-        path = os.path.join(  # TODO: use pathlib.
-            settings.MCADMIN_UPLOADS_PATH,
-            "{cls}:{time}_{hash}s__{file}".format(
-                cls=self.__class__.__name__,
-                time=datetime.now().strftime("%Y-%m-%d_%H:%M:%S"),
-                hash=hashlib.md5(  # nosec
-                    "{dt}{size}".format(
-                        dt=str(datetime.now()), size=str(self.cleaned_data[field].size),
-                    ).encode()
-                ).hexdigest(),
-                file=self.cleaned_data[field],
-            ),
+        filepath = self.get_filepath(
+            filename=self.cleaned_data[field], size=self.cleaned_data[field].size
         )
-
         storage = DefaultStorage()
-        storage.save(name=path, content=self.cleaned_data[field])  # type: ignore
+        storage.save(name=filepath, content=self.cleaned_data[field])  # type: ignore
 
-        self.fields[field].path = path
+        self.fields[field].path = filepath
+
+    def get_filepath(self, filename: str, size: int) -> str:
+        """
+        Create unique filename under management command admin upload path.
+
+        :param filename: original filename.
+        :type filename: str.
+        :param size: original file size.
+        :type size: int.
+        :return: unique filename under management command admin upload path.
+        :rtype: str.
+        """
+
+        return str(
+            pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(
+                "{cls}:{time}_{hash}s__{file}".format(
+                    cls=self.__class__.__name__,
+                    time=timezone.now(),
+                    hash=hashlib.md5(  # nosec
+                        "{dt}{size}".format(
+                            **{"dt": timezone.now(), "size": size}
+                        ).encode()
+                    ).hexdigest(),
+                    file=filename,
+                )
+            )
+        )
