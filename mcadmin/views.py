@@ -97,8 +97,8 @@ class ManagementCommandsAdminIndex(TemplateView):
                 command.form.save_files()
             try:
                 command.handle(
-                    *command.form2args(post=request.POST),
-                    **command.form2kwargs(post=request.POST),
+                    *command.form_to_args(post=request.POST),
+                    **command.form_to_kwargs(post=request.POST),
                 )
                 messages.success(
                     request, _(f"Run '{command.name}' management command success"),

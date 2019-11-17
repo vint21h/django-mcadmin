@@ -32,7 +32,7 @@ class ManagementCommandAdmin(object):
     form = forms.Form  # type: Type[forms.Form]
     templates = []  # type: ignore
 
-    def form2kwargs(self, post: QueryDict) -> Dict[str, Any]:
+    def form_to_kwargs(self, post: QueryDict) -> Dict[str, Any]:
         """
         Convert validated form data to command kwargs.
 
@@ -50,7 +50,7 @@ class ManagementCommandAdmin(object):
 
         return kwargs
 
-    def form2args(self, post: QueryDict) -> List[Any]:
+    def form_to_args(self, post: QueryDict) -> List[Any]:
         """
         Convert validated form data to command args.
 
