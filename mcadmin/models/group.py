@@ -26,6 +26,14 @@ class Group(models.Model):
 
         return self.name
 
+    def __str__(self) -> str:
+
+        return self.__unicode__()
+
+    def __repr__(self) -> str:
+
+        return self.__unicode__()
+
     class Meta:
 
         app_label = "mcadmin"  # type: str

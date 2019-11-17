@@ -41,6 +41,14 @@ class Command(models.Model):
 
         return f"{self.command} - {self.group}"
 
+    def __str__(self) -> str:
+
+        return self.__unicode__()
+
+    def __repr__(self) -> str:
+
+        return self.__unicode__()
+
     class Meta:
 
         app_label = "mcadmin"  # type: str
