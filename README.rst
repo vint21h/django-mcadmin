@@ -4,6 +4,8 @@
 A django-mcadmin documentation
 ==============================
 
+|Travis|_ |Coveralls|_ |Requires|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
+
     *django-mcadmin is a django reusable app that provide simple run management commands from admin*
 
 .. contents::
@@ -14,8 +16,8 @@ Warning
 
 Installation
 ------------
-* Obtain your copy of source code from git repository: ``git clone https://github.com/vint21h/django-mcadmin.git``. Or download latest release from https://github.com/vint21h/django-mcadmin/tags.
-* Run ``python ./setup.py install`` from repository source tree or unpacked archive. Or use pip: ``pip install django-mcadmin``.
+* Obtain your copy of source code from the git repository: ``git clone https://github.com/vint21h/django-mcadmin.git``. Or download the latest release from https://github.com/vint21h/django-mcadmin/tags/.
+* Run ``python ./setup.py install`` from the repository source tree or unpacked archive. Or use pip: ``pip install django-mcadmin``.
 
 Configuration
 -------------
@@ -45,8 +47,40 @@ For complete license text see COPYING file.
 
 Contacts
 --------
-**Project Website**: https://github.com/vint21h/django-mcadmin
+**Project Website**: https://github.com/vint21h/django-mcadmin/
 
 **Author**: Alexei Andrushievich <vint21h@vint21h.pp.ua>
 
 For other authors list see AUTHORS file.
+
+
+.. |Travis| image:: https://travis-ci.org/vint21h/django-mcadmin.svg?branch=master
+    :alt: Travis
+.. |Coveralls| image:: https://coveralls.io/repos/github/vint21h/django-mcadmin/badge.svg?branch=master
+    :alt: Coveralls
+.. |Requires| image:: https://requires.io/github/vint21h/django-mcadmin/requirements.svg?branch=master
+    :alt: Requires
+.. |pypi-license| image:: https://img.shields.io/pypi/l/django-mcadmin
+    :alt: License
+.. |pypi-version| image:: https://img.shields.io/pypi/v/django-mcadmin
+    :alt: Version
+.. |pypi-django-version| image:: https://img.shields.io/pypi/djversions/django-mcadmin
+    :alt: Supported Django version
+.. |pypi-python-version| image:: https://img.shields.io/pypi/pyversions/django-mcadmin
+    :alt: Supported Python version
+.. |pypi-format| image:: https://img.shields.io/pypi/format/django-mcadmin
+    :alt: Package format
+.. |pypi-wheel| image:: https://img.shields.io/pypi/wheel/django-mcadmin
+    :alt: Python wheel support
+.. |pypi-status| image:: https://img.shields.io/pypi/status/django-mcadmin
+    :alt: Package status
+.. _Travis: https://travis-ci.org/vint21h/django-mcadmin/
+.. _Coveralls: https://coveralls.io/github/vint21h/django-mcadmin?branch=master
+.. _Requires: https://requires.io/github/vint21h/django-mcadmin/requirements/?branch=master
+.. _pypi-license: https://pypi.org/project/django-mcadmin/
+.. _pypi-version: https://pypi.org/project/django-mcadmin/
+.. _pypi-django-version: https://pypi.org/project/django-mcadmin/
+.. _pypi-python-version: https://pypi.org/project/django-mcadmin/
+.. _pypi-format: https://pypi.org/project/django-mcadmin/
+.. _pypi-wheel: https://pypi.org/project/django-mcadmin/
+.. _pypi-status: https://pypi.org/project/django-mcadmin/
