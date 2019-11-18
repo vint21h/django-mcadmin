@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2019-11-17 14:02+0200\n"
+"POT-Creation-Date: 2019-11-18 23:48+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -35,43 +35,56 @@ msgid "Run command as celery task"
 msgstr ""
 
 #: mcadmin/models/command.py:27 mcadmin/models/group.py:23
+#: mcadmin/models/permissions/user.py:26
 msgid "name"
 msgstr ""
 
-#: mcadmin/models/command.py:29
+#: mcadmin/models/command.py:29 mcadmin/models/permissions/user.py:28
 msgid "this list get from settings"
 msgstr "цей список згенерован з налаштувань"
 
-#: mcadmin/models/command.py:34 mcadmin/models/permission.py:24
+#: mcadmin/models/command.py:34 mcadmin/models/permissions/group.py:24
 msgid "group"
 msgstr "група"
 
-#: mcadmin/models/command.py:51
+#: mcadmin/models/command.py:59
 msgid "management command"
 msgstr "команда"
 
-#: mcadmin/models/command.py:52
+#: mcadmin/models/command.py:60
 msgid "management commands"
 msgstr "команди"
 
-#: mcadmin/models/group.py:32
+#: mcadmin/models/group.py:40
 msgid "management commands group"
 msgstr "група команд"
 
-#: mcadmin/models/group.py:33
+#: mcadmin/models/group.py:41
 msgid "management commands groups"
 msgstr "групи команд"
 
-#: mcadmin/models/permission.py:30
-msgid "user group"
-msgstr "група користувачей"
+#: mcadmin/models/permissions/group.py:31 mcadmin/models/permissions/user.py:33
+msgid "user"
+msgstr ""
 
-#: mcadmin/models/permission.py:44
+#: mcadmin/models/permissions/group.py:55
 msgid "management command group permission"
 msgstr "право доступу до групи команд"
 
-#: mcadmin/models/permission.py:45
+#: mcadmin/models/permissions/group.py:56
 msgid "management command group permissions"
+msgstr "права доступу до групи команд"
+
+#: mcadmin/models/permissions/user.py:57
+#, fuzzy
+#| msgid "management command group permission"
+msgid "management command permission"
+msgstr "право доступу до групи команд"
+
+#: mcadmin/models/permissions/user.py:58
+#, fuzzy
+#| msgid "management command group permissions"
+msgid "management command permissions"
 msgstr "права доступу до групи команд"
 
 #: mcadmin/templates/mcadmin/includes/breadcrumbs.html:9
@@ -113,3 +126,6 @@ msgstr ""
 #, python-brace-format
 msgid "This form was completed with errors: {command.name}"
 msgstr ""
+
+#~ msgid "user group"
+#~ msgstr "група користувачей"
