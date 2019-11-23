@@ -26,9 +26,7 @@ class ManagementCommandAdmin(object):
     args = [
         True,
     ]  # type: List[Any]
-    kwargs = {
-        "quiet": True,
-    }  # type: Dict[str, Any]
+    kwargs = {}  # type: Dict[str, Any]
     form = forms.Form  # type: Type[forms.Form]
     templates = []  # type: ignore
 
