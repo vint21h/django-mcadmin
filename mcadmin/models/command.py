@@ -35,6 +35,8 @@ class Command(models.Model):
         db_index=True,
         related_name="commands",
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     def __unicode__(self) -> str:
