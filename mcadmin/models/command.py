@@ -9,7 +9,7 @@ from typing import List  # pylint: disable=W0611
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mcadmin.utils import CommandsLoader
+from mcadmin.command import registry
 
 
 __all__ = [
@@ -25,7 +25,7 @@ class Command(models.Model):
     command = models.CharField(
         max_length=255,
         verbose_name=_("name"),
-        choices=CommandsLoader().choices,
+        choices=registry.choices,
         help_text=_("this list get from settings"),
         db_index=True,
     )

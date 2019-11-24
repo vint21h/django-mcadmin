@@ -9,7 +9,7 @@
 
 from typing import List, Tuple, Union  # pylint: disable=W0611
 
-from django.db import migrations, models
+from django.db import models, migrations
 import django.db.models.deletion
 
 
@@ -23,6 +23,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="command",
             name="group",
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name="commands", to="mcadmin.Group", verbose_name="group"),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commands",
+                to="mcadmin.Group",
+                verbose_name="group",
+            ),
         ),
     ]  # type: List[Union[migrations.AlterField]]

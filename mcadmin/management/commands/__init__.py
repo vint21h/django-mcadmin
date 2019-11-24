@@ -6,7 +6,7 @@
 
 from typing import Any, Dict, List  # pylint: disable=W0611
 
-from django.core.management.base import BaseCommand, CommandParser
+from django.core.management.base import BaseCommand, CommandParser, no_translations
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -30,16 +30,17 @@ class TaskCommand(BaseCommand):
         """
 
         parser.add_argument(
-            "--run-as-task",
+            "--task",
             "-T",
             dest="as_task",
             help=_("Run command as background task"),
             default=False,
             action="store_true",
-            metavar="RUN-AS-TASK",
+            metavar="TASK",
             type=bool,
         )
 
+    @no_translations
     def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
         Detect how to run command.
