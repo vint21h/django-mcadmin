@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2019-11-24 01:40+0200\n"
+"POT-Creation-Date: 2019-11-24 13:00+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -21,8 +21,8 @@ msgid "Management commands admin"
 msgstr "Management commands admin"
 
 #: mcadmin/forms.py:31
-msgid "Run management command as celery task"
-msgstr "Run management command as celery task"
+msgid "Run management command as background task"
+msgstr "Run management command as background task"
 
 #: mcadmin/management/commands/__init__.py:36
 msgid "Run command as background task"
@@ -34,8 +34,8 @@ msgid "name"
 msgstr "name"
 
 #: mcadmin/models/command.py:29 mcadmin/models/permissions/user.py:28
-msgid "this list get from settings"
-msgstr "this list get from settings"
+msgid "list from management commands admin registry"
+msgstr "list from management commands admin registry"
 
 #: mcadmin/models/command.py:34 mcadmin/models/permissions/group.py:24
 msgid "group"

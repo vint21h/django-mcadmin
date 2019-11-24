@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2019-11-24 01:40+0200\n"
+"POT-Creation-Date: 2019-11-24 13:00+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -23,8 +23,8 @@ msgid "Management commands admin"
 msgstr ""
 
 #: mcadmin/forms.py:31
-msgid "Run management command as celery task"
-msgstr "Запустити команду як задачу celery"
+msgid "Run management command as background task"
+msgstr ""
 
 #: mcadmin/management/commands/__init__.py:36
 msgid "Run command as background task"
@@ -36,28 +36,28 @@ msgid "name"
 msgstr ""
 
 #: mcadmin/models/command.py:29 mcadmin/models/permissions/user.py:28
-msgid "this list get from settings"
-msgstr "цей список згенерован з налаштувань"
+msgid "list from management commands admin registry"
+msgstr ""
 
 #: mcadmin/models/command.py:34 mcadmin/models/permissions/group.py:24
 msgid "group"
-msgstr "група"
+msgstr ""
 
 #: mcadmin/models/command.py:61
 msgid "management command"
-msgstr "команда"
+msgstr ""
 
 #: mcadmin/models/command.py:62
 msgid "management commands"
-msgstr "команди"
+msgstr ""
 
 #: mcadmin/models/group.py:40
 msgid "management commands group"
-msgstr "група команд"
+msgstr ""
 
 #: mcadmin/models/group.py:41
 msgid "management commands groups"
-msgstr "групи команд"
+msgstr ""
 
 #: mcadmin/models/permissions/group.py:31 mcadmin/models/permissions/user.py:33
 msgid "user"
@@ -65,11 +65,11 @@ msgstr ""
 
 #: mcadmin/models/permissions/group.py:55
 msgid "management command group permission"
-msgstr "право доступу до групи команд"
+msgstr ""
 
 #: mcadmin/models/permissions/group.py:56
 msgid "management command group permissions"
-msgstr "права доступу до групи команд"
+msgstr ""
 
 #: mcadmin/models/permissions/user.py:57
 msgid "management command permission"
@@ -81,28 +81,28 @@ msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/breadcrumbs.html:9
 msgid "Home"
-msgstr "Головна"
+msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/breadcrumbs.html:11 mcadmin/views.py:62
 msgid "Management commands"
-msgstr "Команди"
+msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/content.html:16
 #: mcadmin/templates/mcadmin/includes/content.html:17
 msgid "Rest"
-msgstr "Інші"
+msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/content.html:31
 msgid "You do not have access to any command"
-msgstr "Немає прав доступу до жодної команди"
+msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/file.html:10
 msgid "Example file"
-msgstr "Файл зразок"
+msgstr ""
 
 #: mcadmin/templates/mcadmin/includes/form.html:16
 msgid "Management command does not require additional options"
-msgstr "Команді не потрібні додаткові параметри для запуску"
+msgstr ""
 
 #: mcadmin/views.py:104
 #, python-brace-format

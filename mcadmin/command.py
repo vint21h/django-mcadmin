@@ -144,13 +144,13 @@ class ManagementCommandAdminRegistry(object):
         if not issubclass(command, ManagementCommandAdmin):
 
             raise NotManagementCommandAdmin(
-                f"The class {name} is not a management command admin."
+                f"The class '{name}' is not a management command admin."
             )
 
         if name in self._registry.keys():
 
             raise ManagementCommandAdminAlreadyRegistered(
-                f"The command admin {name} is already registered."
+                f"The command admin '{name}' is already registered."
             )
 
         self._registry.update({name: command})
@@ -170,13 +170,13 @@ class ManagementCommandAdminRegistry(object):
         if not issubclass(command, ManagementCommandAdmin):
 
             raise NotManagementCommandAdmin(
-                f"The class {name} is not a management command admin."
+                f"The class '{name}' is not a management command admin."
             )
 
         if name not in self._registry.keys():
 
             raise ManagementCommandAdminNotRegistered(
-                f"The command admin {name} is not registered."
+                f"The command admin '{name}' is not registered."
             )
 
         del self._registry[name]
@@ -200,6 +200,17 @@ class ManagementCommandAdminRegistry(object):
         """
 
         return [(name, command.name) for name, command in self._registry.items()]
+
+    @property
+    def registry(self) -> Dict[str, List[ManagementCommandAdmin]]:
+        """
+        Return initialized management commands admin classes.
+
+        :return: initialized management commands admin classes.
+        :rtype: Dict[str, List[ManagementCommandAdmin]].
+        """
+
+        return {}
 
 
 registry = ManagementCommandAdminRegistry()

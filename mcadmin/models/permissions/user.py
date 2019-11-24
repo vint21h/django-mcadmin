@@ -25,7 +25,7 @@ class UserPermission(models.Model):
         max_length=255,
         verbose_name=_("name"),
         choices=registry.choices,
-        help_text=_("this list get from settings"),
+        help_text=_("list from management commands admin registry"),
         db_index=True,
     )
     user = models.ForeignKey(
