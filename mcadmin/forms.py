@@ -17,22 +17,24 @@ from mcadmin.conf import settings
 
 
 __all__ = [
-    "ManagementCommandAdminFormWithTask",
-    "ManagementCommandAdminFormWithFiles",
+    "ManagementCommandAdminFormTask",
+    "ManagementCommandAdminFormFiles",
 ]  # type: List[str]
 
 
-class ManagementCommandAdminFormWithTask(forms.Form):
+class ManagementCommandAdminFormTask(forms.Form):
     """
-    Management commands admin form with celery task option.
+    Management commands admin form with background task option.
     """
 
     as_task = forms.BooleanField(
-        label=_("Run management command as celery task"), initial=True, required=False
+        label=_("Run management command as background task"),
+        initial=True,
+        required=False,
     )
 
 
-class ManagementCommandAdminFormWithFiles(forms.Form):
+class ManagementCommandAdminFormFiles(forms.Form):
     """
     Management commands admin form with file upload handle.
     """
@@ -83,7 +85,7 @@ class ManagementCommandAdminFormWithFiles(forms.Form):
 
         return str(
             pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(
-                "{cls}:{time}_{hash}s__{file}".format(
+                "{cls}:{time}-{hash}--{file}".format(
                     cls=self.__class__.__name__,
                     time=timezone.now(),
                     hash=hashlib.md5(  # nosec

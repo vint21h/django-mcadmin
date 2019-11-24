@@ -8,7 +8,6 @@ import sys
 from typing import Any, Dict, List, Optional  # pylint: disable=W0611
 
 from django.http import HttpRequest
-from django.urls import reverse
 from django.utils.module_loading import import_string
 
 from mcadmin.command import ManagementCommandAdmin
@@ -18,36 +17,8 @@ from mcadmin.models.permissions.group import GroupPermission
 
 
 __all__ = [
-    "ManagementCommandAdminTemplateFile",
     "CommandsLoader",
 ]  # type: List[str]
-
-
-class ManagementCommandAdminTemplateFile(object):
-    """
-    Management command admin example file class.
-    """
-
-    # path in MCADMIN_UPLOAD_TEMPLATES_PATH
-    path = ""  # type: str
-    description = ""  # type: str
-    raw = False  # type: bool
-
-    @property
-    def get_absolute_url(self) -> str:
-        """
-        Return URL to template file.
-
-        :return: template file URL.
-        :rtype: str.
-        """
-
-        if self.raw:
-
-            return self.path
-        else:
-
-            return reverse("mcadmin-template-file", args=[self.path])
 
 
 class CommandsLoader(object):

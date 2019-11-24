@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from mcadmin.forms import ManagementCommandAdminFormWithFiles
+from mcadmin.forms import ManagementCommandAdminFormFiles
 from mcadmin.utils import CommandsLoader
 
 
@@ -91,7 +91,7 @@ class ManagementCommandsAdminIndex(TemplateView):
 
         if command.form.is_valid():
             if (
-                isinstance(command.form, ManagementCommandAdminFormWithFiles)
+                isinstance(command.form, ManagementCommandAdminFormFiles)
                 and command.templates
             ):  # check if form have files
                 command.form.save_files()

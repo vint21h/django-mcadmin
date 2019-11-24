@@ -51,7 +51,7 @@ TEMPLATES = [
             ],
         },
     }
-]  # type: List[Dict[str, Union[str, List[str], bool, Dict[str, Union[str, List[str]]]]]]
+]  # type: List[Dict[str, Union[str, List[str], bool, Dict[str, Union[str, List[str]]]]]]  # noqa: E501
 
 
 # add testing related apps

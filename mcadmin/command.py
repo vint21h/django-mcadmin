@@ -10,6 +10,8 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict
 
+from mcadmin.template import ManagementCommandAdminTemplateFile
+
 
 __all__ = [
     "ManagementCommandAdmin",
@@ -22,7 +24,7 @@ class ManagementCommandAdminAlreadyRegistered(Exception):
     Management command admin already registered exception.
     """
 
-    pass
+    pass  # pylint: disable=W0107
 
 
 class ManagementCommandAdminNotRegistered(Exception):
@@ -30,15 +32,15 @@ class ManagementCommandAdminNotRegistered(Exception):
     Management command admin not registered exception.
     """
 
-    pass
+    pass  # pylint: disable=W0107
 
 
 class NotManagementCommandAdmin(Exception):
     """
-    Management command admin registry register command arg is not a management command admin exception.
+    Management command admin registry register command arg is not a management command admin exception.  # noqa: E501
     """
 
-    pass
+    pass  # pylint: disable=W0107
 
 
 class ManagementCommandAdmin(object):
@@ -51,7 +53,7 @@ class ManagementCommandAdmin(object):
     args = []  # type: List[Any]
     kwargs = {}  # type: Dict[str, Any]
     form = forms.Form  # type: Type[forms.Form]
-    templates = []  # type: ignore
+    templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
     def form_to_kwargs(self, post: QueryDict) -> Dict[str, Any]:
         """
