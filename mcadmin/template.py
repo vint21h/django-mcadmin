@@ -19,7 +19,7 @@ class ManagementCommandAdminTemplateFile(object):
     Management command admin example file class.
     """
 
-    # path in MCADMIN_UPLOAD_TEMPLATES_PATH (or URL for raw file)
+    # path in MCADMIN_TEMPLATES_PATH (or URL for raw file)
     path = ""  # type: str
     description = ""  # type: str
     raw = False  # type: bool

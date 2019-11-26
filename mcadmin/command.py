@@ -10,6 +10,7 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict
 
+from mcadmin.conf import settings
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
@@ -210,7 +211,12 @@ class ManagementCommandAdminRegistry(object):
         :rtype: Dict[str, List[ManagementCommandAdmin]].
         """
 
-        return {}
+        if settings.MCADMIN_USE_PERMISSIONS:
+
+            return {}
+        else:
+
+            return {}
 
 
 registry = ManagementCommandAdminRegistry()

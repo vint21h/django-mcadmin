@@ -24,10 +24,7 @@ urlpatterns = [
     url(
         r"^templates/(?P<path>.*)$",
         staff_member_required(serve),
-        {
-            "document_root": settings.MCADMIN_UPLOAD_TEMPLATES_PATH,
-            "show_indexes": False,
-        },
+        {"document_root": settings.MCADMIN_TEMPLATES_PATH, "show_indexes": False},
         name="mcadmin-template-file",
     ),
 ]  # type: List[Union[URLPattern, URLResolver]]

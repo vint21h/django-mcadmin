@@ -19,8 +19,8 @@ class DjangoDjversionAppConf(AppConf):
     """
 
     COMMANDS = getattr(settings, "MCADMIN_COMMANDS", {})  # type: Dict[str, str]
-    UPLOAD_TEMPLATES_PATH = getattr(
-        settings, "MCADMIN_UPLOAD_TEMPLATES_PATH", settings.STATIC_ROOT
+    TEMPLATES_PATH = getattr(
+        settings, "MCADMIN_TEMPLATES_PATH", settings.STATIC_ROOT
     )  # type: str
     UPLOADS_PATH = getattr(
         settings, "MCADMIN_UPLOADS_PATH", settings.MEDIA_ROOT
