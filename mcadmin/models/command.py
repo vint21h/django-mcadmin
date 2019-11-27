@@ -26,7 +26,7 @@ class Command(models.Model):
         max_length=255,
         verbose_name=_("name"),
         choices=registry.choices,
-        help_text=_("list from management commands admin registry"),
+        help_text=_("got from management commands admin registry"),
         db_index=True,
     )
     group = models.ForeignKey(

@@ -14,7 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
 from mcadmin.forms import ManagementCommandAdminFormFiles
-from mcadmin.utils import CommandsLoader
+from mcadmin.loader import ManagementCommandsLoader
 
 
 __all__ = [
@@ -60,7 +60,7 @@ class ManagementCommandsAdminIndex(TemplateView):
         context.update(
             {
                 "title": _("Management commands"),  # need to show in page title,
-                "loader": self.loader(request=self.request),
+                "loader": self.loader(),
             }
         )
 
@@ -82,10 +82,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: HttpResponse.
         """
 
-        command = self.loader(request=request).commands[
-            list(set(self.loader(request).commands.keys()) & set(request.POST.keys()))[
-                0
-            ]
+        command = self.loader().commands[
+            list(set(self.loader().commands.keys()) & set(request.POST.keys()))[0]
         ]  # get first command from POST data
         command.form = command.form(data=request.POST, files=request.FILES)
 
@@ -115,18 +113,15 @@ class ManagementCommandsAdminIndex(TemplateView):
 
         return self.render_to_response(self.get_context_data(**kwargs))
 
-    @staticmethod
-    def loader(request: HttpRequest) -> CommandsLoader:
+    def loader(self) -> ManagementCommandsLoader:
         """
         Get loader.
 
-        :param request: request.
-        :type request: HttpRequest.
-        :return: commands loader.
-        :rtype: CommandsLoader.
+        :return: management commands loader.
+        :rtype: ManagementCommandsLoader.
         """
 
-        return CommandsLoader(request=request)
+        return ManagementCommandsLoader(user=self.request.user)
 
     def get_template_names(self) -> List[str]:
         """

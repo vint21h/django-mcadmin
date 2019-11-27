@@ -31,6 +31,7 @@ class GroupPermission(models.Model):
         verbose_name=_("user"),
         db_index=True,
         on_delete=models.CASCADE,
+        related_name="mcadmin_groups",
     )
 
     def __unicode__(self) -> str:

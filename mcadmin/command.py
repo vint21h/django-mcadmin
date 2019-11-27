@@ -10,7 +10,6 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict
 
-from mcadmin.conf import settings
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
@@ -201,22 +200,6 @@ class ManagementCommandAdminRegistry(object):
         """
 
         return [(name, command.name) for name, command in self._registry.items()]
-
-    @property
-    def registry(self) -> Dict[str, List[ManagementCommandAdmin]]:
-        """
-        Return initialized management commands admin classes.
-
-        :return: initialized management commands admin classes.
-        :rtype: Dict[str, List[ManagementCommandAdmin]].
-        """
-
-        if settings.MCADMIN_USE_PERMISSIONS:
-
-            return {}
-        else:
-
-            return {}
 
 
 registry = ManagementCommandAdminRegistry()

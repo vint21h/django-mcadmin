@@ -25,7 +25,7 @@ class UserPermission(models.Model):
         max_length=255,
         verbose_name=_("name"),
         choices=registry.choices,
-        help_text=_("list from management commands admin registry"),
+        help_text=_("got from management commands admin registry"),
         db_index=True,
     )
     user = models.ForeignKey(
@@ -33,6 +33,7 @@ class UserPermission(models.Model):
         verbose_name=_("user"),
         db_index=True,
         on_delete=models.CASCADE,
+        related_name="mcadmin_commands",
     )
 
     def __unicode__(self) -> str:
