@@ -114,9 +114,16 @@ class ManagementCommandAdmin(object):
 
             return post.get(key, None)
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
         Run management command.
+
+        :param args: additional args.
+        :type args: List[Any]
+        :param kwargs: additional args.
+        :type kwargs: Dict[str, Any]
+        :return: nothing.
+        :rtype: None.
         """
 
         call_command(self.command, *args, **kwargs)

@@ -84,7 +84,7 @@ class ManagementCommandAdminFormFiles(forms.Form):
         """
 
         return str(
-            pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(
+            pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(  # type: ignore
                 "{cls}:{time}-{hash}--{file}".format(
                     cls=self.__class__.__name__,
                     time=timezone.now(),

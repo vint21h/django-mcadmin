@@ -84,8 +84,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: HttpResponse.
         """
 
-        command = self.loader.commands[
-            list(set(self.loader.commands.keys()) & set(request.POST.keys()))[0]
+        command = self.loader.registry[
+            list(set(self.loader.registry.keys()) & set(request.POST.keys()))[0]
         ]  # get first command from POST data
         command.form = command.form(data=request.POST, files=request.FILES)
 

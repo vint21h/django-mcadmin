@@ -6,7 +6,10 @@
 
 from typing import Dict, List, Union  # pylint: disable=W0611
 
-from mcadmin.command import ManagementCommandAdmin
+from django.db.models import QuerySet
+
+from mcadmin.command import ManagementCommandAdmin, registry
+from mcadmin.models.command import Command
 from mcadmin.models.group import Group
 
 
@@ -21,7 +24,7 @@ class ManagementCommandsLoader(object):
     """
 
     user = None
-    commands = {}  # type: Dict[Union[Group, None], List[ManagementCommandAdmin]]
+    commands = {}  # type: Dict[Union[Group, None], Dict[str, ManagementCommandAdmin]]
 
     def __init__(self, user) -> None:
         """
@@ -35,6 +38,7 @@ class ManagementCommandsLoader(object):
 
         self.user = user
         self.load()
+        self.registry = registry._registry
 
     def load(self) -> None:
         """
@@ -44,4 +48,17 @@ class ManagementCommandsLoader(object):
         :rtype: None.
         """
 
-        pass
+        groups = Group.objects.filter(
+            pk__in=Command.objects.all().values_list("group", flat=True)
+        )  # type: QuerySet[Group]
+        other = Command.objects.filter(group__is_null=True)  # type: QuerySet[Command]
+
+        for group in groups:
+            self.commands.update(
+                {group: {}}  # TODO: filter commands in group by user permissions
+            )
+
+        if other.count():
+            self.commands.update(
+                {None: {}}  # TODO: filter commands by command user permissions
+            )
