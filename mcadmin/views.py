@@ -4,7 +4,7 @@
 # mcadmin/views.py
 
 
-from typing import Any, Dict, List  # pylint: disable=W0611
+from typing import Any, Dict, List, Union  # pylint: disable=W0611
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -26,6 +26,8 @@ class ManagementCommandsAdminIndex(TemplateView):
     """
     Main management commands admin view.
     """
+
+    _loader = None  # type: Union[ManagementCommandsLoader, None]
 
     @method_decorator(user_passes_test(lambda u: u.is_staff))
     def dispatch(self, request: HttpRequest, *args, **kwargs) -> Any:
@@ -60,7 +62,7 @@ class ManagementCommandsAdminIndex(TemplateView):
         context.update(
             {
                 "title": _("Management commands"),  # need to show in page title,
-                "loader": self.loader(),
+                "commands": self.loader.commands,
             }
         )
 
@@ -82,8 +84,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: HttpResponse.
         """
 
-        command = self.loader().commands[
-            list(set(self.loader().commands.keys()) & set(request.POST.keys()))[0]
+        command = self.loader.commands[
+            list(set(self.loader.commands.keys()) & set(request.POST.keys()))[0]
         ]  # get first command from POST data
         command.form = command.form(data=request.POST, files=request.FILES)
 
@@ -113,6 +115,7 @@ class ManagementCommandsAdminIndex(TemplateView):
 
         return self.render_to_response(self.get_context_data(**kwargs))
 
+    @property
     def loader(self) -> ManagementCommandsLoader:
         """
         Get loader.
@@ -121,7 +124,13 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: ManagementCommandsLoader.
         """
 
-        return ManagementCommandsLoader(user=self.request.user)
+        if self._loader:
+
+            return self._loader
+        else:
+            self._loader = ManagementCommandsLoader(user=self.request.user)
+
+            return self._loader
 
     def get_template_names(self) -> List[str]:
         """

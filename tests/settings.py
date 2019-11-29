@@ -84,4 +84,3 @@ NOSE_ARGS = [
 ROOT_URLCONF = "mcadmin.urls"  # type: str
 
 # mcadmin settings
-MCADMIN_COMMANDS = {}  # type: Dict[str, List[str]]

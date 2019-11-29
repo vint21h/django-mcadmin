@@ -6,14 +6,8 @@
 
 from typing import Dict, List, Union  # pylint: disable=W0611
 
-from django.db.models import QuerySet
-
 from mcadmin.command import ManagementCommandAdmin
-from mcadmin.conf import settings
-from mcadmin.models.command import Command
 from mcadmin.models.group import Group
-from mcadmin.models.permissions.group import GroupPermission
-from mcadmin.models.permissions.user import UserPermission
 
 
 __all__ = [
@@ -50,19 +44,4 @@ class ManagementCommandsLoader(object):
         :rtype: None.
         """
 
-        groups = Group.objects.filter(
-            pk__in=Command.objects.all().values_list("group", flat=True)
-        )  # type: QuerySet[Group]
-        other = Command.objects.filter(group__is_null=True)  # type: QuerySet[Command]
-
-        for group in groups:
-            self.commands.update(
-                {
-                    group: [],  # TODO: filter commands in group by command user permissions
-                }
-            )
-
-        if other.count():
-            self.commands.update(
-                {None: []}  # TODO: filter commands by command user permissions
-            )
+        pass

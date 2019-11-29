@@ -4,7 +4,7 @@
 # djversion/conf.py
 
 
-from typing import Dict, List  # pylint: disable=W0611
+from typing import List  # pylint: disable=W0611
 
 from appconf import AppConf
 from django.conf import settings
@@ -18,7 +18,6 @@ class DjangoDjversionAppConf(AppConf):
     Django djversion settings.
     """
 
-    COMMANDS = getattr(settings, "MCADMIN_COMMANDS", {})  # type: Dict[str, str]
     TEMPLATES_PATH = getattr(
         settings, "MCADMIN_TEMPLATES_PATH", settings.STATIC_ROOT
     )  # type: str
