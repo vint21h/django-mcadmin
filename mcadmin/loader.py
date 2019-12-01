@@ -20,7 +20,7 @@ __all__ = [
 
 class ManagementCommandsLoader(object):
     """
-    Load commands, group them and filter by permissions.
+    Load commands and group them.
     """
 
     user = None
@@ -54,11 +54,7 @@ class ManagementCommandsLoader(object):
         other = Command.objects.filter(group__is_null=True)  # type: QuerySet[Command]
 
         for group in groups:
-            self.commands.update(
-                {group: {}}  # TODO: filter commands in group by user permissions
-            )
+            self.commands.update({group: {}})
 
         if other.count():
-            self.commands.update(
-                {None: {}}  # TODO: filter commands by command user permissions
-            )
+            self.commands.update({None: {}})

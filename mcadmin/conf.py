@@ -24,7 +24,6 @@ class DjangoDjversionAppConf(AppConf):
     UPLOADS_PATH = getattr(
         settings, "MCADMIN_UPLOADS_PATH", settings.MEDIA_ROOT
     )  # type: str
-    USE_PERMISSIONS = getattr(settings, "MCADMIN_USE_PERMISSIONS", False)  # type: bool
 
     class Meta:
 
