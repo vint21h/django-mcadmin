@@ -18,7 +18,7 @@ from mcadmin.conf import settings
 
 __all__ = [
     "ManagementCommandAdminFormTask",
-    "ManagementCommandAdminFormFiles",
+    "ManagementCommandAdminFilesForm",
 ]  # type: List[str]
 
 
@@ -34,7 +34,7 @@ class ManagementCommandAdminFormTask(forms.Form):
     )
 
 
-class ManagementCommandAdminFormFiles(forms.Form):
+class ManagementCommandAdminFilesForm(forms.Form):
     """
     Management commands admin form with file upload handle.
     """

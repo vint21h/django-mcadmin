@@ -4,7 +4,7 @@
 # mcadmin/command.py
 
 
-from typing import Any, Dict, List, Type, Tuple  # pylint: disable=W0611
+from typing import Any, Dict, List, Type, Tuple, Union  # pylint: disable=W0611
 
 from django import forms
 from django.core.management import call_command
@@ -52,7 +52,7 @@ class ManagementCommandAdmin(object):
     name = ""  # type: str
     args = []  # type: List[Any]
     kwargs = {}  # type: Dict[str, Any]
-    form = None  # type: Type[forms.Form]
+    form = None  # type: Union[Type[forms.Form], forms.Form, None]
     templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
     def form_to_kwargs(self, post: QueryDict) -> Dict[str, Any]:
@@ -67,7 +67,7 @@ class ManagementCommandAdmin(object):
 
         kwargs = {}  # type: Dict[str, Any]
 
-        for key in self.form.fields.keys():
+        for key in self.form.fields.keys():  # type: ignore
             kwargs.update({key: self.value(key, post)})
         kwargs.update(self.kwargs)  # add default options
 
@@ -84,7 +84,7 @@ class ManagementCommandAdmin(object):
         """
 
         args = [
-            self.value(key, post) for key in self.form.fields.keys()
+            self.value(key, post) for key in self.form.fields.keys()  # type: ignore
         ]  # type: List[Any]
         args.extend(self.args)  # add default options
 
@@ -104,15 +104,15 @@ class ManagementCommandAdmin(object):
 
         if any(
             [
-                isinstance(self.form.fields[key], forms.FileField),
-                isinstance(self.form.fields[key], forms.ImageField),
+                isinstance(self.form.fields[key], forms.FileField),  # type: ignore
+                isinstance(self.form.fields[key], forms.ImageField),  # type: ignore
             ]
         ):
             # return file path for file field
-            return self.form.fields[key].path
+            return self.form.fields[key].path  # type: ignore
         else:
 
-            return post.get(key, None)
+            return post.get(key)
 
     def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """

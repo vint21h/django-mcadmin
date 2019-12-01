@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from mcadmin.forms import ManagementCommandAdminFormFiles
+from mcadmin.forms import ManagementCommandAdminFilesForm
 from mcadmin.loader import ManagementCommandsLoader
 
 
@@ -84,36 +84,50 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: HttpResponse.
         """
 
-        command = self.loader.registry[
-            list(set(self.loader.registry.keys()) & set(request.POST.keys()))[0]
-        ]  # get first command from POST data
-        command.form = command.form(data=request.POST, files=request.FILES)
+        command = self.loader.get_command(name=self.get_command_name(request=request))
 
-        if command.form.is_valid():
-            if (
-                isinstance(command.form, ManagementCommandAdminFormFiles)
-                and command.templates
-            ):  # check if form have files
-                command.form.save_files()
-            try:
-                command.handle(
-                    *command.form_to_args(post=request.POST),
-                    **command.form_to_kwargs(post=request.POST),
-                )
-                messages.success(
-                    request, _(f"Run '{command.name}' management command success"),
-                )
-            except Exception as error:
+        if command:
+            command.form = command.form(data=request.POST, files=request.FILES)  # type: ignore  # noqa: E501
+
+            if command.form.is_valid():
+                if (
+                    isinstance(command.form, ManagementCommandAdminFilesForm)
+                    and command.templates
+                ):  # check if form have files and save them
+                    command.form.save_files()
+                try:
+                    command.handle(
+                        *command.form_to_args(post=request.POST),
+                        **command.form_to_kwargs(post=request.POST),
+                    )
+                    messages.success(
+                        request, _(f"Run '{command.name}' management command success"),
+                    )
+                except Exception as error:
+                    messages.error(
+                        request,
+                        _(
+                            f"Running '{command.name}' management command error: {error}"  # noqa: E501
+                        ),
+                    )
+            else:
                 messages.error(
-                    request,
-                    _(f"Running '{command.name}' management command error: {error}"),
+                    request, _(f"This form was completed with errors: {command.name}"),
                 )
-        else:
-            messages.error(
-                request, _(f"This form was completed with errors: {command.name}"),
-            )
 
         return self.render_to_response(self.get_context_data(**kwargs))
+
+    def get_template_names(self) -> List[str]:
+        """
+        Get template.
+
+        :return: list of templates.
+        :rtype: List[str].
+        """
+
+        return [
+            "mcadmin/index.html",
+        ]
 
     @property
     def loader(self) -> ManagementCommandsLoader:
@@ -132,14 +146,14 @@ class ManagementCommandsAdminIndex(TemplateView):
 
             return self._loader
 
-    def get_template_names(self) -> List[str]:
+    def get_command_name(self, request: HttpRequest) -> str:
         """
-        Get template.
+        Get command name from request data.
 
-        :return: list of templates.
-        :rtype: List[str].
+        :param request: request.
+        :type request: HttpRequest.
+        :return: command name.
+        :rtype: str.
         """
 
-        return [
-            "mcadmin/index.html",
-        ]
+        return min(set(self.loader.registry.keys()).intersection(request.POST.keys()))

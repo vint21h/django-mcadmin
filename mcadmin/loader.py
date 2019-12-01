@@ -4,7 +4,7 @@
 # mcadmin/loader.py
 
 
-from typing import Dict, List, Union  # pylint: disable=W0611
+from typing import Dict, List, Type, Union  # pylint: disable=W0611
 
 from django.db.models import QuerySet
 
@@ -23,8 +23,10 @@ class ManagementCommandsLoader(object):
     Load commands and group them.
     """
 
-    user = None
-    commands = {}  # type: Dict[Union[Group, None], Dict[str, ManagementCommandAdmin]]
+    commands = (
+        {}
+    )  # type: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]
+    registry = {}  # type: Dict[str, Type[ManagementCommandAdmin]]
 
     def __init__(self) -> None:
         """
@@ -34,8 +36,8 @@ class ManagementCommandsLoader(object):
         :rtype: None.
         """
 
-        self.load()
         self.registry = registry._registry
+        self.load()
 
     def load(self) -> None:
         """
@@ -51,7 +53,33 @@ class ManagementCommandsLoader(object):
         other = Command.objects.filter(group__is_null=True)  # type: QuerySet[Command]
 
         for group in groups:
-            self.commands.update({group: {}})
+            self.commands.update(
+                {
+                    group: {
+                        command.command: self.get_command(name=command.command)
+                        for command in group.commands.all()
+                    }
+                }
+            )
 
         if other.count():
-            self.commands.update({None: {}})
+            self.commands.update(
+                {
+                    None: {
+                        command.command: self.get_command(name=command.command)
+                        for command in other
+                    }
+                }
+            )
+
+    def get_command(self, name: str) -> Union[ManagementCommandAdmin, None]:
+        """
+        Get and initialize command from registry.
+
+        :param name: command name.
+        :type name: str.
+        :return: initialized command.
+        :rtype: Union[ManagementCommandAdmin, None].
+        """
+
+        return self.registry[name]() if self.registry.get(name) else None
