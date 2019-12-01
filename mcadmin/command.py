@@ -52,7 +52,7 @@ class ManagementCommandAdmin(object):
     name = ""  # type: str
     args = []  # type: List[Any]
     kwargs = {}  # type: Dict[str, Any]
-    form = forms.Form  # type: Type[forms.Form]
+    form = None  # type: Type[forms.Form]
     templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
     def form_to_kwargs(self, post: QueryDict) -> Dict[str, Any]:
@@ -192,6 +192,7 @@ class ManagementCommandAdminRegistry(object):
     def __get_command_key(command) -> str:
         """
         Get command key for registry (class module name + class name).
+
         :param command: management command admin class.
         :type command: Type[ManagementCommandAdmin].
         :return: class module name + class name.

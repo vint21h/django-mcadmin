@@ -26,17 +26,14 @@ class ManagementCommandsLoader(object):
     user = None
     commands = {}  # type: Dict[Union[Group, None], Dict[str, ManagementCommandAdmin]]
 
-    def __init__(self, user) -> None:
+    def __init__(self) -> None:
         """
         Init loader.
 
-        :param user: current user.
-        :type user: django.contrib.auth.models.User.
         :return: nothing.
         :rtype: None.
         """
 
-        self.user = user
         self.load()
         self.registry = registry._registry
 

@@ -128,7 +128,7 @@ class ManagementCommandsAdminIndex(TemplateView):
 
             return self._loader
         else:
-            self._loader = ManagementCommandsLoader(user=self.request.user)
+            self._loader = ManagementCommandsLoader()
 
             return self._loader
 
