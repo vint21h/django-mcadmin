@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2019-12-01 20:19+0200\n"
+"POT-Creation-Date: 2019-12-01 21:14+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -86,12 +86,12 @@ msgstr "Management command does not require additional options"
 msgid "Run '{command.name}' management command success"
 msgstr "Run '{command.name}' management command success"
 
-#: mcadmin/views.py:109
+#: mcadmin/views.py:110
 #, python-brace-format
 msgid "Running '{command.name}' management command error: {error}"
 msgstr "Running '{command.name}' management command error: {error}"
 
-#: mcadmin/views.py:113
+#: mcadmin/views.py:115
 #, python-brace-format
 msgid "This form was completed with errors: {command.name}"
 msgstr "This form was completed with errors: {command.name}"
