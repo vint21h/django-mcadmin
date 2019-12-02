@@ -4,22 +4,18 @@
 
 {% load i18n %}
 
-{% if group.commands.all %}
-    <div id="{{ group.name|lower }}">
-        <table summary="{{ group.name }}">
-            <caption><a href="#{{ group.name|lower }}">{{ group.name }}</a></caption>
-            <tbody>
-                {% for command in group.commands.all %}
-                    <tr>
-                        <th scope="row">
-                            {# TODO: deal with command from group. #}
-                            {% with command.command as command %}
-                                {% include "mcadmin/includes/command.html" %}
-                            {% endwith %}
-                        </th>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% endif %}
+
+<div id="{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">
+    <table summary="{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">
+        <caption><a href="#{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">{% if group %}{{ group.name }}{% else %}other{% endif %}</a></caption>
+        <tbody>
+            {% for command in commands %}
+                <tr>
+                    <th scope="row">
+                        {% include "mcadmin/includes/command.html" %}
+                    </th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -6,28 +6,9 @@
 
 
 <div id="content-main">
-    {% if loader.groups %}
-        {% for group in loader.groups %}
-            {% include "mcadmin/includes/group.html" %}
-        {% endfor %}
-    {% endif %}
-    {% if loader.commands %}
-        <div id="rest">
-            <table summary="{% if loader.groups or USE_PERMISSIONS %}{% trans "Rest" %}{% endif %}">
-                <caption><a href="{% if loader.groups or USE_PERMISSIONS %}#rest{% endif %}">{% if loader.groups or USE_PERMISSIONS %}{% trans "Rest" %}{% endif %}</a></caption>
-                <tbody>
-                    {% for command in loader.commands.values %}
-                        <tr>
-                            <th scope="row">
-                                {% include "mcadmin/includes/command.html" %}
-                            </th>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% endif %}
-    {% if not loader.groups and not loader.commands %}
-        <h1>{% trans "You do not have access to any command" %}</h1>
-    {% endif %}
+    {% for group, commands in commands.items %}
+        {% include "mcadmin/includes/group.html" %}
+    {% empty %}
+        <h1>{% trans "These Are Not the Commands You Are Looking For." %}</h1>
+    {% endfor %}
 </div>
