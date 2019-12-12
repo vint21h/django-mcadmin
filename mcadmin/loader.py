@@ -8,9 +8,10 @@ from typing import Dict, List, Type, Union  # pylint: disable=W0611
 
 from django.db.models import QuerySet
 
-from mcadmin.command import ManagementCommandAdmin, registry
+from mcadmin.command import ManagementCommandAdmin
 from mcadmin.models.command import Command
 from mcadmin.models.group import Group
+from mcadmin.registry import registry
 
 
 __all__ = [

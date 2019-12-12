@@ -9,7 +9,7 @@ from typing import List  # pylint: disable=W0611
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mcadmin.command import registry
+from mcadmin.registry import registry
 
 
 __all__ = [
