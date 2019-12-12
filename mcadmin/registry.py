@@ -99,5 +99,15 @@ class ManagementCommandAdminRegistry(object):
 
         return [(name, command.name) for name, command in self._registry.items()]
 
+    def clean(self) -> None:
+        """
+        Clean registry.
+
+        :return: nothing.
+        :rtype: None.
+        """
+
+        self._registry = {}
+
 
 registry = ManagementCommandAdminRegistry()
