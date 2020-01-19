@@ -19,7 +19,7 @@ class ManagementCommandAdminAlreadyRegistered(Exception):
     Management command admin already registered exception.
     """
 
-    pass  # pylint: disable=W0107
+    ...
 
 
 class ManagementCommandAdminNotRegistered(Exception):
@@ -27,7 +27,7 @@ class ManagementCommandAdminNotRegistered(Exception):
     Management command admin not registered exception.
     """
 
-    pass  # pylint: disable=W0107
+    ...
 
 
 class NotManagementCommandAdmin(Exception):
@@ -35,4 +35,4 @@ class NotManagementCommandAdmin(Exception):
     Management command admin registry register command arg is not a management command admin exception.  # noqa: E501
     """
 
-    pass  # pylint: disable=W0107
+    ...
