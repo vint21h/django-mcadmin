@@ -87,19 +87,39 @@ class ManagementCommandsAdminIndex(TemplateView):
         command = self.loader.get_command(name=self.get_command_name(request=request))
 
         if command:
-            command.form = command.form(data=request.POST, files=request.FILES)  # type: ignore  # noqa: E501
+            form = command.get_form(request=request)
 
-            if command.form.is_valid():
-                if (
-                    isinstance(command.form, ManagementCommandAdminFilesForm)
-                    and command.templates
-                ):  # check if form have files and save them
-                    command.form.save_files()
-                try:
-                    command.handle(
-                        *command.form_to_args(post=request.POST),
-                        **command.form_to_kwargs(post=request.POST),
+            if form:
+                if form.is_valid():
+                    if (
+                        isinstance(form, ManagementCommandAdminFilesForm)
+                        and command.templates
+                    ):  # check if form have files and save them
+                        form.save_files()
+                    try:
+                        command.handle(
+                            *command.form_to_args(form=form, post=request.POST),
+                            **command.form_to_kwargs(form=form, post=request.POST),
+                        )
+                        messages.success(
+                            request,
+                            _(f"Run '{command.name}' management command success"),
+                        )
+                    except Exception as error:
+                        messages.error(
+                            request,
+                            _(
+                                f"Running '{command.name}' management command error: {error}"  # noqa: E501
+                            ),
+                        )
+                else:
+                    messages.error(
+                        request,
+                        _(f"This form was completed with errors: {command.name}"),
                     )
+            else:
+                try:
+                    command.handle()
                     messages.success(
                         request, _(f"Run '{command.name}' management command success"),
                     )
@@ -110,10 +130,6 @@ class ManagementCommandsAdminIndex(TemplateView):
                             f"Running '{command.name}' management command error: {error}"  # noqa: E501
                         ),
                     )
-            else:
-                messages.error(
-                    request, _(f"This form was completed with errors: {command.name}"),
-                )
 
         return self.render_to_response(self.get_context_data(**kwargs))
 

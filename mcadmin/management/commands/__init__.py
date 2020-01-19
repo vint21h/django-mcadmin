@@ -60,8 +60,8 @@ class TaskCommand(BaseCommand):
 
     def _local(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
-        Must be implemented in child class.
         Run command locally.
+        Must be implemented in child class.
 
         :param args: additional args.
         :type args: List[Any].
@@ -75,8 +75,8 @@ class TaskCommand(BaseCommand):
 
     def _as_task(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
-        Must be implemented in child class.
         Run command as background task.
+        Must be implemented in child class.
 
         :param args: additional args.
         :type args: List[Any].

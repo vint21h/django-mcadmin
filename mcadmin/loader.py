@@ -83,4 +83,4 @@ class ManagementCommandsLoader(object):
         :rtype: Union[ManagementCommandAdmin, None].
         """
 
-        return self.registry[name]() if self.registry.get(name) else None
+        return self.registry[name]() if name in self.registry else None
