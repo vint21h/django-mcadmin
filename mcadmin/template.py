@@ -16,7 +16,7 @@ __all__ = [
 
 class ManagementCommandAdminTemplateFile(object):
     """
-    Management command admin example file class.
+    Management command admin template file class.
     """
 
     # path in MCADMIN_TEMPLATES_PATH (or URL for raw file)
