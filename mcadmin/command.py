@@ -10,6 +10,7 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict, HttpRequest
 
+from mcadmin.forms import ManagementCommandAdminFilesForm
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
@@ -69,8 +70,7 @@ class ManagementCommandAdmin(object):
 
         return args
 
-    @staticmethod
-    def value(form: forms.Form, key: str, post: QueryDict) -> Any:
+    def value(self, form: forms.Form, key: str, post: QueryDict) -> Any:
         """
         Get form field value.
 
@@ -84,10 +84,16 @@ class ManagementCommandAdmin(object):
         :rtype: Any.
         """
 
-        if any(
+        if all(
             [
-                isinstance(form.fields[key], forms.FileField),
-                isinstance(form.fields[key], forms.ImageField),
+                isinstance(form, ManagementCommandAdminFilesForm),
+                self.templates,
+                any(
+                    [
+                        isinstance(form.fields[key], forms.FileField),
+                        isinstance(form.fields[key], forms.ImageField),
+                    ]
+                ),
             ]
         ):
             # return file path for file field
