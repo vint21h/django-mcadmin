@@ -91,10 +91,11 @@ class ManagementCommandsAdminIndex(TemplateView):
 
             if form:
                 if form.is_valid():
+                    # check if form have files and save them
                     if (
                         isinstance(form, ManagementCommandAdminFilesForm)
                         and command.templates
-                    ):  # check if form have files and save them
+                    ):
                         form.save_files()
                     try:
                         command.handle(
