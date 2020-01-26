@@ -6,16 +6,12 @@
 
 from typing import List  # pylint: disable=W0611
 
-from django import forms
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
-from mcadmin.forms import (
-    ManagementCommandAdminFormTask,
-    ManagementCommandAdminFilesForm,
-)
+from mcadmin.forms import ManagementCommandAdminFormTask
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
@@ -31,14 +27,12 @@ class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile)
     description = "Test file"
 
 
-class TestManagementCommandAdminFilesTaskForm(
-    ManagementCommandAdminFilesForm, ManagementCommandAdminFormTask
-):
+class TestManagementCommandAdminFilesTaskForm(ManagementCommandAdminFormTask):
     """
     Management command admin form for tests.
     """
 
-    file = forms.FileField(label="file", required=True)
+    ...
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
@@ -64,7 +58,8 @@ class ManagementCommandAdminTest(TestCase):
 
         self.command = TestManagementCommandAdmin()
         self.request = RequestFactory().post(
-            path=reverse("mcadmin-index"), data={"as_task": "on"}
+            path=reverse("mcadmin-index"),
+            data={"as_task": "on", "test-command": "test-command"},
         )
 
     def test_get_form(self):
@@ -92,7 +87,7 @@ class ManagementCommandAdminTest(TestCase):
             form=form, key="as_task", data=self.request.POST  # type: ignore
         )
 
-        self.assertEqual(first=result, second=True)
+        self.assertEqual(first=result, second="on")
 
     def test_form_to_args(self):
         """
@@ -103,7 +98,7 @@ class ManagementCommandAdminTest(TestCase):
         form.is_valid()  # type: ignore
         result = self.command.form_to_args(form=form, data=self.request.POST)  # type: ignore  # noqa: E501
 
-        self.assertEqual(first=result, second=[True])
+        self.assertEqual(first=result, second=["on"])
 
     def test_form_to_kwargs(self):
         """
@@ -114,4 +109,4 @@ class ManagementCommandAdminTest(TestCase):
         form.is_valid()  # type: ignore
         result = self.command.form_to_kwargs(form=form, data=self.request.POST)  # type: ignore  # noqa: E501
 
-        self.assertEqual(first=result, second={"as_task": True, "file": None})
+        self.assertEqual(first=result, second={"as_task": "on"})

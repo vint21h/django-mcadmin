@@ -67,7 +67,7 @@ class ManagementCommandAdmin(object):
         args = self.args  # type: List[Any]
 
         for index, key in enumerate(form.fields.keys()):
-            args[index] = self.form_value(form=form, key=key, data=data)
+            args.insert(index, self.form_value(form=form, key=key, data=data))
 
         return args
 
