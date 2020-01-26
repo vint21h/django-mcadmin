@@ -37,7 +37,7 @@ class TestManagementCommandAdminFilesTaskForm(
     Management command admin form for tests.
     """
 
-    path = forms.FileField(label="file", required=True)
+    file = forms.FileField(label="file", required=True)
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
@@ -58,7 +58,7 @@ class ManagementCommandAdminTest(TestCase):
 
     def test_get_form(self):
         """
-        get_form method must return form instance initialised with request data.
+        get_form method must return form instance initialized with request data.
         """
 
         command = TestManagementCommandAdmin()

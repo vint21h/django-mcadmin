@@ -26,8 +26,8 @@ class ManagementCommandAdmin(object):
 
     command = ""  # type: str
     name = ""  # type: str
-    args = []  # type: List[Any]
-    kwargs = {}  # type: Dict[str, Any]
+    args = []  # type: List[Any]  # default options
+    kwargs = {}  # type: Dict[str, Any]  # default options
     form = None  # type: Union[Type[forms.Form], None]
     templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
@@ -35,7 +35,7 @@ class ManagementCommandAdmin(object):
         """
         Convert validated form data to command kwargs.
 
-        :param form: form instance initialised with request data.
+        :param form: form instance initialized with request data.
         :type form: forms.Form.
         :param data: request data.
         :type data: QueryDict.
@@ -43,11 +43,11 @@ class ManagementCommandAdmin(object):
         :rtype: Dict[str, Any].
         """
 
-        kwargs = {}  # type: Dict[str, Any]
+        # set default options
+        kwargs = self.kwargs  # type: Dict[str, Any]
 
         for key in self.form.fields.keys():  # type: ignore
-            kwargs.update({key: self.value(form=form, key=key, data=data)})
-        kwargs.update(self.kwargs)  # add default options
+            kwargs.update({key: self.form_value(form=form, key=key, data=data)})
 
         return kwargs
 
@@ -55,7 +55,7 @@ class ManagementCommandAdmin(object):
         """
         Convert validated form data to command args.
 
-        :param form: form instance initialised with request data.
+        :param form: form instance initialized with request data.
         :type form: forms.Form.
         :param data: request data.
         :type data: QueryDict.
@@ -63,18 +63,19 @@ class ManagementCommandAdmin(object):
         :rtype: List[Any].
         """
 
-        args = [
-            self.value(form=form, key=key, data=data) for key in form.fields.keys()
-        ]  # type: List[Any]
-        args.extend(self.args)  # add default options
+        # set default options
+        args = self.args  # type: List[Any]
+
+        for index, key in enumerate(form.fields.keys()):
+            args[index] = self.form_value(form=form, key=key, data=data)
 
         return args
 
-    def value(self, form: forms.Form, key: str, data: QueryDict) -> Any:
+    def form_value(self, form: forms.Form, key: str, data: QueryDict) -> Any:
         """
         Get form field value.
 
-        :param form: form instance initialised with request data.
+        :param form: form instance initialized with request data.
         :type form: forms.Form.
         :param key: key name.
         :type key: str.
@@ -118,11 +119,11 @@ class ManagementCommandAdmin(object):
 
     def get_form(self, request: Optional[HttpRequest]) -> Union[forms.Form, None]:
         """
-        Get command form instance initialised with request data.
+        Get command form instance initialized with request data.
 
         :param request: request.
         :type request: HttpRequest.
-        :return: form instance initialised with request data.
+        :return: form instance initialized with request data or None.
         :rtype: Union[forms.Form, None].
         """
 
