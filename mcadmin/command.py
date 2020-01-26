@@ -31,14 +31,14 @@ class ManagementCommandAdmin(object):
     form = None  # type: Union[Type[forms.Form], None]
     templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
-    def form_to_kwargs(self, form: forms.Form, post: QueryDict) -> Dict[str, Any]:
+    def form_to_kwargs(self, form: forms.Form, data: QueryDict) -> Dict[str, Any]:
         """
         Convert validated form data to command kwargs.
 
         :param form: form instance initialised with request data.
-        :type post: forms.Form.
-        :param post: request POST data.
-        :type post: QueryDict.
+        :type form: forms.Form.
+        :param data: request data.
+        :type data: QueryDict.
         :return: command kwargs.
         :rtype: Dict[str, Any].
         """
@@ -46,40 +46,40 @@ class ManagementCommandAdmin(object):
         kwargs = {}  # type: Dict[str, Any]
 
         for key in self.form.fields.keys():  # type: ignore
-            kwargs.update({key: self.value(form=form, key=key, post=post)})
+            kwargs.update({key: self.value(form=form, key=key, data=data)})
         kwargs.update(self.kwargs)  # add default options
 
         return kwargs
 
-    def form_to_args(self, form: forms.Form, post: QueryDict) -> List[Any]:
+    def form_to_args(self, form: forms.Form, data: QueryDict) -> List[Any]:
         """
         Convert validated form data to command args.
 
         :param form: form instance initialised with request data.
-        :type post: forms.Form.
-        :param post: request POST data.
-        :type post: QueryDict.
+        :type form: forms.Form.
+        :param data: request data.
+        :type data: QueryDict.
         :return: command args.
         :rtype: List[Any].
         """
 
         args = [
-            self.value(form=form, key=key, post=post) for key in form.fields.keys()
+            self.value(form=form, key=key, data=data) for key in form.fields.keys()
         ]  # type: List[Any]
         args.extend(self.args)  # add default options
 
         return args
 
-    def value(self, form: forms.Form, key: str, post: QueryDict) -> Any:
+    def value(self, form: forms.Form, key: str, data: QueryDict) -> Any:
         """
         Get form field value.
 
         :param form: form instance initialised with request data.
-        :type post: forms.Form.
+        :type form: forms.Form.
         :param key: key name.
         :type key: str.
-        :param post: request POST data.
-        :type post: QueryDict.
+        :param data: request data.
+        :type data: QueryDict.
         :return: key value.
         :rtype: Any.
         """
@@ -100,9 +100,9 @@ class ManagementCommandAdmin(object):
             return form.fields[key].path
         else:
 
-            return post.get(key)
+            return data.get(key)
 
-    def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
+    def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> Any:
         """
         Run management command.
 
@@ -110,11 +110,11 @@ class ManagementCommandAdmin(object):
         :type args: List[Any]
         :param kwargs: additional args.
         :type kwargs: Dict[str, Any]
-        :return: nothing.
-        :rtype: None.
+        :return: command execution result.
+        :rtype: Any.
         """
 
-        call_command(self.command, *args, **kwargs)
+        return call_command(self.command, *args, **kwargs)
 
     def get_form(self, request: Optional[HttpRequest]) -> Union[forms.Form, None]:
         """

@@ -99,8 +99,8 @@ class ManagementCommandsAdminIndex(TemplateView):
                         form.save_files()
                     try:
                         command.handle(
-                            *command.form_to_args(form=form, post=request.POST),
-                            **command.form_to_kwargs(form=form, post=request.POST),
+                            *command.form_to_args(form=form, data=request.POST),
+                            **command.form_to_kwargs(form=form, data=request.POST),
                         )
                         messages.success(
                             request,

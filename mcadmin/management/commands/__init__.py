@@ -41,7 +41,7 @@ class TaskCommand(BaseCommand):
         )
 
     @no_translations
-    def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
+    def handle(self, *args: List[Any], **kwargs: Dict[str, Any]) -> Any:
         """
         Detect how to run command.
 
@@ -49,14 +49,14 @@ class TaskCommand(BaseCommand):
         :type args: List[Any].
         :param kwargs: additional args.
         :type kwargs: Dict[str, Any].
-        :return: nothing.
-        :rtype: None.
+        :return: command execution result.
+        :rtype: Any
         """
 
         if kwargs.get("as_task", False):
-            self._as_task(*args, **kwargs)
+            return self._as_task(*args, **kwargs)
         else:
-            self._local(*args, **kwargs)
+            return self._local(*args, **kwargs)
 
     def _local(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """

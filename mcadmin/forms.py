@@ -49,7 +49,12 @@ class ManagementCommandAdminFilesForm(forms.Form):
         """
 
         for field in self.fields:
-            if isinstance(self.fields[field], forms.FileField):
+            if any(
+                [
+                    isinstance(self.fields[field], forms.FileField),
+                    isinstance(self.fields[field], forms.ImageField),
+                ]
+            ):
                 self.save_file(field)
 
     def save_file(self, field: str) -> None:
@@ -84,7 +89,7 @@ class ManagementCommandAdminFilesForm(forms.Form):
         """
 
         return str(
-            pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(  # type: ignore
+            pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(
                 "{cls}:{time}-{hash}--{file}".format(
                     cls=self.__class__.__name__,
                     time=timezone.now(),
