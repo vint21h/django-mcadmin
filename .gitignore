@@ -17,6 +17,7 @@ __pycache__/*
 .DS_Store
 *.save
 .mypy_cache/*
+htmlcov
 
 # IDE's
 .idea/*
