@@ -46,7 +46,7 @@ class ManagementCommandAdmin(object):
         # set default options
         kwargs = self.kwargs  # type: Dict[str, Any]
 
-        for key in self.form.fields.keys():  # type: ignore
+        for key in form.fields.keys():
             kwargs.update({key: self.form_value(form=form, key=key, data=data)})
 
         return kwargs
