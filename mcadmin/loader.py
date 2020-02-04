@@ -51,7 +51,7 @@ class ManagementCommandsLoader(object):
         groups = Group.objects.filter(
             pk__in=Command.objects.all().values_list("group", flat=True)
         )  # type: QuerySet[Group]
-        other = Command.objects.filter(group__is_null=True)  # type: QuerySet[Command]
+        other = Command.objects.filter(group__isnull=True)  # type: QuerySet[Command]
 
         for group in groups:
             self.commands.update(

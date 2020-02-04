@@ -31,6 +31,28 @@ class ManagementCommandAdmin(object):
     form = None  # type: Union[Type[forms.Form], None]
     templates = []  # type: List[ManagementCommandAdminTemplateFile]
 
+    def __eq__(self, other: Any) -> bool:
+        """
+        Not really needed, nut very useful fro testing.
+
+        :param other: item comparing with.
+        :type other: Any.
+        :return: is objects equal?
+        :rtype: bool.
+        """
+
+        return all(
+            [
+                isinstance(other, ManagementCommandAdmin),
+                self.command == other.command,
+                self.name == other.name,
+                self.args == other.args,
+                self.kwargs == other.kwargs,
+                self.form == other.form,
+                self.templates == other.templates,
+            ]
+        )
+
     def form_to_kwargs(self, form: forms.Form, data: QueryDict) -> Dict[str, Any]:
         """
         Convert validated form data to command kwargs.
