@@ -7,6 +7,7 @@
 import pathlib
 import random
 import sys
+import tempfile
 from typing import Dict, List, Union  # pylint: disable=W0611
 
 
@@ -82,5 +83,8 @@ NOSE_ARGS = [
 
 # configure urls
 ROOT_URLCONF = "mcadmin.urls"  # type: str
+
+# media settings
+MEDIA_ROOT = tempfile.gettempdir()
 
 # mcadmin settings

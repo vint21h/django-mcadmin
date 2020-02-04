@@ -27,7 +27,7 @@ class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile)
     description = "Test file"
 
 
-class TestManagementCommandAdminFilesTaskForm(ManagementCommandAdminFormTask):
+class TestManagementCommandAdminForm(ManagementCommandAdminFormTask):
     """
     Management command admin form for tests.
     """
@@ -42,7 +42,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
     command = "test-command"
     name = "Test Command"
-    form = TestManagementCommandAdminFilesTaskForm
+    form = TestManagementCommandAdminForm
     templates = [TestManagementCommandAdminTemplateFile()]
 
 
@@ -68,7 +68,7 @@ class ManagementCommandAdminTest(TestCase):
         """
 
         result = self.command.get_form(request=self.request)
-        expected = TestManagementCommandAdminFilesTaskForm(
+        expected = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
         )
 

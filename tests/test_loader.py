@@ -29,7 +29,7 @@ class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile)
     description = "Test file"
 
 
-class TestManagementCommandAdminFilesTaskForm(ManagementCommandAdminFormTask):
+class TestManagementCommandAdminForm(ManagementCommandAdminFormTask):
     """
     Management command admin form for tests.
     """
@@ -44,7 +44,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
     command = "test-command"
     name = "Test Command"
-    form = TestManagementCommandAdminFilesTaskForm
+    form = TestManagementCommandAdminForm
     templates = [TestManagementCommandAdminTemplateFile()]
 
 

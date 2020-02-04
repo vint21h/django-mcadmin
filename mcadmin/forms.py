@@ -9,7 +9,7 @@ import pathlib
 from typing import List  # pylint: disable=W0611
 
 from django import forms
-from django.core.files.storage import DefaultStorage
+from django.core.files.storage import default_storage
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
@@ -71,8 +71,7 @@ class ManagementCommandAdminFilesForm(forms.Form):
         filepath = self.get_filepath(
             filename=self.cleaned_data[field], size=self.cleaned_data[field].size
         )
-        storage = DefaultStorage()
-        storage.save(name=filepath, content=self.cleaned_data[field])  # type: ignore
+        default_storage.save(name=filepath, content=self.cleaned_data[field])
 
         self.fields[field].path = filepath
 
@@ -88,15 +87,15 @@ class ManagementCommandAdminFilesForm(forms.Form):
         :rtype: str.
         """
 
+        now = timezone.now()
+
         return str(
             pathlib.Path(settings.MCADMIN_UPLOADS_PATH).joinpath(
                 "{cls}:{time}-{hash}--{file}".format(
                     cls=self.__class__.__name__,
-                    time=timezone.now(),
+                    time=now,
                     hash=hashlib.md5(  # nosec
-                        "{dt}{size}".format(
-                            **{"dt": timezone.now(), "size": size}
-                        ).encode()
+                        "{now}{size}".format(**{"now": now, "size": size}).encode()
                     ).hexdigest(),
                     file=filename,
                 )
