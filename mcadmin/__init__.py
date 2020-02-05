@@ -8,6 +8,7 @@ from typing import List  # pylint: disable=W0611
 
 from django.utils.module_loading import autodiscover_modules
 
+from mcadmin.conf import settings
 from mcadmin.registry import registry
 
 
@@ -22,7 +23,7 @@ def autodiscover() -> None:
     :rtype: None.
     """
 
-    autodiscover_modules("mcommands", register_to=registry)
+    autodiscover_modules(settings.MCADMIN_MODULE_NAME, register_to=registry)
 
 
 default_app_config = "mcadmin.apps.DjangoManagementCommandsAdminConfig"

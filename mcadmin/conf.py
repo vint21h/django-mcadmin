@@ -24,6 +24,7 @@ class DjangoDjversionAppConf(AppConf):
     UPLOADS_PATH = getattr(
         settings, "MCADMIN_UPLOADS_PATH", settings.MEDIA_ROOT
     )  # type: str
+    MODULE_NAME = getattr(settings, "MCADMIN_MODULE_NAME", "mcommands")  # type: str
 
     class Meta:
 
