@@ -59,7 +59,10 @@ class ManagementCommandAdminTest(TestCase):
         self.command = TestManagementCommandAdmin()
         self.request = RequestFactory().post(
             path=reverse("mcadmin-index"),
-            data={"as_task": "on", "test-command": "test-command"},
+            data={
+                "as_task": "on",
+                "tests.test_command.TestManagementCommandAdmin": "tests.test_command.TestManagementCommandAdmin",  # noqa: E501
+            },
         )
 
     def test_get_form(self):

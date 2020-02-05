@@ -110,7 +110,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
         result = form.fields["file"].path
 
-        self.assertTrue(Path(result).exists())
+        self.assertTrue(expr=Path(result).exists())
 
     @freeze_time("1991-08-24 00:00:00")
     def test_save_files__existence(self):
@@ -126,4 +126,4 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
         result = form.fields["file"].path
 
-        self.assertTrue(Path(result).exists())
+        self.assertTrue(expr=Path(result).exists())

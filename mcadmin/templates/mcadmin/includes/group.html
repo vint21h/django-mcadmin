@@ -7,7 +7,7 @@
 
 <div id="{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">
     <table summary="{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">
-        <caption><a href="#{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">{% if group %}{{ group.name }}{% else %}other{% endif %}</a></caption>
+        <caption><a href="#{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">{% if group %}{{ group.name }}{% else %}{% trans "Other" %}{% endif %}</a></caption>
         <tbody>
             {% for command in commands %}
                 <tr>

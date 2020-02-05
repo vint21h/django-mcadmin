@@ -61,7 +61,7 @@ class ManagementCommandsAdminIndex(TemplateView):
         context = super(ManagementCommandsAdminIndex, self).get_context_data(**kwargs)
         context.update(
             {
-                "title": _("Management commands"),  # need to show in page title,
+                "title": _("Management commands"),  # need to show in page title
                 "commands": self.loader.commands,
             }
         )
