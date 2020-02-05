@@ -20,3 +20,15 @@ class DjangoManagementCommandsAdminConfig(AppConfig):
 
     name = "mcadmin"
     verbose_name = _("Management commands admin")
+
+    def ready(self) -> None:
+        """
+        Application ready callback.
+
+        :return: nothing.
+        :rtype: None.
+        """
+
+        super().ready()
+
+        self.module.autodiscover()  # type: ignore
