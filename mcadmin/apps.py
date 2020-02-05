@@ -29,6 +29,6 @@ class DjangoManagementCommandsAdminConfig(AppConfig):
         :rtype: None.
         """
 
-        super().ready()
+        super(DjangoManagementCommandsAdminConfig, self).ready()
 
         self.module.autodiscover()  # type: ignore

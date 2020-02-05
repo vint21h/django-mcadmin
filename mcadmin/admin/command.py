@@ -4,9 +4,11 @@
 # mcadmin/admin/command.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List, Type  # pylint: disable=W0611
 
 from django.contrib import admin
+
+from mcadmin.forms.admin import CommandAdminForm
 
 
 __all__ = ["CommandAdmin"]  # type: List[str]
@@ -28,3 +30,4 @@ class CommandAdmin(admin.ModelAdmin):
         "command",
         "group__name",
     ]  # type: List[str]
+    form = CommandAdminForm  # type: Type[CommandAdminForm]

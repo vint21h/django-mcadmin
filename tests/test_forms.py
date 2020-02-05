@@ -17,7 +17,7 @@ from django.test.client import RequestFactory
 from django.urls import reverse
 from freezegun import freeze_time
 
-from mcadmin.forms import ManagementCommandAdminFilesForm
+from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
 
 __all__ = ["ManagementCommandAdminFilesFormTest"]  # type: List[str]

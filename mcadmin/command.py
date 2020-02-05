@@ -10,7 +10,7 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict, HttpRequest
 
-from mcadmin.forms import ManagementCommandAdminFilesForm
+from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # django-mcadmin
-# mcadmin/forms.py
+# mcadmin/forms/helpers.py
 
 
 import hashlib

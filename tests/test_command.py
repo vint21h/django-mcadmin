@@ -11,7 +11,7 @@ from django.test.client import RequestFactory
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
-from mcadmin.forms import ManagementCommandAdminTaskForm
+from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 

@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
-from mcadmin.forms import ManagementCommandAdminFilesForm
+from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 from mcadmin.loader import ManagementCommandsLoader
 
 
@@ -29,7 +29,7 @@ class ManagementCommandsAdminIndex(TemplateView):
 
     _loader = None  # type: Union[ManagementCommandsLoader, None]
 
-    @method_decorator(user_passes_test(lambda u: u.is_staff))
+    @method_decorator(user_passes_test(lambda user: user.is_staff))
     def dispatch(self, request: HttpRequest, *args, **kwargs) -> Any:
         """
         Overload dispatch to add staff user required checking.
