@@ -87,4 +87,7 @@ ROOT_URLCONF = "mcadmin.urls"  # type: str
 # media settings
 MEDIA_ROOT = tempfile.gettempdir()
 
+# locale settings
+LANGUAGE_CODE = "en"
+
 # mcadmin settings

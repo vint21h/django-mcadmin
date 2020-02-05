@@ -33,7 +33,7 @@ class TaskCommand(BaseCommand):
             "--task",
             "-T",
             dest="as_task",
-            help=_("Run command as background task"),
+            help=_("Run management command as background task"),
             default=False,
             action="store",
             metavar="TASK",

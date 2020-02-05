@@ -9,7 +9,6 @@ from typing import List  # pylint: disable=W0611
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
@@ -95,7 +94,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
         """
 
         expected = {
-            "title": _("Management commands"),
+            "title": "Management commands",
             "commands": self.view.loader.commands,
             "view": self.view,
         }

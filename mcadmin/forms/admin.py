@@ -94,7 +94,7 @@ class CommandAdminForm(forms.ModelForm):
         self.fields["command"].choices = registry.choices
 
     command = forms.ChoiceField(
-        label=_("Name"),
+        label=_("Command"),
         choices=[],
         widget=forms.Select(),
         required=True,
