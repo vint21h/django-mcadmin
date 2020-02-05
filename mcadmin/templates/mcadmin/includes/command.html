@@ -5,7 +5,7 @@
 {% load i18n %}
 
 
-<form action="{% url "mcadmin-index" %}" method="post" name="{{ command.command }}" id="id-{{ command.command }}" enctype="multipart/form-data">
+<form action="{% url "mcadmin-index" %}" method="post" name="{{ name }}" id="id-{{ name }}" enctype="multipart/form-data">
     {% csrf_token %}
     <div>
         <fieldset class="module aligned extrapretty wide">
@@ -13,7 +13,7 @@
             {% include "mcadmin/includes/form.html" %}
         </fieldset>
         <div class="submit-row">
-            <p class="deletelink-box"><input name="{{ command.command }}" type="submit" value="{{ command.command }}" class="default"/></p>
+            <p class="deletelink-box"><input name="{{ name }}" type="submit" value="{{ command.name }}" class="default"/></p>
         </div>
     </div>
 </form>

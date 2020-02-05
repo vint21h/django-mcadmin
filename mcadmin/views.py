@@ -84,7 +84,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: HttpResponse.
         """
 
-        command = self.loader.get_command(name=self.get_command_name(request=request))
+        command_name = self.get_command_name(request=request)
+        command = self.loader.get_command(name=command_name)
 
         if command:
             form = command.get_form(request=request)
@@ -101,7 +102,6 @@ class ManagementCommandsAdminIndex(TemplateView):
                         form.save_files()  # type: ignore
                     try:
                         command.handle(
-                            *command.form_to_args(form=form, data=request.POST),
                             **command.form_to_kwargs(form=form, data=request.POST),
                         )
                         messages.success(
@@ -133,6 +133,9 @@ class ManagementCommandsAdminIndex(TemplateView):
                             f"Running '{command.name}' management command error: {error}"  # noqa: E501
                         ),
                     )
+
+            # some additional data for template
+            kwargs.update({"COMMAND_NAME": command_name, "FORM": form})  # type: ignore
 
         return self.render_to_response(self.get_context_data(**kwargs))
 

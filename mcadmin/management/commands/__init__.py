@@ -35,7 +35,7 @@ class TaskCommand(BaseCommand):
             dest="as_task",
             help=_("Run command as background task"),
             default=False,
-            action="store_true",
+            action="store",
             metavar="TASK",
             type=bool,
         )

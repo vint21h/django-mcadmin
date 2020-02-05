@@ -6,9 +6,15 @@
 
 
 {% if command.form %}
-    {% for field in command.form %}
-        {% include "mcadmin/includes/field.html" %}
-    {% endfor %}
+    {% if name == COMMAND_NAME %}
+        {% for field in FORM %}
+            {% include "mcadmin/includes/field.html" %}
+        {% endfor %}
+    {% else %}
+        {% for field in command.form %}
+            {% include "mcadmin/includes/field.html" %}
+        {% endfor %}
+    {% endif %}
     {% for file in command.templates %}
         {% include "mcadmin/includes/file.html" %}
     {% endfor %}
