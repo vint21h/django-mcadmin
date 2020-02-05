@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from mcadmin.command import ManagementCommandAdmin
-from mcadmin.forms import ManagementCommandAdminFormTask
+from mcadmin.forms import ManagementCommandAdminTaskForm
 from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.models.command import Command
 from mcadmin.models.group import Group
@@ -33,7 +33,7 @@ class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile)
     description = "Test file"
 
 
-class TestManagementCommandAdminForm(ManagementCommandAdminFormTask):
+class TestManagementCommandAdminForm(ManagementCommandAdminTaskForm):
     """
     Management command admin form for tests.
     """

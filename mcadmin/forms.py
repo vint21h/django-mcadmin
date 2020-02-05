@@ -17,12 +17,12 @@ from mcadmin.conf import settings
 
 
 __all__ = [
-    "ManagementCommandAdminFormTask",
+    "ManagementCommandAdminTaskForm",
     "ManagementCommandAdminFilesForm",
 ]  # type: List[str]
 
 
-class ManagementCommandAdminFormTask(forms.Form):
+class ManagementCommandAdminTaskForm(forms.Form):
     """
     Management commands admin form with background task option.
     """

@@ -11,7 +11,7 @@ from django.test.client import RequestFactory
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
-from mcadmin.forms import ManagementCommandAdminFormTask
+from mcadmin.forms import ManagementCommandAdminTaskForm
 from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
@@ -27,7 +27,7 @@ class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile)
     description = "Test file"
 
 
-class TestManagementCommandAdminForm(ManagementCommandAdminFormTask):
+class TestManagementCommandAdminForm(ManagementCommandAdminTaskForm):
     """
     Management command admin form for tests.
     """
