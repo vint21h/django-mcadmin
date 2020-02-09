@@ -32,7 +32,8 @@ class ManagementCommandAdminNotRegistered(Exception):
 
 class NotManagementCommandAdmin(Exception):
     """
-    Management command admin registry register command arg is not a management command admin exception.  # noqa: E501
+    Management command admin registry register command arg
+    is not a management command admin exception.
     """
 
     ...
