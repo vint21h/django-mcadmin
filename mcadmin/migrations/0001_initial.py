@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 (
                     "name",
                     models.CharField(
-                        db_index=True, max_length=255, verbose_name="name"
+                        db_index=True, max_length=256, verbose_name="name"
                     ),
                 ),
             ],
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                         choices=[],
                         db_index=True,
                         help_text="got from management commands admin registry",
-                        max_length=255,
+                        max_length=256,
                         verbose_name="name",
                     ),
                 ),

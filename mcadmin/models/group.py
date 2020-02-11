@@ -20,7 +20,7 @@ class Group(models.Model):
     Group for management commands admin.
     """
 
-    name = models.CharField(max_length=255, verbose_name=_("name"), db_index=True)
+    name = models.CharField(max_length=256, verbose_name=_("name"), db_index=True)
 
     def __unicode__(self) -> str:
 

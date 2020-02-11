@@ -23,7 +23,7 @@ class Command(models.Model):
     """
 
     command = models.CharField(
-        max_length=255,
+        max_length=256,
         verbose_name=_("name"),
         choices=registry.choices,
         help_text=_("got from management commands admin registry"),
