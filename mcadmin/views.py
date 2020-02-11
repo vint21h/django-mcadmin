@@ -213,12 +213,12 @@ class ManagementCommandsAdminIndex(TemplateView):
                         {}
                     )  # type: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]   # noqa: E501
                     groups_permissions = (
-                        request.user.commands_groups_permissions.all()  # type: ignore
+                        request.user.commands_groups_permissions.all()
                         .values_list("group", flat=True)
                         .distinct()
                     )
                     commands_permissions = (
-                        request.user.commands_permissions.all()  # type: ignore
+                        request.user.commands_permissions.all()
                         .values_list("command__command", flat=True)
                         .distinct()
                     )
