@@ -6,7 +6,7 @@
 
 
 <div id="content-main">
-    {% for group, commands in commands.items %}
+    {% for group, commands in COMMANDS.items %}
         {% include "mcadmin/includes/group.html" %}
     {% empty %}
         <h1>{% trans "There Are No Commands You Are Looking For." %}</h1>

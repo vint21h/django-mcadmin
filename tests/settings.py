@@ -84,10 +84,15 @@ NOSE_ARGS = [
 # configure urls
 ROOT_URLCONF = "mcadmin.urls"  # type: str
 
-# media settings
+# media/static settings
 MEDIA_ROOT = tempfile.gettempdir()
+STATIC_ROOT = tempfile.gettempdir()
 
 # locale settings
 LANGUAGE_CODE = "en"
 
 # mcadmin settings
+MCADMIN_TEMPLATES_PATH = str(pathlib.Path(STATIC_ROOT).joinpath("templates"))
+MCADMIN_UPLOADS_PATH = str(pathlib.Path(MEDIA_ROOT).joinpath("uploads"))
+MCADMIN_MODULE_NAME = "mcommands"
+MCADMIN_USE_PERMISSIONS = False

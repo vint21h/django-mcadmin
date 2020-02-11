@@ -4,7 +4,7 @@
 # mcadmin/views.py
 
 
-from typing import Any, Dict, List, Union  # pylint: disable=W0611
+from typing import Any, Dict, List, Union, Optional  # pylint: disable=W0611
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -13,8 +13,11 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 
+from mcadmin.command import ManagementCommandAdmin
+from mcadmin.conf import settings
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 from mcadmin.loader import ManagementCommandsLoader
+from mcadmin.models.group import Group
 
 
 __all__ = [
@@ -62,7 +65,9 @@ class ManagementCommandsAdminIndex(TemplateView):
         context.update(
             {
                 "title": _("Management commands"),  # need to show in page title
-                "commands": self.loader.commands,
+                "COMMANDS": self.filter_by_permissions(
+                    commands=self.loader.commands, request=kwargs.get("request")  # type: ignore  # noqa: E501
+                ),
             }
         )
 
@@ -179,3 +184,70 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
 
         return min(set(self.loader.registry.keys()).intersection(request.POST.keys()))
+
+    @staticmethod
+    def filter_by_permissions(
+        commands: Dict[
+            Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]
+        ],
+        request: Optional[HttpRequest],
+    ) -> Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]:
+        """
+        Filter commands by commands and groups permissions.
+
+        :param commands: management commands from loader.
+        :type commands: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]].  # noqa: E501
+        :param request: request.
+        :type request: Optional[HttpRequest].
+        :return: filtered commands.
+        :rtype: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]].  # noqa: E501
+        """
+
+        if request and settings.MCADMIN_USE_PERMISSIONS:
+            if request.user and request.user.is_authenticated:
+                if request.user.is_superuser:
+
+                    return commands
+                else:
+                    result = (
+                        {}
+                    )  # type: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]   # noqa: E501
+                    groups_permissions = (
+                        request.user.commands_groups_permissions.all()  # type: ignore
+                        .values_list("group", flat=True)
+                        .distinct()
+                    )
+                    commands_permissions = (
+                        request.user.commands_permissions.all()  # type: ignore
+                        .values_list("command__command", flat=True)
+                        .distinct()
+                    )
+
+                    # filter by group permissions
+                    result.update(
+                        {
+                            group: commands
+                            for group, commands in commands.items()
+                            if group and group.pk in groups_permissions
+                        }
+                    )
+                    # filter by command permissions for commands without group
+                    other = commands.get(None)
+                    if commands_permissions and other:
+                        result.update(
+                            {
+                                None: {
+                                    name: command
+                                    for name, command in other.items()
+                                    if name in commands_permissions
+                                }
+                            }
+                        )
+
+                    return result
+            else:
+
+                return {}
+        else:
+
+            return commands

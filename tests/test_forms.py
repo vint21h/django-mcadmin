@@ -43,7 +43,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
         self.expected = str(
             Path(tempfile.gettempdir()).joinpath(
-                "TestManagementCommandAdminForm:1991-08-24 00:00:00-82241ccfdbe16cbef0abfafb2c56bd3b--test.csv"  # noqa: E501
+                "uploads/TestManagementCommandAdminForm:1991-08-24 00:00:00-82241ccfdbe16cbef0abfafb2c56bd3b--test.csv"  # noqa: E501
             )
         )
 

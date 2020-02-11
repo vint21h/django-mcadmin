@@ -66,7 +66,7 @@ class ManagementCommandsLoader(object):
         if other.count():
             self.commands.update(
                 {
-                    None: {
+                    None: {  # unnamed (other) group
                         command.command: self.get_command(name=command.command)
                         for command in other
                     }

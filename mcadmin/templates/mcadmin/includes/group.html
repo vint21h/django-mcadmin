@@ -10,11 +10,13 @@
         <caption><a href="#{% if group %}{{ group.name|lower }}{% else %}other{% endif %}">{% if group %}{{ group.name }}{% else %}{% trans "Other" %}{% endif %}</a></caption>
         <tbody>
             {% for name, command in commands.items %}
-                <tr>
-                    <th scope="row">
-                        {% include "mcadmin/includes/command.html" %}
-                    </th>
-                </tr>
+                {% if command %}
+                    <tr>
+                        <th scope="row">
+                            {% include "mcadmin/includes/command.html" %}
+                        </th>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>

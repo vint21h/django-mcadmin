@@ -1,47 +1,44 @@
 # -*- coding: utf-8 -*-
 
 # django-mcadmin
-# mcadmin/models/command.py
+# mcadmin/models/permissions/group.py
 
 
 from typing import List  # pylint: disable=W0611
 
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from mcadmin.registry import registry
-
 
 __all__ = [
-    "Command",
+    "CommandGroupPermission",
 ]  # type: List[str]
 
 
-class Command(models.Model):
+class CommandGroupPermission(models.Model):
     """
-    Management commands admin command.
+    User management commands admin group permission.
     """
 
-    command = models.CharField(
-        max_length=256,
-        verbose_name=_("name"),
-        choices=registry.choices,
-        help_text=_("got from management commands admin registry"),
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("user"),
         db_index=True,
+        related_name="commands_groups_permissions",
+        on_delete=models.CASCADE,
     )
     group = models.ForeignKey(
         "mcadmin.Group",
         verbose_name=_("group"),
         db_index=True,
-        related_name="commands",
+        related_name="users",
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
     )
 
     def __unicode__(self) -> str:
 
-        return f"{self.command} - {self.group}" if self.group else self.command
+        return f"{self.group} - {self.user}"
 
     def __str__(self) -> str:
 
@@ -55,11 +52,11 @@ class Command(models.Model):
 
         app_label = "mcadmin"  # type: str
         unique_together = [
-            "command",
             "group",
+            "user",
         ]  # type: List[str]
-        verbose_name = _("management command")  # type: str
-        verbose_name_plural = _("management commands")  # type: str
+        verbose_name = _("management command group permission")  # type: str
+        verbose_name_plural = _("management commands groups permissions")  # type: str
         ordering = [
-            "command",
+            "group",
         ]  # type: List[str]

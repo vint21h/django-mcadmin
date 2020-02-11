@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2020-02-05 22:59+0200\n"
+"POT-Creation-Date: 2020-02-11 12:35+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -38,7 +38,7 @@ msgstr "Запустити керуючу команду у фоні"
 msgid "name"
 msgstr "ім'я"
 
-#: mcadmin/models/command.py:34
+#: mcadmin/models/command.py:34 mcadmin/models/permissions/group.py:33
 msgid "group"
 msgstr "група"
 
@@ -58,11 +58,36 @@ msgstr "група керуючих команд"
 msgid "management commands groups"
 msgstr "групи керуючих команд"
 
+#: mcadmin/models/permissions/command.py:26
+#: mcadmin/models/permissions/group.py:26
+msgid "user"
+msgstr "користувач"
+
+#: mcadmin/models/permissions/command.py:33
+msgid "command"
+msgstr "команда"
+
+#: mcadmin/models/permissions/command.py:58
+msgid "management command permission"
+msgstr "доступ до керуючої команди"
+
+#: mcadmin/models/permissions/command.py:59
+msgid "management commands permissions"
+msgstr "доступи до керуючої команди"
+
+#: mcadmin/models/permissions/group.py:58
+msgid "management command group permission"
+msgstr "доступ до групи керуючих команд"
+
+#: mcadmin/models/permissions/group.py:59
+msgid "management commands groups permissions"
+msgstr "доступ до груп керуючих команд"
+
 #: mcadmin/templates/mcadmin/includes/breadcrumbs.html:9
 msgid "Home"
 msgstr "Домівка"
 
-#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:11 mcadmin/views.py:64
+#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:11 mcadmin/views.py:67
 msgid "Management commands"
 msgstr "Керуючі команди"
 
@@ -82,17 +107,17 @@ msgstr "Керуючій команді непотрібні додаткові 
 msgid "Other"
 msgstr "Інші"
 
-#: mcadmin/views.py:109 mcadmin/views.py:127
+#: mcadmin/views.py:114 mcadmin/views.py:132
 #, python-brace-format
 msgid "Run '{command.name}' management command success"
 msgstr "Керуючу команду '{command.name}' було успішно запущено"
 
-#: mcadmin/views.py:115 mcadmin/views.py:133
+#: mcadmin/views.py:120 mcadmin/views.py:138
 #, python-brace-format
 msgid "Running '{command.name}' management command error: {error}"
 msgstr "Керуючу команду '{command.name}' було запущено з помилкою: {error}"
 
-#: mcadmin/views.py:121
+#: mcadmin/views.py:126
 #, python-brace-format
 msgid "This form was completed with errors: {command.name}"
 msgstr "Форму було заповнено з помилками: {command.name}"

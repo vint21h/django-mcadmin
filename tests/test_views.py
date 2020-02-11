@@ -6,8 +6,11 @@
 
 from typing import List  # pylint: disable=W0611
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.test.utils import override_settings
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
@@ -15,12 +18,17 @@ from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
 from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.models.command import Command
 from mcadmin.models.group import Group
+from mcadmin.models.permissions.command import CommandPermission
+from mcadmin.models.permissions.group import CommandGroupPermission
 from mcadmin.registry import registry
 from mcadmin.template import ManagementCommandAdminTemplateFile
 from mcadmin.views import ManagementCommandsAdminIndex
 
 
 __all__ = ["ManagementCommandsAdminIndexTest"]  # type: List[str]
+
+
+User = get_user_model()
 
 
 class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile):
@@ -51,6 +59,15 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
     templates = [TestManagementCommandAdminTemplateFile()]
 
 
+class TestManagementCommandAdminInGroup(ManagementCommandAdmin):
+    """
+    Management command admin in group for tests.
+    """
+
+    command = "test-command-in-group"
+    name = "Test Command In Group"
+
+
 class ManagementCommandsAdminIndexTest(TestCase):
     """
     Management commands admin index view tests.
@@ -76,10 +93,18 @@ class ManagementCommandsAdminIndexTest(TestCase):
         """
 
         registry.register(TestManagementCommandAdmin)
-        group = Group.objects.create(name="Test")
-        Command.objects.create(
-            command="tests.test_views.TestManagementCommandAdmin", group=group
+        user = User.objects.create_user(
+            username="test", password=User.objects.make_random_password()
         )
+        group = Group.objects.create(name="Test")
+        command = Command.objects.create(
+            command="tests.test_views.TestManagementCommandAdmin"
+        )
+        Command.objects.create(
+            command="tests.test_views.TestManagementCommandAdminInGroup", group=group
+        )
+        CommandGroupPermission.objects.create(user=user, group=group)
+        CommandPermission.objects.create(user=user, command=command)
 
     def test_loader(self):
         """
@@ -95,7 +120,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
         expected = {
             "title": "Management commands",
-            "commands": self.view.loader.commands,
+            "COMMANDS": self.view.loader.commands,
             "view": self.view,
         }
 
@@ -110,3 +135,63 @@ class ManagementCommandsAdminIndexTest(TestCase):
         expected = "tests.test_views.TestManagementCommandAdmin"
 
         self.assertEqual(first=result, second=expected)
+
+    def test_filter_by_permissions__without_use_permissions(self):
+        """
+        filter_by_permissions method must return commands not filtered by permissions.
+        """
+
+        result = self.view.filter_by_permissions(
+            commands=self.view.loader.commands, request=self.request
+        )
+
+        self.assertDictEqual(d1=result, d2=self.view.loader.commands)
+
+    @override_settings(MCADMIN_USE_PERMISSIONS=True)
+    def test_filter_by_permissions__anonymous(self):
+        """
+        filter_by_permissions method must not return commands.
+        """
+
+        user = AnonymousUser()
+
+        self.request.user = user  # type: ignore
+
+        result = self.view.filter_by_permissions(
+            commands=self.view.loader.commands, request=self.request
+        )
+
+        self.assertDictEqual(d1=result, d2={})
+
+    @override_settings(MCADMIN_USE_PERMISSIONS=True)
+    def test_filter_by_permissions__superuser(self):
+        """
+        filter_by_permissions method must return not filtered permissions for superuser.
+        """
+
+        user = User.objects.first()
+
+        user.is_superuser = True  # type: ignore
+        self.request.user = user  # type: ignore
+
+        result = self.view.filter_by_permissions(
+            commands=self.view.loader.commands, request=self.request
+        )
+
+        self.assertDictEqual(d1=result, d2=self.view.loader.commands)
+
+    @override_settings(MCADMIN_USE_PERMISSIONS=True)
+    def test_filter_by_permissions(self):
+        """
+        filter_by_permissions method must return filtered permissions.
+        """
+
+        user = User.objects.first()
+
+        self.request.user = user  # type: ignore
+
+        result = self.view.filter_by_permissions(
+            commands=self.view.loader.commands, request=self.request
+        )
+
+        self.assertDictEqual(d1=result, d2=self.view.loader.commands)
