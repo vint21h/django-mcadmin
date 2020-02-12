@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mcadmin 0.3.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2020-02-11 12:35+0200\n"
+"POT-Creation-Date: 2020-02-12 03:09+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -95,7 +95,7 @@ msgstr "Керуючі команди"
 msgid "There Are No Commands You Are Looking For."
 msgstr "Тут немає команд яких ви шукаєте."
 
-#: mcadmin/templates/mcadmin/includes/file.html:10
+#: mcadmin/templates/mcadmin/includes/example-file.html:10
 msgid "Example file"
 msgstr "Файл приклад"
 
