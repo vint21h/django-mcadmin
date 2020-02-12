@@ -17,24 +17,47 @@ Installation
 
 Configuration
 -------------
-Add ``"mcadmin"`` to ``settings.INSTALLED_APPS``.
+* Add ``"mcadmin"`` to ``settings.INSTALLED_APPS``:
 
 .. code-block:: python
+
+    # settings.py
 
     INSTALLED_APPS += [
         "mcadmin",
     ]
 
-And to ``urls.py``.
+* Add ``"mcadmin"`` to your URLs definitions:
 
 .. code-block:: python
 
-    urlpatterns = patterns("",
+    # urls.py
+
+    from django.conf.urls import url
+
+
+    urlpatterns += [
         url(r"^admin/mcadmin/", include("mcadmin.urls")),
-    )
+    ]
 
+* Run ``$ python ./manage.py migrate`` in your project folder to apply app migrations.
 
-upper of django admin urls.
+Settings
+--------
+``MCADMIN_EXAMPLES_PATH``
+    Management commands files templates path. Defaults to: ``settings.STATIC_ROOT``.
+
+``MCADMIN_UPLOADS_PATH``
+    Management commands forms with files upload path. Defaults to: ``settings.MEDIA_ROOT``.
+
+``MCADMIN_MODULE_NAME``
+    Management commands admin classes search module name. Defaults to: ``"mcommands"``.
+
+``MCADMIN_USE_PERMISSIONS``
+    Management commands admin classes search module name. Defaults to: ``False``.
+
+Usage
+-----
 
 Licensing
 ---------
