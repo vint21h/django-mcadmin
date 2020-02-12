@@ -6,7 +6,7 @@ A django-mcadmin documentation
 
 |Travis|_ |Coveralls|_ |Requires|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
 
-    *django-mcadmin is a django reusable app that provide simple run management commands from admin*
+    *django-mcadmin is a Django reusable app that provides simple run management commands from admin*
 
 .. contents::
 
@@ -62,7 +62,7 @@ For example, exists management command like this:
 
 .. code-block:: python
 
-    # management/commands/somethinguseless.py
+    # management/commands/something-useless.py
 
     from django.core.management.base import BaseCommand
 
@@ -88,7 +88,7 @@ For example, exists management command like this:
 
             self.stdout.write(kwargs.get("object_id"))
 
-Next, you need to create a form for this management command admin:
+Next, you need to create a form for this management command admin which we use in the next piece of code:
 
 .. code-block:: python
 
@@ -101,11 +101,11 @@ Next, you need to create a form for this management command admin:
 
         object_id = forms.IntegerField(label="Object ID", required=True)
 
-And finally, write management command admin:
+And finally, write management command admin class and register it:
 
 .. code-block:: python
 
-    # mcommands.py
+    # mcommands/something-useless.py
 
     from mcadmin.command import ManagementCommandAdmin
     from mcadmin.registry import registry
@@ -115,14 +115,149 @@ And finally, write management command admin:
 
     class SomethingUselessManagementCommandAdmin(ManagementCommandAdmin):
 
-        command = "somethinguseless"
+        command = "something-useless"
         name = "Useless management command"
-        form = SomethingUselessCommandAdminForm
+        form = SomethingUselessManagementCommandAdminForm
 
 
     # registering management command admin custom classes
     registry.register(command=SomethingUselessManagementCommandAdmin)
 
+Also, there are some helpers for building more complex flows, like management commands that can be executed directly or as a background task or management commands that handle uploaded files. For example:
+
+Management command:
+
+.. code-block:: python
+
+    # management/commands/distributed-something-useless-with-file.py
+
+    from mcadmin.management.commands import TaskCommand
+
+
+    class Command(TaskCommand):
+
+        help = "Useless management command which process file uploaded from a command from and can be executed directly or as background task"
+
+        def add_arguments(self, parser):
+
+            parser.add_argument(
+                "--task",
+                "-T",
+                dest="as_task",
+                help="Run command as background task",
+                default=False,
+                action="store",
+                metavar="TASK",
+                type=bool,
+            )
+            parser.add_argument(
+                "--object-id",
+                "-o",
+                dest="object_id",
+                help="Object ID",
+                action="store",
+                required=True,
+                metavar="OBJECT_ID",
+                type=int,
+            )
+            parser.add_argument(
+                "--data",
+                "-D",
+                dest="data",
+                help="Path to file with data",
+                action="store",
+                metavar="DATA",
+                type=str,
+            )
+
+        def _local(self, *args, **kwargs):
+
+            self.stdout.write(kwargs.get("object_id"))
+            self.stdout.write(kwargs.get("data"))
+
+        def _as_task(self, *args, **kwargs):
+
+            # There must be code which executed in threads or call celery task or something else asynchronous.
+            self.stdout.write(kwargs.get("object_id"))
+            self.stdout.write(kwargs.get("data"))
+
+Management command admin form:
+
+.. code-block:: python
+
+    # forms.py
+
+    from django import forms
+
+    from mcadmin.forms.helpers import (
+        ManagementCommandAdminTaskForm,
+        ManagementCommandAdminFilesForm
+    )
+
+
+    class DistributedSomethingUselessWithFileManagementCommandAdminForm(
+        ManagementCommandAdminTaskForm,
+        ManagementCommandAdminFilesForm
+    ):
+
+        data = forms.FileField(label="data, required=True)
+        object_id = forms.IntegerField(label="Object ID", required=True)
+
+Management command admin example file:
+
+.. code-block:: python
+
+    # mcommands/examples.py
+
+    from mcadmin.example import ManagementCommandAdminExampleFile
+
+
+    class DistributedSomethingUselessWithFileManagementCommandAdminExampleFile(
+        ManagementCommandAdminExampleFile
+    ):
+
+        description = "Management command with files example file"
+        path = "distributed-something-useless-with-file-example.csv"
+
+Or for the file which not served using Django but directly available for download via HTTP:
+
+.. code-block:: python
+
+    # mcommands/examples.py
+
+    from mcadmin.example import ManagementCommandAdminExampleFile
+
+
+    class DistributedSomethingUselessWithFileManagementCommandAdminExampleFile(
+        ManagementCommandAdminExampleFile
+    ):
+
+        description = "Management command with files example file"
+        path = "https://www.example.com/distributed-something-useless-with-file-example.csv"
+        raw = True
+
+Management command admin:
+
+.. code-block:: python
+
+    # mcommands/something-useless.py
+
+    from mcadmin.command import ManagementCommandAdmin
+    from mcadmin.registry import registry
+
+    from forms import DistributedSomethingUselessWithFileManagementCommandAdminForm
+
+
+    class DistributedSomethingUselessWithFileManagementCommandAdmin(ManagementCommandAdmin):
+
+        command = "distributed-something-useless-with-file"
+        name = "Distributed useless management command with file"
+        form = DistributedSomethingUselessWithFileManagementCommandAdminForm
+        examples = [DistributedSomethingUselessWithFileManagementCommandAdminExampleFile]
+
+
+    # registering management command admin custom classes
+    registry.register(command=DistributedSomethingUselessWithFileManagementCommandAdmin)
 
 Licensing
 ---------
