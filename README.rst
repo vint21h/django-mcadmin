@@ -58,6 +58,71 @@ Settings
 
 Usage
 -----
+For example, exists management command like this:
+
+.. code-block:: python
+
+    # management/commands/somethinguseless.py
+
+    from django.core.management.base import BaseCommand
+
+
+    class Command(BaseCommand):
+
+        help = "Useless management command"
+
+        def add_arguments(self, parser):
+
+            parser.add_argument(
+                "--object-id",
+                "-o",
+                dest="object_id",
+                help="Object ID",
+                action="store",
+                required=True,
+                metavar="OBJECT_ID",
+                type=int,
+            )
+
+        def handle(self, *args, **kwargs):
+
+            self.stdout.write(kwargs.get("object_id"))
+
+Next, you need to create a form for this management command admin:
+
+.. code-block:: python
+
+    # forms.py
+
+    from django import forms
+
+
+    class SomethingUselessManagementCommandAdminForm(forms.Form):
+
+        object_id = forms.IntegerField(label="Object ID", required=True)
+
+And finally, write management command admin:
+
+.. code-block:: python
+
+    # mcommands.py
+
+    from mcadmin.command import ManagementCommandAdmin
+    from mcadmin.registry import registry
+
+    from forms import SomethingUselessManagementCommandAdminForm
+
+
+    class SomethingUselessManagementCommandAdmin(ManagementCommandAdmin):
+
+        command = "somethinguseless"
+        name = "Useless management command"
+        form = SomethingUselessCommandAdminForm
+
+
+    # registering management command admin custom classes
+    registry.register(command=SomethingUselessManagementCommandAdmin)
+
 
 Licensing
 ---------
