@@ -18,8 +18,8 @@ class DjangoDjversionAppConf(AppConf):
     Django djversion settings.
     """
 
-    TEMPLATES_PATH = getattr(
-        settings, "MCADMIN_TEMPLATES_PATH", settings.STATIC_ROOT
+    EXAMPLES_PATH = getattr(
+        settings, "MCADMIN_EXAMPLES_PATH", settings.STATIC_ROOT
     )  # type: str
     UPLOADS_PATH = getattr(
         settings, "MCADMIN_UPLOADS_PATH", settings.MEDIA_ROOT

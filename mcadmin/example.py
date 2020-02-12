@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # django-mcadmin
-# mcadmin/utils.py
+# mcadmin/example.py
 
 
 from typing import List  # pylint: disable=W0611
@@ -10,16 +10,16 @@ from django.urls import reverse
 
 
 __all__ = [
-    "ManagementCommandAdminTemplateFile",
+    "ManagementCommandAdminExampleFile",
 ]  # type: List[str]
 
 
-class ManagementCommandAdminTemplateFile(object):
+class ManagementCommandAdminExampleFile(object):
     """
-    Management command admin template file class.
+    Management command admin example file class.
     """
 
-    # path in MCADMIN_TEMPLATES_PATH (or URL for raw file)
+    # path in MCADMIN_EXAMPLES_PATH (or URL for raw file)
     path = ""  # type: str
     description = ""  # type: str
     raw = False  # type: bool
@@ -27,9 +27,9 @@ class ManagementCommandAdminTemplateFile(object):
     @property
     def get_absolute_url(self) -> str:
         """
-        Return URL to template file.
+        Return URL to example file.
 
-        :return: template file URL.
+        :return: example file URL.
         :rtype: str.
         """
 
@@ -38,4 +38,4 @@ class ManagementCommandAdminTemplateFile(object):
             return self.path
         else:
 
-            return reverse("mcadmin-template-file", args=[self.path])
+            return reverse("mcadmin-example-file", args=[self.path])

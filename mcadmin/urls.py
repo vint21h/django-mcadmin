@@ -22,9 +22,9 @@ __all__ = ["urlpatterns"]  # type: List[str]
 urlpatterns = [
     url(r"^$", ManagementCommandsAdminIndex.as_view(), name="mcadmin-index"),
     url(
-        r"^templates/(?P<path>.*)$",
+        r"^examples/(?P<path>.*)$",
         staff_member_required(serve),
-        {"document_root": settings.MCADMIN_TEMPLATES_PATH, "show_indexes": False},
-        name="mcadmin-template-file",
+        {"document_root": settings.MCADMIN_EXAMPLES_PATH, "show_indexes": False},
+        name="mcadmin-example-file",
     ),
 ]  # type: List[Union[URLPattern, URLResolver]]

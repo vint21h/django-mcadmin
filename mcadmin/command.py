@@ -10,8 +10,8 @@ from django import forms
 from django.core.management import call_command
 from django.http import QueryDict, HttpRequest
 
+from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
-from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
 __all__ = [
@@ -29,7 +29,7 @@ class ManagementCommandAdmin(object):
     args = []  # type: List[Any]  # default options
     kwargs = {}  # type: Dict[str, Any]  # default options
     form = None  # type: Union[Type[forms.Form], None]
-    templates = []  # type: List[ManagementCommandAdminTemplateFile]
+    examples = []  # type: List[ManagementCommandAdminExampleFile]
 
     def __eq__(self, other: Any) -> bool:
         """
@@ -49,7 +49,7 @@ class ManagementCommandAdmin(object):
                 self.args == other.args,
                 self.kwargs == other.kwargs,
                 self.form == other.form,
-                self.templates == other.templates,
+                self.examples == other.examples,
             ]
         )
 
@@ -110,7 +110,7 @@ class ManagementCommandAdmin(object):
         if all(
             [
                 isinstance(form, ManagementCommandAdminFilesForm),
-                self.templates,
+                self.examples,
                 any(
                     [
                         isinstance(form.fields[key], forms.FileField),

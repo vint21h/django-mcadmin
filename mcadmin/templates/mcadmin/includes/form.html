@@ -15,8 +15,8 @@
             {% include "mcadmin/includes/field.html" %}
         {% endfor %}
     {% endif %}
-    {% for file in command.templates %}
-        {% include "mcadmin/includes/file.html" %}
+    {% for file in command.example %}
+        {% include "mcadmin/includes/example-file.html" %}
     {% endfor %}
 {% else %}
     <p class="help">{% trans "Management command does not require additional options" %}</p>

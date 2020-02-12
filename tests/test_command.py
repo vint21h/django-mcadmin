@@ -11,14 +11,14 @@ from django.test.client import RequestFactory
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
-from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
 __all__ = ["ManagementCommandAdminTest"]  # type: List[str]
 
 
-class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile):
+class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
     """
     Management command admin example file for tests.
     """
@@ -43,7 +43,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
     command = "test-command"
     name = "Test Command"
     form = TestManagementCommandAdminForm
-    templates = [TestManagementCommandAdminTemplateFile()]
+    examples = [TestManagementCommandAdminExampleFile()]
 
 
 class ManagementCommandAdminTest(TestCase):

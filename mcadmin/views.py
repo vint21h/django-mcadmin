@@ -101,7 +101,7 @@ class ManagementCommandsAdminIndex(TemplateView):
                     if all(
                         [
                             isinstance(form, ManagementCommandAdminFilesForm),
-                            command.templates,
+                            command.examples,
                         ]
                     ):
                         form.save_files()  # type: ignore

@@ -10,9 +10,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.models.command import Command
 from mcadmin.models.permissions.command import CommandPermission
-from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
 __all__ = ["CommandPermissionModelTest"]  # type: List[str]
@@ -21,7 +21,7 @@ __all__ = ["CommandPermissionModelTest"]  # type: List[str]
 User = get_user_model()
 
 
-class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile):
+class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
     """
     Management command admin example file for tests.
     """
@@ -37,7 +37,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
     command = "test-command"
     name = "Test Command"
-    templates = [TestManagementCommandAdminTemplateFile()]
+    examples = [TestManagementCommandAdminExampleFile()]
 
 
 class CommandPermissionModelTest(TestCase):

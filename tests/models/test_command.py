@@ -9,15 +9,15 @@ from typing import List, Optional  # pylint: disable=W0611
 from django.test import TestCase
 
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.models.command import Command
 from mcadmin.models.group import Group
-from mcadmin.template import ManagementCommandAdminTemplateFile
 
 
 __all__ = ["CommandModelTest"]  # type: List[str]
 
 
-class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile):
+class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
     """
     Management command admin example file for tests.
     """
@@ -33,7 +33,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
     command = "test-command"
     name = "Test Command"
-    templates = [TestManagementCommandAdminTemplateFile()]
+    examples = [TestManagementCommandAdminExampleFile()]
 
 
 class CommandModelTest(TestCase):

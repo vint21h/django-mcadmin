@@ -14,6 +14,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
 from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.models.command import Command
@@ -21,7 +22,6 @@ from mcadmin.models.group import Group
 from mcadmin.models.permissions.command import CommandPermission
 from mcadmin.models.permissions.group import CommandGroupPermission
 from mcadmin.registry import registry
-from mcadmin.template import ManagementCommandAdminTemplateFile
 from mcadmin.views import ManagementCommandsAdminIndex
 
 
@@ -31,7 +31,7 @@ __all__ = ["ManagementCommandsAdminIndexTest"]  # type: List[str]
 User = get_user_model()
 
 
-class TestManagementCommandAdminTemplateFile(ManagementCommandAdminTemplateFile):
+class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
     """
     Management command admin example file for tests.
     """
@@ -56,7 +56,7 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
     command = "test-command"
     name = "Test Command"
     form = TestManagementCommandAdminForm
-    templates = [TestManagementCommandAdminTemplateFile()]
+    examples = [TestManagementCommandAdminExampleFile()]
 
 
 class TestManagementCommandAdminInGroup(ManagementCommandAdmin):
