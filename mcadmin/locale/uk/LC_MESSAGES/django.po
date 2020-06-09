@@ -4,9 +4,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mcadmin 0.7.2\n"
+"Project-Id-Version: mcadmin 0.7.3\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2020-06-03 06:59+0300\n"
+"POT-Creation-Date: 2020-06-09 05:02+0300\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -42,19 +42,19 @@ msgstr "ім'я"
 msgid "group"
 msgstr "група"
 
-#: mcadmin/models/command.py:61
+#: mcadmin/models/command.py:82
 msgid "management command"
 msgstr "керуюча команда"
 
-#: mcadmin/models/command.py:62
+#: mcadmin/models/command.py:83
 msgid "management commands"
 msgstr "керуючі команди"
 
-#: mcadmin/models/group.py:40
+#: mcadmin/models/group.py:61
 msgid "management commands group"
 msgstr "група керуючих команд"
 
-#: mcadmin/models/group.py:41
+#: mcadmin/models/group.py:62
 msgid "management commands groups"
 msgstr "групи керуючих команд"
 
@@ -67,19 +67,19 @@ msgstr "користувач"
 msgid "command"
 msgstr "команда"
 
-#: mcadmin/models/permissions/command.py:58
+#: mcadmin/models/permissions/command.py:79
 msgid "management command permission"
 msgstr "доступ до керуючої команди"
 
-#: mcadmin/models/permissions/command.py:59
+#: mcadmin/models/permissions/command.py:80
 msgid "management commands permissions"
 msgstr "доступи до керуючої команди"
 
-#: mcadmin/models/permissions/group.py:58
+#: mcadmin/models/permissions/group.py:79
 msgid "management command group permission"
 msgstr "доступ до групи керуючих команд"
 
-#: mcadmin/models/permissions/group.py:59
+#: mcadmin/models/permissions/group.py:80
 msgid "management commands groups permissions"
 msgstr "доступ до груп керуючих команд"
 
