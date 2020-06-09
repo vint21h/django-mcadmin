@@ -23,18 +23,39 @@ class Group(models.Model):
     name = models.CharField(max_length=256, verbose_name=_("name"), db_index=True)
 
     def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with group name
+        :rtype: str
+        """
 
         return self.name
 
     def __str__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with group name
+        :rtype: str
+        """
 
         return self.__unicode__()
 
     def __repr__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with group name
+        :rtype: str
+        """
 
         return self.__unicode__()
 
     class Meta:
+        """
+        Model settings.
+        """
 
         app_label = "mcadmin"  # type: str
         verbose_name = _("management commands group")  # type: str

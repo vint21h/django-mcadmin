@@ -37,18 +37,39 @@ class CommandPermission(models.Model):
     )
 
     def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with command and user names
+        :rtype: str
+        """
 
         return f"{self.command} - {self.user}"
 
     def __str__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with command and user names
+        :rtype: str
+        """
 
         return self.__unicode__()
 
     def __repr__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with command and user names
+        :rtype: str
+        """
 
         return self.__unicode__()
 
     class Meta:
+        """
+        Model settings.
+        """
 
         app_label = "mcadmin"  # type: str
         unique_together = [

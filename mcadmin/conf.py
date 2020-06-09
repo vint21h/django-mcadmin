@@ -28,5 +28,8 @@ class DjangoDjversionAppConf(AppConf):
     USE_PERMISSIONS = getattr(settings, "MCADMIN_USE_PERMISSIONS", False)  # type: bool
 
     class Meta:
+        """
+        Config settings.
+        """
 
         prefix = "mcadmin"  # type: str

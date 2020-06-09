@@ -102,6 +102,9 @@ class CommandAdminForm(forms.ModelForm):
     )
 
     class Meta:
+        """
+        Form settings.
+        """
 
         model = Command  # type: Type[Command]
         fields = [
