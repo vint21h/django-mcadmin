@@ -24,10 +24,7 @@ SECRET_KEY = "".join(
 
 # configure databases
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "django-mcadmin-tests.sqlite3",
-    }
+    "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}
 }  # type: Dict[str, Dict[str, str]]
 
 MIDDLEWARE = [
