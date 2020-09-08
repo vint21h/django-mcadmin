@@ -54,7 +54,7 @@ class ManagementCommandsLoaderTest(TestCase):
     """
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         """
         Set up non-modified objects used by all test methods.
         """
@@ -65,7 +65,7 @@ class ManagementCommandsLoaderTest(TestCase):
             command="tests.test_loader.TestManagementCommandAdmin", group=group
         )
 
-    def test_load(self):
+    def test_load(self) -> None:
         """
         get_command method must return command from registry.
         """
@@ -82,7 +82,7 @@ class ManagementCommandsLoaderTest(TestCase):
 
         self.assertDictEqual(d1=loader.commands, d2=result)
 
-    def test_get_command(self):
+    def test_get_command(self) -> None:
         """
         get_command method must return command from registry.
         """

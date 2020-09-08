@@ -36,7 +36,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
     Management command admin form with files tests.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         """
         Set up.
         """
@@ -58,7 +58,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
                 data={"file": test},
             )
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         """
         Tear down.
         """
@@ -69,7 +69,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
             pass
 
     @freeze_time("1991-08-24 00:00:00")
-    def test_get_filepath(self):
+    def test_get_filepath(self) -> None:
         """
         get_filepath method must return path for file.
         """
@@ -82,7 +82,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
         self.assertEqual(first=result, second=self.expected)
 
     @freeze_time("1991-08-24 00:00:00")
-    def test_save_file__path_attribute(self):
+    def test_save_file__path_attribute(self) -> None:
         """
         save_file method must change file field "path" attribute.
         """
@@ -98,7 +98,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
         self.assertEqual(first=result, second=self.expected)
 
     @freeze_time("1991-08-24 00:00:00")
-    def test_save_file__existence(self):
+    def test_save_file__existence(self) -> None:
         """
         save_file method must save file.
         """
@@ -114,7 +114,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
         self.assertTrue(expr=Path(result).exists())
 
     @freeze_time("1991-08-24 00:00:00")
-    def test_save_files__existence(self):
+    def test_save_files__existence(self) -> None:
         """
         save_files method must save files.
         """

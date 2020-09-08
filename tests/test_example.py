@@ -28,7 +28,7 @@ class ManagementCommandAdminExampleFileTest(TestCase):
     Management commands admin example file tests.
     """
 
-    def test_get_absolute_url(self):
+    def test_get_absolute_url(self) -> None:
         """
         get_absolute_url method must return URL to example file.
         """
@@ -40,7 +40,7 @@ class ManagementCommandAdminExampleFileTest(TestCase):
             second="/examples/test.csv",
         )
 
-    def test_get_absolute_url__raw(self):
+    def test_get_absolute_url__raw(self) -> None:
         """
         get_absolute_url method must return ful URL to example raw file.
         """

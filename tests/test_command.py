@@ -51,7 +51,7 @@ class ManagementCommandAdminTest(TestCase):
     Management commands admin tests.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         """
         Set up.
         """
@@ -65,7 +65,7 @@ class ManagementCommandAdminTest(TestCase):
             },
         )
 
-    def test_get_form(self):
+    def test_get_form(self) -> None:
         """
         get_form method must return form instance initialized with request data.
         """
@@ -80,7 +80,7 @@ class ManagementCommandAdminTest(TestCase):
             html2=expected.as_p(),
         )
 
-    def test_get_form_value(self):
+    def test_get_form_value(self) -> None:
         """
         get_form_value method must return form field value.
         """
@@ -93,7 +93,7 @@ class ManagementCommandAdminTest(TestCase):
 
         self.assertEqual(first=result, second="on")
 
-    def test_form_to_args(self):
+    def test_form_to_args(self) -> None:
         """
         form_to_args method must return converted form data.
         """
@@ -104,7 +104,7 @@ class ManagementCommandAdminTest(TestCase):
 
         self.assertEqual(first=result, second=["on"])
 
-    def test_form_to_kwargs(self):
+    def test_form_to_kwargs(self) -> None:
         """
         form_to_kwargs method must return converted form data.
         """

@@ -46,7 +46,7 @@ class CommandPermissionModelTest(TestCase):
     """
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         """
         Set up non-modified objects used by all test methods.
         """
@@ -59,7 +59,7 @@ class CommandPermissionModelTest(TestCase):
         )
         CommandPermission.objects.create(user=user, command=command)
 
-    def test___unicode__(self):
+    def test___unicode__(self) -> None:
         """
         __unicode__ method must return formatted group permission name.
         """
@@ -69,7 +69,7 @@ class CommandPermissionModelTest(TestCase):
 
         self.assertEqual(first=command.__unicode__(), second=expected)  # type: ignore
 
-    def test___repr__(self):
+    def test___repr__(self) -> None:
         """
         __repr__ method must return formatted group permission name.
         """
@@ -82,7 +82,7 @@ class CommandPermissionModelTest(TestCase):
             second=expected,
         )
 
-    def test___str__(self):
+    def test___str__(self) -> None:
         """
         __str__ method must return formatted group permission name.
         """

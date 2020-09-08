@@ -20,14 +20,14 @@ class GroupModelTest(TestCase):
     """
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         """
         Set up non-modified objects used by all test methods.
         """
 
         Group.objects.create(name="Test")
 
-    def test___unicode__(self):
+    def test___unicode__(self) -> None:
         """
         __unicode__ method must return group name.
         """
@@ -36,7 +36,7 @@ class GroupModelTest(TestCase):
 
         self.assertEqual(first=group.__unicode__(), second="Test")  # type: ignore
 
-    def test___repr__(self):
+    def test___repr__(self) -> None:
         """
         __repr__ method must return group name.
         """
@@ -45,7 +45,7 @@ class GroupModelTest(TestCase):
 
         self.assertEqual(first=group.__repr__(), second="Test")
 
-    def test___str__(self):
+    def test___str__(self) -> None:
         """
         __str__ method must return group name.
         """

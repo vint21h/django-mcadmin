@@ -42,7 +42,7 @@ class CommandModelTest(TestCase):
     """
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         """
         Set up non-modified objects used by all test methods.
         """
@@ -52,7 +52,7 @@ class CommandModelTest(TestCase):
             command="tests.models.test_command.TestManagementCommandAdmin", group=group
         )
 
-    def test___unicode__(self):
+    def test___unicode__(self) -> None:
         """
         __unicode__ method must return group name.
         """
@@ -64,7 +64,7 @@ class CommandModelTest(TestCase):
             second="tests.models.test_command.TestManagementCommandAdmin - Test",
         )
 
-    def test___repr__(self):
+    def test___repr__(self) -> None:
         """
         __repr__ method must return group name.
         """
@@ -76,7 +76,7 @@ class CommandModelTest(TestCase):
             second="tests.models.test_command.TestManagementCommandAdmin - Test",
         )
 
-    def test___str__(self):
+    def test___str__(self) -> None:
         """
         __str__ method must return group name.
         """

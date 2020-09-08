@@ -45,14 +45,14 @@ class ManagementCommandAdminRegistryTest(TestCase):
     Management commands admin registry tests.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         """
         Set up.
         """
 
         registry.clean()
 
-    def test_register(self):
+    def test_register(self) -> None:
         """
         register method must add command to registry.
         """
@@ -66,7 +66,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
             },
         )
 
-    def test_register_raises_not_management_command_admin_exception(self):
+    def test_register_raises_not_management_command_admin_exception(self) -> None:
         """
         register method must raise "NotManagementCommandAdmin".
         """
@@ -76,7 +76,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
 
     def test_register_raises_management_command_admin_already_registered_exception(
         self,
-    ):
+    ) -> None:
         """
         register method must raise "ManagementCommandAdminAlreadyRegistered".
         """
@@ -86,7 +86,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         with self.assertRaises(ManagementCommandAdminAlreadyRegistered):
             registry.register(TestManagementCommandAdmin)
 
-    def test_unregister(self):
+    def test_unregister(self) -> None:
         """
         unregister method must remove command from registry.
         """
@@ -99,7 +99,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
             d2={},
         )
 
-    def test_unregister_raises_not_management_command_admin_exception(self):
+    def test_unregister_raises_not_management_command_admin_exception(self) -> None:
         """
         unregister method must raise "NotManagementCommandAdmin".
         """
@@ -107,7 +107,9 @@ class ManagementCommandAdminRegistryTest(TestCase):
         with self.assertRaises(NotManagementCommandAdmin):
             registry.unregister(object)  # type: ignore
 
-    def test_unregister_raises_management_command_admin_not_registered_exception(self):
+    def test_unregister_raises_management_command_admin_not_registered_exception(
+        self,
+    ) -> None:
         """
         unregister method must raise "ManagementCommandAdminNotRegistered".
         """
@@ -115,7 +117,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         with self.assertRaises(ManagementCommandAdminNotRegistered):
             registry.unregister(TestManagementCommandAdmin)
 
-    def test__get_command_key(self):
+    def test__get_command_key(self) -> None:
         """
         __get_command_key method must return command class key for registry.
         """
@@ -127,7 +129,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
             second="tests.test_registry.TestManagementCommandAdmin",
         )
 
-    def test_choices(self):
+    def test_choices(self) -> None:
         """
         choices property must contain commands choices for admin.
         """
@@ -139,7 +141,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
             list2=[("tests.test_registry.TestManagementCommandAdmin", "Test Command")],
         )
 
-    def test_clean(self):
+    def test_clean(self) -> None:
         """
         clean method must remove all command from registry.
         """

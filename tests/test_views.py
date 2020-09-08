@@ -73,7 +73,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
     Management commands admin index view tests.
     """
 
-    def setUp(self):
+    def setUp(self) -> None:
         """
         Set up.
         """
@@ -87,7 +87,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
         )
 
     @classmethod
-    def setUpTestData(cls):
+    def setUpTestData(cls) -> None:
         """
         Set up non-modified objects used by all test methods.
         """
@@ -106,14 +106,14 @@ class ManagementCommandsAdminIndexTest(TestCase):
         CommandGroupPermission.objects.create(user=user, group=group)
         CommandPermission.objects.create(user=user, command=command)
 
-    def test_loader(self):
+    def test_loader(self) -> None:
         """
         loader property must return commands loader.
         """
 
         self.assertIsInstance(obj=self.view.loader, cls=ManagementCommandsLoader)
 
-    def test_get_context_data(self):
+    def test_get_context_data(self) -> None:
         """
         get_context_data method must return view context data.
         """
@@ -126,7 +126,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
         self.assertDictEqual(d1=self.view.get_context_data(), d2=expected)
 
-    def test_get_command_name(self):
+    def test_get_command_name(self) -> None:
         """
         get_command_name method must return command name from request POST data.
         """
@@ -136,7 +136,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
         self.assertEqual(first=result, second=expected)
 
-    def test_filter_by_permissions__without_use_permissions(self):
+    def test_filter_by_permissions__without_use_permissions(self) -> None:
         """
         filter_by_permissions method must return commands not filtered by permissions.
         """
@@ -148,7 +148,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
         self.assertDictEqual(d1=result, d2=self.view.loader.commands)
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
-    def test_filter_by_permissions__anonymous(self):
+    def test_filter_by_permissions__anonymous(self) -> None:
         """
         filter_by_permissions method must not return commands.
         """
@@ -164,7 +164,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
         self.assertDictEqual(d1=result, d2={})
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
-    def test_filter_by_permissions__superuser(self):
+    def test_filter_by_permissions__superuser(self) -> None:
         """
         filter_by_permissions method must return not filtered permissions for superuser.
         """
@@ -181,7 +181,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
         self.assertDictEqual(d1=result, d2=self.view.loader.commands)
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
-    def test_filter_by_permissions(self):
+    def test_filter_by_permissions(self) -> None:
         """
         filter_by_permissions method must return filtered permissions.
         """
