@@ -18,9 +18,6 @@ __all__ = ["default_app_config", "autodiscover"]  # type: List[str]
 def autodiscover() -> None:
     """
     Autodiscover management commands admins.
-
-    :return: nothing.
-    :rtype: None.
     """
 
     autodiscover_modules(settings.MCADMIN_MODULE_NAME, register_to=registry)

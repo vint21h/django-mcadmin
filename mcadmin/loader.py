@@ -32,9 +32,6 @@ class ManagementCommandsLoader(object):
     def __init__(self) -> None:
         """
         Init loader.
-
-        :return: nothing.
-        :rtype: None.
         """
 
         self.registry = registry._registry
@@ -43,9 +40,6 @@ class ManagementCommandsLoader(object):
     def load(self) -> None:
         """
         Load and initialize commands from registry.
-
-        :return: nothing.
-        :rtype: None.
         """
 
         groups = Group.objects.filter(
@@ -77,10 +71,10 @@ class ManagementCommandsLoader(object):
         """
         Get and initialize command from registry.
 
-        :param name: command name.
-        :type name: str.
-        :return: initialized command.
-        :rtype: Union[ManagementCommandAdmin, None].
+        :param name: command name
+        :type name: str
+        :return: initialized command
+        :rtype: Union[ManagementCommandAdmin, None]
         """
 
         return self.registry[name]() if name in self.registry else None

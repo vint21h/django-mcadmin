@@ -72,7 +72,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         """
 
         with self.assertRaises(NotManagementCommandAdmin):
-            registry.register(object)
+            registry.register(object)  # type: ignore
 
     def test_register_raises_management_command_admin_already_registered_exception(
         self,
@@ -105,7 +105,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         """
 
         with self.assertRaises(NotManagementCommandAdmin):
-            registry.unregister(object)
+            registry.unregister(object)  # type: ignore
 
     def test_unregister_raises_management_command_admin_not_registered_exception(self):
         """

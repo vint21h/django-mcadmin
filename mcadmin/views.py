@@ -37,14 +37,14 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Overload dispatch to add staff user required checking.
 
-        :param request: request.
-        :type request: HttpRequest.
-        :param args: additional args.
-        :type args: List[Any].
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: dispatched request method.
-        :rtype: Any.
+        :param request: request
+        :type request: HttpRequest
+        :param args: additional args
+        :type args: List[Any]
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
+        :return: dispatched request method
+        :rtype: Any
         """
 
         return super(ManagementCommandsAdminIndex, self).dispatch(  # type: ignore
@@ -55,10 +55,10 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Overload to update context.
 
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: updated context.
-        :rtype: Dict[str, Any].
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
+        :return: updated context
+        :rtype: Dict[str, Any]
         """
 
         context = super(ManagementCommandsAdminIndex, self).get_context_data(**kwargs)
@@ -79,14 +79,14 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         POST request processing.
 
-        :param request: request.
-        :type request: HttpRequest.
-        :param args: additional args.
-        :type args: List[Any].
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: rendered template.
-        :rtype: HttpResponse.
+        :param request: request
+        :type request: HttpRequest
+        :param args: additional args
+        :type args: List[Any]
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
+        :return: rendered template
+        :rtype: HttpResponse
         """
 
         command_name = self.get_command_name(request=request)
@@ -149,8 +149,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Get template.
 
-        :return: list of templates.
-        :rtype: List[str].
+        :return: list of templates
+        :rtype: List[str]
         """
 
         return [
@@ -162,8 +162,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Get loader.
 
-        :return: management commands loader.
-        :rtype: ManagementCommandsLoader.
+        :return: management commands loader
+        :rtype: ManagementCommandsLoader
         """
 
         if self._loader:
@@ -178,10 +178,10 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Get command name from request data.
 
-        :param request: request.
-        :type request: HttpRequest.
-        :return: command name.
-        :rtype: str.
+        :param request: request
+        :type request: HttpRequest
+        :return: command name
+        :rtype: str
         """
 
         return min(set(self.loader.registry.keys()).intersection(request.POST.keys()))
@@ -196,12 +196,12 @@ class ManagementCommandsAdminIndex(TemplateView):
         """
         Filter commands by commands and groups permissions.
 
-        :param commands: management commands from loader.
-        :type commands: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]].  # noqa: E501
-        :param request: request.
-        :type request: Optional[HttpRequest].
-        :return: filtered commands.
-        :rtype: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]].  # noqa: E501
+        :param commands: management commands from loader
+        :type commands: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]  # noqa: E501
+        :param request: request
+        :type request: Optional[HttpRequest]
+        :return: filtered commands
+        :rtype: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]  # noqa: E501
         """
 
         if request and settings.MCADMIN_USE_PERMISSIONS:

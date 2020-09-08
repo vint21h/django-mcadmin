@@ -6,9 +6,9 @@
 
 from typing import Any, Dict, List, Type, Union, Optional  # pylint: disable=W0611
 
-from django import forms
 from django.http import QueryDict, HttpRequest
 from django.core.management import call_command
+from django.forms import Form, FileField, ImageField
 
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
@@ -28,17 +28,17 @@ class ManagementCommandAdmin(object):
     name = ""  # type: str
     args = []  # type: List[Any]  # default options
     kwargs = {}  # type: Dict[str, Any]  # default options
-    form = None  # type: Union[Type[forms.Form], None]
+    form = None  # type: Union[Type[Form], None]
     examples = []  # type: List[ManagementCommandAdminExampleFile]
 
     def __eq__(self, other: Any) -> bool:
         """
         Not really needed, nut very useful fro testing.
 
-        :param other: item comparing with.
-        :type other: Any.
+        :param other: item comparing with
+        :type other: Any
         :return: is objects equal?
-        :rtype: bool.
+        :rtype: bool
         """
 
         return all(
@@ -53,16 +53,16 @@ class ManagementCommandAdmin(object):
             ]
         )
 
-    def form_to_kwargs(self, form: forms.Form, data: QueryDict) -> Dict[str, Any]:
+    def form_to_kwargs(self, form: Form, data: QueryDict) -> Dict[str, Any]:
         """
         Convert validated form data to command kwargs.
 
-        :param form: form instance initialized with request data.
-        :type form: forms.Form.
-        :param data: request data.
-        :type data: QueryDict.
-        :return: command kwargs.
-        :rtype: Dict[str, Any].
+        :param form: form instance initialized with request data
+        :type form: Form
+        :param data: request data
+        :type data: QueryDict
+        :return: command kwargs
+        :rtype: Dict[str, Any]
         """
 
         # set default options
@@ -73,16 +73,16 @@ class ManagementCommandAdmin(object):
 
         return kwargs
 
-    def form_to_args(self, form: forms.Form, data: QueryDict) -> List[Any]:
+    def form_to_args(self, form: Form, data: QueryDict) -> List[Any]:
         """
         Convert validated form data to command args.
 
-        :param form: form instance initialized with request data.
-        :type form: forms.Form.
-        :param data: request data.
-        :type data: QueryDict.
-        :return: command args.
-        :rtype: List[Any].
+        :param form: form instance initialized with request data
+        :type form: Form
+        :param data: request data
+        :type data: QueryDict
+        :return: command args
+        :rtype: List[Any]
         """
 
         # set default options
@@ -93,18 +93,18 @@ class ManagementCommandAdmin(object):
 
         return args
 
-    def form_value(self, form: forms.Form, key: str, data: QueryDict) -> Any:
+    def form_value(self, form: Form, key: str, data: QueryDict) -> Any:
         """
         Get form field value.
 
-        :param form: form instance initialized with request data.
-        :type form: forms.Form.
-        :param key: key name.
-        :type key: str.
-        :param data: request data.
-        :type data: QueryDict.
-        :return: key value.
-        :rtype: Any.
+        :param form: form instance initialized with request data
+        :type form: Form
+        :param key: key name
+        :type key: str
+        :param data: request data
+        :type data: QueryDict
+        :return: key value
+        :rtype: Any
         """
 
         if all(
@@ -113,8 +113,8 @@ class ManagementCommandAdmin(object):
                 self.examples,
                 any(
                     [
-                        isinstance(form.fields[key], forms.FileField),
-                        isinstance(form.fields[key], forms.ImageField),
+                        isinstance(form.fields[key], FileField),
+                        isinstance(form.fields[key], ImageField),
                     ]
                 ),
             ]
@@ -129,24 +129,24 @@ class ManagementCommandAdmin(object):
         """
         Run management command.
 
-        :param args: additional args.
+        :param args: additional args
         :type args: List[Any]
-        :param kwargs: additional args.
+        :param kwargs: additional args
         :type kwargs: Dict[str, Any]
-        :return: command execution result.
-        :rtype: Any.
+        :return: command execution result
+        :rtype: Any
         """
 
         return call_command(self.command, *args, **kwargs)
 
-    def get_form(self, request: Optional[HttpRequest]) -> Union[forms.Form, None]:
+    def get_form(self, request: Optional[HttpRequest]) -> Union[Form, None]:
         """
         Get command form instance initialized with request data.
 
-        :param request: request.
-        :type request: HttpRequest.
-        :return: form instance initialized with request data or None.
-        :rtype: Union[forms.Form, None].
+        :param request: request
+        :type request: HttpRequest
+        :return: form instance initialized with request data or None
+        :rtype: Union[Form, None]
         """
 
         return (

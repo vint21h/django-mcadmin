@@ -41,11 +41,8 @@ class ManagementCommandAdminFilesForm(forms.Form):
 
     def save_files(self) -> None:
         """
-        Save all files in form.
-        Must be called only after form validation.
-
-        :return: nothing.
-        :rtype: None.
+        Save all files in form
+        Must be called only after form validation
         """
 
         for field in self.fields:
@@ -62,10 +59,8 @@ class ManagementCommandAdminFilesForm(forms.Form):
         Default save file handler. Can be overloaded.
         But always must receive field arg.
 
-        :param field: field name.
-        :type field: str.
-        :return: nothing.
-        :rtype: None.
+        :param field: field name
+        :type field: str
         """
 
         filepath = self.get_filepath(
@@ -79,12 +74,12 @@ class ManagementCommandAdminFilesForm(forms.Form):
         """
         Create unique filename under management command admin upload path.
 
-        :param filename: original filename.
-        :type filename: str.
-        :param size: original file size.
-        :type size: int.
-        :return: unique filename under management command admin upload path.
-        :rtype: str.
+        :param filename: original filename
+        :type filename: str
+        :param size: original file size
+        :type size: int
+        :return: unique filename under management command admin upload path
+        :rtype: str
         """
 
         now = timezone.now()

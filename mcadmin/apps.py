@@ -24,9 +24,6 @@ class DjangoManagementCommandsAdminConfig(AppConfig):
     def ready(self) -> None:
         """
         Application ready callback.
-
-        :return: nothing.
-        :rtype: None.
         """
 
         super(DjangoManagementCommandsAdminConfig, self).ready()

@@ -47,34 +47,32 @@ class CommandAdminForm(forms.ModelForm):
         instance: Optional[Model] = None,
         use_required_attribute: Optional[bool] = None,
         renderer: Any = None,
-    ):
+    ) -> None:
         """
         Overridden to change command field choices on the fly.
 
-        :arg data: form data.
-        :type data: Optional[Mapping[str, Any]].
-        :arg files: form files.
-        :type files: Optional[Mapping[str, File]].
-        :arg auto_id: field auto ID.
-        :type auto_id: Union[bool, str].
-        :arg prefix: field prefix.
-        :type prefix: Optional[str].
-        :arg initial: form initial data.
-        :type initial: Optional[Dict[str, Any]].
-        :arg error_class: form error class.
-        :type error_class: Type[ErrorList].
-        :arg label_suffix: field label suffix.
-        :type label_suffix: Optional[str].
-        :arg empty_permitted: allow empty.
-        :type empty_permitted: bool.
-        :arg instance: model instance.
-        :type instance: Optional[Model].
-        :arg use_required_attribute: add required HTML attribute.
-        :type use_required_attribute: Optional[bool].
-        :arg renderer: form renderer.
-        :type renderer: Any.
-        :return: nothing.
-        :rtype: None.
+        :arg data: form data
+        :type data: Optional[Mapping[str, Any]]
+        :arg files: form files
+        :type files: Optional[Mapping[str, File]]
+        :arg auto_id: field auto ID
+        :type auto_id: Union[bool, str]
+        :arg prefix: field prefix
+        :type prefix: Optional[str]
+        :arg initial: form initial data
+        :type initial: Optional[Dict[str, Any]]
+        :arg error_class: form error class
+        :type error_class: Type[ErrorList]
+        :arg label_suffix: field label suffix
+        :type label_suffix: Optional[str]
+        :arg empty_permitted: allow empty
+        :type empty_permitted: bool
+        :arg instance: model instance
+        :type instance: Optional[Model]
+        :arg use_required_attribute: add required HTML attribute
+        :type use_required_attribute: Optional[bool]
+        :arg renderer: form renderer
+        :type renderer: Any
         """
 
         super(CommandAdminForm, self).__init__(

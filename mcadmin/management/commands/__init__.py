@@ -23,10 +23,8 @@ class TaskCommand(BaseCommand):
         """
         Add command arguments.
 
-        :param parser: command arguments parser instance.
-        :type parser: django.core.management.base.CommandParser.
-        :return: nothing.
-        :rtype: None.
+        :param parser: command arguments parser instance
+        :type parser: CommandParser
         """
 
         parser.add_argument(
@@ -45,11 +43,11 @@ class TaskCommand(BaseCommand):
         """
         Detect how to run command.
 
-        :param args: additional args.
-        :type args: List[Any].
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: command execution result.
+        :param args: additional args
+        :type args: List[Any]
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
+        :return: command execution result
         :rtype: Any
         """
 
@@ -63,12 +61,12 @@ class TaskCommand(BaseCommand):
         Run command locally.
         Must be implemented in child class.
 
-        :param args: additional args.
-        :type args: List[Any].
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: nothing.
-        :rtype: None.
+        # noqa: DAR401
+
+        :param args: additional args
+        :type args: List[Any]
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
         """
 
         raise NotImplementedError
@@ -78,12 +76,12 @@ class TaskCommand(BaseCommand):
         Run command as background task.
         Must be implemented in child class.
 
-        :param args: additional args.
-        :type args: List[Any].
-        :param kwargs: additional args.
-        :type kwargs: Dict[str, Any].
-        :return: nothing.
-        :rtype: None.
+        # noqa: DAR401
+
+        :param args: additional args
+        :type args: List[Any]
+        :param kwargs: additional args
+        :type kwargs: Dict[str, Any]
         """
 
         raise NotImplementedError

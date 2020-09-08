@@ -29,8 +29,8 @@ class ManagementCommandAdminExampleFile(object):
         """
         Return URL to example file.
 
-        :return: example file URL.
-        :rtype: str.
+        :return: example file URL
+        :rtype: str
         """
 
         if self.raw:

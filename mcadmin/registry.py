@@ -26,14 +26,14 @@ class ManagementCommandAdminRegistry(object):
 
     _registry = {}  # type: Dict[str, Type[ManagementCommandAdmin]]
 
-    def register(self, command) -> None:
+    def register(self, command: Type[ManagementCommandAdmin]) -> None:
         """
         Register management command admin.
 
-        :param command: management command admin class.
-        :type command: Type[ManagementCommandAdmin].
-        :return: nothing.
-        :rtype: None.
+        # noqa: DAR401
+
+        :param command: management command admin class
+        :type command: Type[ManagementCommandAdmin]
         """
 
         name = self.__get_command_key(command=command)
@@ -52,14 +52,14 @@ class ManagementCommandAdminRegistry(object):
 
         self._registry.update({name: command})
 
-    def unregister(self, command) -> None:
+    def unregister(self, command: Type[ManagementCommandAdmin]) -> None:
         """
         Unregister management command admin.
 
-        :param command: management command admin class.
-        :type command: Type[ManagementCommandAdmin].
-        :return: nothing.
-        :rtype: None.
+        # noqa: DAR401
+
+        :param command: management command admin class
+        :type command: Type[ManagementCommandAdmin]
         """
 
         name = self.__get_command_key(command=command)
@@ -83,10 +83,10 @@ class ManagementCommandAdminRegistry(object):
         """
         Get command key for registry (class module name + class name).
 
-        :param command: management command admin class.
-        :type command: Type[ManagementCommandAdmin].
-        :return: class module name + class name.
-        :rtype: str.
+        :param command: management command admin class
+        :type command: Type[ManagementCommandAdmin]
+        :return: class module name + class name
+        :rtype: str
         """
 
         return f"{command.__module__}.{command.__name__}"
@@ -95,6 +95,9 @@ class ManagementCommandAdminRegistry(object):
     def choices(self) -> List[Tuple[str, str]]:
         """
         Get commands choices for admin.
+
+        :return: commands choices for admin
+        :rtype: List[Tuple[str, str]]
         """
 
         return [(name, command.name) for name, command in self._registry.items()]
@@ -102,9 +105,6 @@ class ManagementCommandAdminRegistry(object):
     def clean(self) -> None:
         """
         Clean registry.
-
-        :return: nothing.
-        :rtype: None.
         """
 
         self._registry = {}
