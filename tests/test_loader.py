@@ -8,13 +8,13 @@ from typing import List  # pylint: disable=W0611
 
 from django.test import TestCase
 
+from mcadmin.registry import registry
+from mcadmin.models.group import Group
+from mcadmin.models.command import Command
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
-from mcadmin.loader import ManagementCommandsLoader
-from mcadmin.models.command import Command
-from mcadmin.models.group import Group
-from mcadmin.registry import registry
 
 
 __all__ = ["ManagementCommandsLoaderTest"]  # type: List[str]

@@ -8,6 +8,7 @@ from typing import List  # pylint: disable=W0611
 
 from django.test import TestCase
 
+from mcadmin.registry import registry
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.exceptions import (
@@ -15,7 +16,6 @@ from mcadmin.exceptions import (
     ManagementCommandAdminNotRegistered,
     ManagementCommandAdminAlreadyRegistered,
 )
-from mcadmin.registry import registry
 
 
 __all__ = ["ManagementCommandAdminRegistryTest"]  # type: List[str]
@@ -95,7 +95,8 @@ class ManagementCommandAdminRegistryTest(TestCase):
         registry.unregister(TestManagementCommandAdmin)
 
         self.assertDictEqual(
-            d1=registry._registry, d2={},
+            d1=registry._registry,
+            d2={},
         )
 
     def test_unregister_raises_not_management_command_admin_exception(self):

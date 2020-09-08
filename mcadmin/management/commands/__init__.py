@@ -6,8 +6,8 @@
 
 from typing import Any, Dict, List  # pylint: disable=W0611
 
-from django.core.management.base import BaseCommand, CommandParser, no_translations
 from django.utils.translation import ugettext_lazy as _
+from django.core.management.base import BaseCommand, CommandParser, no_translations
 
 
 __all__ = ["TaskCommand"]  # type: List[str]

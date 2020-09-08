@@ -7,17 +7,17 @@
 from typing import Any, Dict, List, Union, Optional  # pylint: disable=W0611
 
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
+from django.views.generic import TemplateView
 from django.http import HttpRequest, HttpResponse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.contrib.auth.decorators import user_passes_test
 
-from mcadmin.command import ManagementCommandAdmin
 from mcadmin.conf import settings
-from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
-from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.models.group import Group
+from mcadmin.command import ManagementCommandAdmin
+from mcadmin.loader import ManagementCommandsLoader
+from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
 
 __all__ = [
@@ -129,7 +129,8 @@ class ManagementCommandsAdminIndex(TemplateView):
                 try:
                     command.handle()
                     messages.success(
-                        request, _(f"Run '{command.name}' management command success"),
+                        request,
+                        _(f"Run '{command.name}' management command success"),
                     )
                 except Exception as error:
                     messages.error(

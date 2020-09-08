@@ -6,12 +6,12 @@
 
 from typing import List, Optional  # pylint: disable=W0611
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
+from mcadmin.models.command import Command
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
-from mcadmin.models.command import Command
 from mcadmin.models.permissions.command import CommandPermission
 
 
@@ -78,7 +78,8 @@ class CommandPermissionModelTest(TestCase):
         expected = "tests.models.test_command.TestManagementCommandAdmin - test"
 
         self.assertEqual(
-            first=command.__repr__(), second=expected,
+            first=command.__repr__(),
+            second=expected,
         )
 
     def test___str__(self):
@@ -90,5 +91,6 @@ class CommandPermissionModelTest(TestCase):
         expected = "tests.models.test_command.TestManagementCommandAdmin - test"
 
         self.assertEqual(
-            first=command.__str__(), second=expected,
+            first=command.__str__(),
+            second=expected,
         )

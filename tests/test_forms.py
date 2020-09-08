@@ -5,17 +5,17 @@
 
 
 import os
-from pathlib import Path
 import tempfile
+from pathlib import Path
 from typing import List  # pylint: disable=W0611
 
 from django import forms
-from django.core.files.base import File
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
-from django.test.client import RequestFactory
 from django.urls import reverse
+from django.test import TestCase
 from freezegun import freeze_time
+from django.core.files.base import File
+from django.test.client import RequestFactory
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
@@ -54,7 +54,8 @@ class ManagementCommandAdminFilesFormTest(TestCase):
                 )
             )
             self.request = RequestFactory().post(
-                path=reverse("mcadmin-index"), data={"file": test},
+                path=reverse("mcadmin-index"),
+                data={"file": test},
             )
 
     def tearDown(self):

@@ -8,9 +8,9 @@
 
 from typing import List, Tuple  # pylint: disable=W0611
 
+import django.db.models.deletion
 from django.conf import settings
 from django.db import models, migrations
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):

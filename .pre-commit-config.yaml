@@ -47,7 +47,7 @@ repos:
       name: pylint
       stages: [commit]
       language: system
-      entry: pipenv run pylint mcadmin tests
+      entry: bash -c 'PYTHONPATH="$PYTHONPATH:$PWD" DJANGO_SETTINGS_MODULE=tests.settings pipenv run pylint mcadmin tests'
       types: [python]
     - id: bandit
       name: bandit
@@ -85,7 +85,7 @@ repos:
       entry: pipenv run pyroma -d .
       types: [python]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.1.0
+    rev: v3.2.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer

@@ -8,10 +8,10 @@ from typing import List, Optional  # pylint: disable=W0611
 
 from django.test import TestCase
 
+from mcadmin.models.group import Group
+from mcadmin.models.command import Command
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
-from mcadmin.models.command import Command
-from mcadmin.models.group import Group
 
 
 __all__ = ["CommandModelTest"]  # type: List[str]

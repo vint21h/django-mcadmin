@@ -6,8 +6,8 @@
 
 from typing import List, Optional  # pylint: disable=W0611
 
-from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 
 from mcadmin.models.group import Group
 from mcadmin.models.permissions.group import CommandGroupPermission

@@ -36,7 +36,8 @@ class ManagementCommandAdminExampleFileTest(TestCase):
         example = TestManagementCommandAdminExampleFile()
 
         self.assertEqual(
-            first=example.get_absolute_url, second="/examples/test.csv",
+            first=example.get_absolute_url,
+            second="/examples/test.csv",
         )
 
     def test_get_absolute_url__raw(self):
@@ -48,5 +49,6 @@ class ManagementCommandAdminExampleFileTest(TestCase):
         example.raw = True
 
         self.assertEqual(
-            first=example.get_absolute_url, second="test.csv",
+            first=example.get_absolute_url,
+            second="test.csv",
         )

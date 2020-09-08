@@ -7,8 +7,8 @@
 from typing import Any, Dict, List, Type, Union, Optional  # pylint: disable=W0611
 
 from django import forms
-from django.core.management import call_command
 from django.http import QueryDict, HttpRequest
+from django.core.management import call_command
 
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm

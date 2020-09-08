@@ -20,8 +20,8 @@ from django.db.models import Model
 from django.forms.utils import ErrorList
 from django.utils.translation import ugettext_lazy as _
 
-from mcadmin.models.command import Command
 from mcadmin.registry import registry
+from mcadmin.models.command import Command
 
 
 __all__ = [

@@ -4,9 +4,9 @@
 # tests/settings.py
 
 
-import pathlib
-import random
 import sys
+import random
+import pathlib
 import tempfile
 from typing import Dict, List, Union  # pylint: disable=W0611
 

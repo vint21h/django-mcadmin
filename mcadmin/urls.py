@@ -7,9 +7,9 @@
 from typing import List, Union  # pylint: disable=W0611
 
 from django.conf.urls import url
+from django.views.static import serve
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls.resolvers import URLPattern, URLResolver  # pylint: disable=W0611
-from django.views.static import serve
 
 from mcadmin.conf import settings
 from mcadmin.views import ManagementCommandsAdminIndex

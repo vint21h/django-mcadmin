@@ -6,9 +6,9 @@
 
 from typing import List  # pylint: disable=W0611
 
+from django.urls import reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
-from django.urls import reverse
 
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
@@ -76,7 +76,8 @@ class ManagementCommandAdminTest(TestCase):
         )
 
         self.assertHTMLEqual(
-            html1=result.as_p(), html2=expected.as_p(),  # type: ignore
+            html1=result.as_p(),  # type: ignore
+            html2=expected.as_p(),
         )
 
     def test_get_form_value(self):

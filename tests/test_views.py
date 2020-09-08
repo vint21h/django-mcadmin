@@ -6,23 +6,23 @@
 
 from typing import List  # pylint: disable=W0611
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
+from django.urls import reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
+from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
-from django.urls import reverse
+from django.contrib.auth.models import AnonymousUser
 
+from mcadmin.registry import registry
+from mcadmin.models.group import Group
+from mcadmin.models.command import Command
 from mcadmin.command import ManagementCommandAdmin
+from mcadmin.loader import ManagementCommandsLoader
+from mcadmin.views import ManagementCommandsAdminIndex
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
-from mcadmin.loader import ManagementCommandsLoader
-from mcadmin.models.command import Command
-from mcadmin.models.group import Group
 from mcadmin.models.permissions.command import CommandPermission
 from mcadmin.models.permissions.group import CommandGroupPermission
-from mcadmin.registry import registry
-from mcadmin.views import ManagementCommandsAdminIndex
 
 
 __all__ = ["ManagementCommandsAdminIndexTest"]  # type: List[str]
