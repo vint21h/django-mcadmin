@@ -4,9 +4,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mcadmin 0.7.3\n"
+"Project-Id-Version: mcadmin 0.8.0\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2020-06-09 05:02+0300\n"
+"POT-Creation-Date: 2020-09-08 21:03+0300\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -20,15 +20,15 @@ msgstr ""
 msgid "Management commands admin"
 msgstr "Management commands admin"
 
-#: mcadmin/forms/admin.py:97
+#: mcadmin/forms/admin.py:95
 msgid "Command"
 msgstr "Command"
 
-#: mcadmin/forms/admin.py:101 mcadmin/models/command.py:29
+#: mcadmin/forms/admin.py:99 mcadmin/models/command.py:29
 msgid "got from management commands admin registry"
 msgstr "got from management commands admin registry"
 
-#: mcadmin/forms/helpers.py:31 mcadmin/management/commands/__init__.py:36
+#: mcadmin/forms/helpers.py:31 mcadmin/management/commands/__init__.py:34
 msgid "Run management command as background task"
 msgstr "Run management command as background task"
 
@@ -105,12 +105,12 @@ msgstr "Management command does not require additional options"
 msgid "Other"
 msgstr "Other"
 
-#: mcadmin/views.py:114 mcadmin/views.py:132
+#: mcadmin/views.py:114 mcadmin/views.py:133
 #, python-brace-format
 msgid "Run '{command.name}' management command success"
 msgstr "Run '{command.name}' management command success"
 
-#: mcadmin/views.py:120 mcadmin/views.py:138
+#: mcadmin/views.py:120 mcadmin/views.py:139
 #, python-brace-format
 msgid "Running '{command.name}' management command error: {error}"
 msgstr "Running '{command.name}' management command error: {error}"
