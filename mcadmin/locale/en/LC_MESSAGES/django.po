@@ -91,7 +91,7 @@ msgstr "Management commands"
 
 #: mcadmin/templates/mcadmin/includes/content.html:12
 msgid "There Are No Commands You Are Looking For."
-msgstr ""
+msgstr "There Are No Commands You Are Looking For."
 
 #: mcadmin/templates/mcadmin/includes/example-file.html:10
 msgid "Example file"
