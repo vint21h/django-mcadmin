@@ -155,7 +155,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
         user = AnonymousUser()
 
-        self.request.user = user  # type: ignore
+        self.request.user = user
 
         result = self.view.filter_by_permissions(
             commands=self.view.loader.commands, request=self.request
