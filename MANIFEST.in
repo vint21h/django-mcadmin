@@ -3,9 +3,6 @@
 
 
 prune tests*
-include README.rst
-include COPYING
-include AUTHORS
 include mcadmin/templates/mcadmin/includes/command.html
 include mcadmin/templates/mcadmin/includes/group.html
 include mcadmin/templates/mcadmin/includes/breadcrumbs.html
