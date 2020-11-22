@@ -14,7 +14,7 @@ from mcadmin.forms.admin import CommandAdminForm
 __all__ = ["CommandAdmin"]  # type: List[str]
 
 
-class CommandAdmin(admin.ModelAdmin):
+class CommandAdmin(admin.ModelAdmin):  # type: ignore
     """
     Customize AdminCommand model for admin area.
     """

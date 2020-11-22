@@ -33,9 +33,13 @@ class ManagementCommandsAdminIndex(TemplateView):
     _loader = None  # type: Union[ManagementCommandsLoader, None]
 
     @method_decorator(user_passes_test(lambda user: user.is_staff))
-    def dispatch(self, request: HttpRequest, *args, **kwargs) -> Any:
+    def dispatch(
+        self, request: HttpRequest, *args: List[Any], **kwargs: Dict[str, Any]
+    ) -> Any:
         """
         Overload dispatch to add staff user required checking.
+
+        # noqa: DAR101
 
         :param request: request
         :type request: HttpRequest
@@ -47,8 +51,8 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: Any
         """
 
-        return super(ManagementCommandsAdminIndex, self).dispatch(  # type: ignore
-            request=request, *args, **kwargs
+        return super(ManagementCommandsAdminIndex, self).dispatch(
+            request=request, *args, **kwargs  # type: ignore
         )
 
     def get_context_data(self, **kwargs: Dict[str, Any]) -> Dict[str, Any]:

@@ -14,7 +14,7 @@ from mcadmin.models.command import Command
 __all__ = ["GroupAdmin"]  # type: List[str]
 
 
-class CommandInline(admin.TabularInline):
+class CommandInline(admin.TabularInline):  # type: ignore
     """
     Command inline for GroupAdmin.
     """
@@ -23,7 +23,7 @@ class CommandInline(admin.TabularInline):
     extra = 1
 
 
-class GroupAdmin(admin.ModelAdmin):
+class GroupAdmin(admin.ModelAdmin):  # type: ignore
     """
     Customize Group model for admin area.
     """

@@ -12,7 +12,7 @@ from django.contrib import admin
 __all__ = ["CommandGroupPermissionAdmin"]  # type: List[str]
 
 
-class CommandGroupPermissionAdmin(admin.ModelAdmin):
+class CommandGroupPermissionAdmin(admin.ModelAdmin):  # type: ignore
     """
     Customize CommandGroupPermissionCommand model for admin area.
     """
