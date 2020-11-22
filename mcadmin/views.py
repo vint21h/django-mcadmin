@@ -51,7 +51,7 @@ class ManagementCommandsAdminIndex(TemplateView):
         :rtype: Any
         """
 
-        return super(ManagementCommandsAdminIndex, self).dispatch(
+        return super(ManagementCommandsAdminIndex, self).dispatch(  # type: ignore
             request=request, *args, **kwargs  # type: ignore
         )
 
