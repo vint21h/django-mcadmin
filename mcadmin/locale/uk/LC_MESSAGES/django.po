@@ -4,9 +4,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mcadmin 0.9.0\n"
+"Project-Id-Version: mcadmin 0.9.1\n"
 "Report-Msgid-Bugs-To: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
-"POT-Creation-Date: 2020-10-07 05:28+0300\n"
+"POT-Creation-Date: 2020-11-22 17:44+0200\n"
 "PO-Revision-Date: 2015-06-01 06:57+0300\n"
 "Last-Translator: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
 "Language-Team: Alexei Andrushievich <vint21h@vint21h.pp.ua>\n"
@@ -87,7 +87,7 @@ msgstr "доступ до груп керуючих команд"
 msgid "Home"
 msgstr "Домівка"
 
-#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:11 mcadmin/views.py:67
+#: mcadmin/templates/mcadmin/includes/breadcrumbs.html:11 mcadmin/views.py:71
 msgid "Management commands"
 msgstr "Керуючі команди"
 
@@ -107,17 +107,17 @@ msgstr "Керуючій команді непотрібні додаткові 
 msgid "Other"
 msgstr "Інші"
 
-#: mcadmin/views.py:114 mcadmin/views.py:133
+#: mcadmin/views.py:118 mcadmin/views.py:137
 #, python-brace-format
 msgid "Run '{command.name}' management command success"
 msgstr "Керуючу команду '{command.name}' було успішно запущено"
 
-#: mcadmin/views.py:120 mcadmin/views.py:139
+#: mcadmin/views.py:124 mcadmin/views.py:143
 #, python-brace-format
 msgid "Running '{command.name}' management command error: {error}"
 msgstr "Керуючу команду '{command.name}' було запущено з помилкою: {error}"
 
-#: mcadmin/views.py:126
+#: mcadmin/views.py:130
 #, python-brace-format
 msgid "This form was completed with errors: {command.name}"
 msgstr "Форму було заповнено з помилками: {command.name}"
