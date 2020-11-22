@@ -273,7 +273,7 @@ Contacts
 For other authors list see AUTHORS file.
 
 
-.. |Travis| image:: https://travis-ci.org/vint21h/django-mcadmin.svg?branch=master
+.. |Travis| image:: https://travis-ci.com/vint21h/django-mcadmin.svg?branch=master
     :alt: Travis
 .. |Coveralls| image:: https://coveralls.io/repos/github/vint21h/django-mcadmin/badge.svg?branch=master
     :alt: Coveralls
@@ -293,7 +293,7 @@ For other authors list see AUTHORS file.
     :alt: Python wheel support
 .. |pypi-status| image:: https://img.shields.io/pypi/status/django-mcadmin
     :alt: Package status
-.. _Travis: https://travis-ci.org/vint21h/django-mcadmin/
+.. _Travis: https://travis-ci.com/vint21h/django-mcadmin/
 .. _Coveralls: https://coveralls.io/github/vint21h/django-mcadmin?branch=master
 .. _Requires: https://requires.io/github/vint21h/django-mcadmin/requirements/?branch=master
 .. _pypi-license: https://pypi.org/project/django-mcadmin/
