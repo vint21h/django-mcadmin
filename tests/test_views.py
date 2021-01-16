@@ -6,8 +6,8 @@
 
 from typing import List  # pylint: disable=W0611
 
-from django.urls import reverse
 from django.test import TestCase
+from django.shortcuts import resolve_url
 from django.test.client import RequestFactory
 from django.contrib.auth import get_user_model
 from django.test.utils import override_settings
@@ -80,7 +80,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
         self.view = ManagementCommandsAdminIndex()
         self.request = RequestFactory().post(
-            path=reverse("mcadmin-index"),
+            path=resolve_url(to="mcadmin-index"),
             data={
                 "tests.test_views.TestManagementCommandAdmin": "tests.test_views.TestManagementCommandAdmin"  # noqa: E501
             },

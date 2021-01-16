@@ -10,10 +10,10 @@ from pathlib import Path
 from typing import List  # pylint: disable=W0611
 
 from django import forms
-from django.urls import reverse
 from django.test import TestCase
 from freezegun import freeze_time
 from django.core.files.base import File
+from django.shortcuts import resolve_url
 from django.test.client import RequestFactory
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -54,7 +54,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
                 )
             )
             self.request = RequestFactory().post(
-                path=reverse("mcadmin-index"),
+                path=resolve_url(to="mcadmin-index"),
                 data={"file": test},
             )
 

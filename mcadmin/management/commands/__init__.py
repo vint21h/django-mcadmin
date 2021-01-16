@@ -6,7 +6,7 @@
 
 from typing import Any, Dict, List  # pylint: disable=W0611
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.management.base import BaseCommand, CommandParser, no_translations
 
 

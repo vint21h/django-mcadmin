@@ -6,7 +6,7 @@
 
 from typing import List  # pylint: disable=W0611
 
-from django.urls import reverse
+from django.shortcuts import resolve_url
 
 
 __all__ = [
@@ -38,4 +38,4 @@ class ManagementCommandAdminExampleFile(object):
             return self.path
         else:
 
-            return reverse("mcadmin-example-file", args=[self.path])
+            return resolve_url(to="mcadmin-example-file", **{"path": self.path})

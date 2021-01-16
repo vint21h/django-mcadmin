@@ -11,7 +11,7 @@ from typing import List  # pylint: disable=W0611
 from django import forms
 from django.utils import timezone
 from django.core.files.storage import default_storage
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mcadmin.conf import settings
 

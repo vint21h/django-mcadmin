@@ -6,8 +6,8 @@
 
 from typing import List  # pylint: disable=W0611
 
-from django.urls import reverse
 from django.test import TestCase
+from django.shortcuts import resolve_url
 from django.test.client import RequestFactory
 
 from mcadmin.command import ManagementCommandAdmin
@@ -58,7 +58,7 @@ class ManagementCommandAdminTest(TestCase):
 
         self.command = TestManagementCommandAdmin()
         self.request = RequestFactory().post(
-            path=reverse("mcadmin-index"),
+            path=resolve_url(to="mcadmin-index"),
             data={
                 "as_task": "on",
                 "tests.test_command.TestManagementCommandAdmin": "tests.test_command.TestManagementCommandAdmin",  # noqa: E501

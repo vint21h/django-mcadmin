@@ -18,7 +18,7 @@ from django import forms
 from django.core.files import File
 from django.db.models import Model
 from django.forms.utils import ErrorList
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mcadmin.registry import registry
 from mcadmin.models.command import Command
