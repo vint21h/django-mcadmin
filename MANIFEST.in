@@ -2,7 +2,6 @@
 # MANIFEST.in
 
 
-prune .github*
 prune tests*
 include mcadmin/templates/mcadmin/includes/command.html
 include mcadmin/templates/mcadmin/includes/group.html
