@@ -4,7 +4,7 @@
 A django-mcadmin documentation
 ==============================
 
-|GitHub|_ |Coveralls|_ |Requires|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
+|GitHub|_ |Coveralls|_ |pypi-license|_ |pypi-version|_ |pypi-python-version|_ |pypi-django-version|_ |pypi-format|_ |pypi-wheel|_ |pypi-status|_
 
     *django-mcadmin is a Django reusable app that provides simple run management commands from admin*
 
@@ -277,8 +277,6 @@ For other authors list see AUTHORS file.
     :alt: GitHub
 .. |Coveralls| image:: https://coveralls.io/repos/github/vint21h/django-mcadmin/badge.svg?branch=master
     :alt: Coveralls
-.. |Requires| image:: https://requires.io/github/vint21h/django-mcadmin/requirements.svg?branch=master
-    :alt: Requires
 .. |pypi-license| image:: https://img.shields.io/pypi/l/django-mcadmin
     :alt: License
 .. |pypi-version| image:: https://img.shields.io/pypi/v/django-mcadmin
@@ -295,7 +293,6 @@ For other authors list see AUTHORS file.
     :alt: Package status
 .. _GitHub: https://github.com/vint21h/django-mcadmin/actions/
 .. _Coveralls: https://coveralls.io/github/vint21h/django-mcadmin?branch=master
-.. _Requires: https://requires.io/github/vint21h/django-mcadmin/requirements/?branch=master
 .. _pypi-license: https://pypi.org/project/django-mcadmin/
 .. _pypi-version: https://pypi.org/project/django-mcadmin/
 .. _pypi-django-version: https://pypi.org/project/django-mcadmin/
