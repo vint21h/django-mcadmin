@@ -3,7 +3,7 @@
 
 
 .ONESHELL:
-PHONY: pipenv-install tox test makemessages compilemessages bumpversion build sign check check-build check-upload upload clean coveralls release help
+PHONY: install tox test makemessages compilemessages bumpversion build sign check check-build check-upload upload clean coveralls release help
 TEST_PYPI_URL ?= https://test.pypi.org/legacy/
 NAME ?= mcadmin
 EXTENSIONS ?= py,html,txt,xml
