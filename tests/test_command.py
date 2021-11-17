@@ -4,7 +4,7 @@
 # tests/test_command.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.test import TestCase
 from django.shortcuts import resolve_url
@@ -15,30 +15,24 @@ from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
 
 
-__all__ = ["ManagementCommandAdminTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandAdminTest"]
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class TestManagementCommandAdminForm(ManagementCommandAdminTaskForm):
-    """
-    Management command admin form for tests.
-    """
+    """Management command admin form for tests."""
 
     ...
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
-    """
-    Management command admin for tests.
-    """
+    """Management command admin for tests."""
 
     command = "test-command"
     name = "Test Command"
@@ -47,15 +41,10 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
 
 class ManagementCommandAdminTest(TestCase):
-    """
-    Management commands admin tests.
-    """
+    """Management commands admin tests."""
 
     def setUp(self) -> None:
-        """
-        Set up.
-        """
-
+        """Set up."""
         self.command = TestManagementCommandAdmin()
         self.request = RequestFactory().post(
             path=resolve_url(to="mcadmin-index"),
@@ -66,10 +55,7 @@ class ManagementCommandAdminTest(TestCase):
         )
 
     def test_get_form(self) -> None:
-        """
-        get_form method must return form instance initialized with request data.
-        """
-
+        """get_form method must return form instance initialized with request data."""
         result = self.command.get_form(request=self.request)
         expected = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
@@ -81,10 +67,7 @@ class ManagementCommandAdminTest(TestCase):
         )
 
     def test_get_form_value(self) -> None:
-        """
-        get_form_value method must return form field value.
-        """
-
+        """get_form_value method must return form field value."""
         form = self.command.get_form(request=self.request)
         form.is_valid()  # type: ignore
         result = self.command.form_value(
@@ -94,10 +77,7 @@ class ManagementCommandAdminTest(TestCase):
         self.assertEqual(first=result, second="on")
 
     def test_form_to_args(self) -> None:
-        """
-        form_to_args method must return converted form data.
-        """
-
+        """form_to_args method must return converted form data."""
         form = self.command.get_form(request=self.request)
         form.is_valid()  # type: ignore
         result = self.command.form_to_args(form=form, data=self.request.POST)  # type: ignore  # noqa: E501
@@ -105,10 +85,7 @@ class ManagementCommandAdminTest(TestCase):
         self.assertEqual(first=result, second=["on"])
 
     def test_form_to_kwargs(self) -> None:
-        """
-        form_to_kwargs method must return converted form data.
-        """
-
+        """form_to_kwargs method must return converted form data."""
         form = self.command.get_form(request=self.request)
         form.is_valid()  # type: ignore
         result = self.command.form_to_kwargs(form=form, data=self.request.POST)  # type: ignore  # noqa: E501

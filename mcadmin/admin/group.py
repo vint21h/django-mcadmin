@@ -4,39 +4,35 @@
 # mcadmin/admin/group.py
 
 
-from typing import List, Type, Sequence  # pylint: disable=W0611
+from typing import List, Type, Sequence
 
 from django.contrib import admin
 
 from mcadmin.models.command import Command
 
 
-__all__ = ["GroupAdmin"]  # type: List[str]
+__all__: List[str] = ["GroupAdmin"]
 
 
 class CommandInline(admin.TabularInline):  # type: ignore
-    """
-    Command inline for GroupAdmin.
-    """
+    """Command inline for GroupAdmin."""
 
-    model = Command
-    extra = 1
+    model: Type[Command] = Command
+    extra: int = 1
 
 
 class GroupAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize Group model for admin area.
-    """
+    """Customize Group model for admin area."""
 
-    list_display = [
+    list_display: List[str] = [
         "name",
-    ]  # type: List[str]
-    list_filter = [
+    ]
+    list_filter: List[str] = [
         "name",
-    ]  # type: List[str]
-    search_fields = [
+    ]
+    search_fields: List[str] = [
         "name",
-    ]  # type: List[str]
-    inlines = [
+    ]
+    inlines: Sequence[Type[CommandInline]] = [
         CommandInline,
-    ]  # type: Sequence[Type[CommandInline]]
+    ]

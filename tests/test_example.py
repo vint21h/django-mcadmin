@@ -4,35 +4,28 @@
 # tests/test_example.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.test import TestCase
 
 from mcadmin.example import ManagementCommandAdminExampleFile
 
 
-__all__ = ["ManagementCommandAdminExampleFileTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandAdminExampleFileTest"]
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class ManagementCommandAdminExampleFileTest(TestCase):
-    """
-    Management commands admin example file tests.
-    """
+    """Management commands admin example file tests."""
 
     def test_get_absolute_url(self) -> None:
-        """
-        get_absolute_url method must return URL to example file.
-        """
-
+        """get_absolute_url method must return URL to example file."""
         example = TestManagementCommandAdminExampleFile()
 
         self.assertEqual(
@@ -41,10 +34,7 @@ class ManagementCommandAdminExampleFileTest(TestCase):
         )
 
     def test_get_absolute_url__raw(self) -> None:
-        """
-        get_absolute_url method must return ful URL to example raw file.
-        """
-
+        """get_absolute_url method must return ful URL to example raw file."""
         example = TestManagementCommandAdminExampleFile()
         example.raw = True
 

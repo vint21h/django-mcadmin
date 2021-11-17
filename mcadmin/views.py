@@ -4,7 +4,7 @@
 # mcadmin/views.py
 
 
-from typing import Any, Dict, List, Union, Optional  # pylint: disable=W0611
+from typing import Any, Dict, List, Union, Optional
 
 from django.contrib import messages
 from django.views.generic import TemplateView
@@ -20,17 +20,15 @@ from mcadmin.loader import ManagementCommandsLoader
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
 
-__all__ = [
+__all__: List[str] = [
     "ManagementCommandsAdminIndex",
-]  # type: List[str]
+]
 
 
 class ManagementCommandsAdminIndex(TemplateView):
-    """
-    Main management commands admin view.
-    """
+    """Main management commands admin view."""
 
-    _loader = None  # type: Union[ManagementCommandsLoader, None]
+    _loader: Union[ManagementCommandsLoader, None] = None
 
     @method_decorator(user_passes_test(lambda user: user.is_staff))
     def dispatch(
@@ -50,7 +48,6 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: dispatched request method
         :rtype: Any
         """
-
         return super(ManagementCommandsAdminIndex, self).dispatch(  # type: ignore
             request=request, *args, **kwargs  # type: ignore
         )
@@ -64,7 +61,6 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: updated context
         :rtype: Dict[str, Any]
         """
-
         context = super(ManagementCommandsAdminIndex, self).get_context_data(**kwargs)
         context.update(
             {
@@ -77,7 +73,7 @@ class ManagementCommandsAdminIndex(TemplateView):
 
         return context
 
-    def post(
+    def post(  # noqa: CCR001
         self, request: HttpRequest, *args: List[Any], **kwargs: Dict[str, Any]
     ) -> HttpResponse:
         """
@@ -92,7 +88,6 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: rendered template
         :rtype: HttpResponse
         """
-
         command_name = self.get_command_name(request=request)
         command = self.loader.get_command(name=command_name)
 
@@ -156,7 +151,6 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: list of templates
         :rtype: List[str]
         """
-
         return [
             "mcadmin/index.html",
         ]
@@ -169,7 +163,6 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: management commands loader
         :rtype: ManagementCommandsLoader
         """
-
         if self._loader:
 
             return self._loader
@@ -187,11 +180,12 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: command name
         :rtype: str
         """
+        commands = set(self.loader.registry).intersection(request.POST)
 
-        return min(set(self.loader.registry.keys()).intersection(request.POST.keys()))
+        return min(commands)
 
     @staticmethod
-    def filter_by_permissions(
+    def filter_by_permissions(  # noqa: CFQ004,CCR001
         commands: Dict[
             Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]
         ],
@@ -207,16 +201,16 @@ class ManagementCommandsAdminIndex(TemplateView):
         :return: filtered commands
         :rtype: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]  # noqa: E501
         """
-
         if request and settings.MCADMIN_USE_PERMISSIONS:
             if request.user and request.user.is_authenticated:
                 if request.user.is_superuser:
 
                     return commands
                 else:
-                    result = (
-                        {}
-                    )  # type: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]   # noqa: E501
+                    result: Dict[
+                        Union[Group, None],
+                        Dict[str, Union[ManagementCommandAdmin, None]],
+                    ] = {}
                     groups_permissions = (
                         request.user.commands_groups_permissions.all()  # type: ignore
                         .values_list("group", flat=True)

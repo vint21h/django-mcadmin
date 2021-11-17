@@ -4,27 +4,25 @@
 # mcadmin/registry.py
 
 
-from typing import Dict, List, Type, Tuple  # pylint: disable=W0611
+from typing import Dict, List, Type, Tuple
 
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.exceptions import (
-    NotManagementCommandAdmin,
-    ManagementCommandAdminNotRegistered,
-    ManagementCommandAdminAlreadyRegistered,
+    NotManagementCommandAdminError,
+    ManagementCommandAdminNotRegisteredError,
+    ManagementCommandAdminAlreadyRegisteredError,
 )
 
 
-__all__ = [
+__all__: List[str] = [
     "registry",
-]  # type: List[str]
+]
 
 
-class ManagementCommandAdminRegistry(object):
-    """
-    Management commands admin registry.
-    """
+class ManagementCommandAdminRegistry:
+    """Management commands admin registry."""
 
-    _registry = {}  # type: Dict[str, Type[ManagementCommandAdmin]]
+    _registry: Dict[str, Type[ManagementCommandAdmin]] = {}
 
     def register(self, command: Type[ManagementCommandAdmin]) -> None:
         """
@@ -35,18 +33,17 @@ class ManagementCommandAdminRegistry(object):
         :param command: management command admin class
         :type command: Type[ManagementCommandAdmin]
         """
-
         name = self.__get_command_key(command=command)
 
         if not issubclass(command, ManagementCommandAdmin):
 
-            raise NotManagementCommandAdmin(
+            raise NotManagementCommandAdminError(
                 f"The class '{name}' is not a management command admin."
             )
 
-        if name in self._registry.keys():
+        if name in self._registry:
 
-            raise ManagementCommandAdminAlreadyRegistered(
+            raise ManagementCommandAdminAlreadyRegisteredError(
                 f"The command admin '{name}' is already registered."
             )
 
@@ -61,18 +58,17 @@ class ManagementCommandAdminRegistry(object):
         :param command: management command admin class
         :type command: Type[ManagementCommandAdmin]
         """
-
         name = self.__get_command_key(command=command)
 
         if not issubclass(command, ManagementCommandAdmin):
 
-            raise NotManagementCommandAdmin(
+            raise NotManagementCommandAdminError(
                 f"The class '{name}' is not a management command admin."
             )
 
         if name not in self._registry.keys():
 
-            raise ManagementCommandAdminNotRegistered(
+            raise ManagementCommandAdminNotRegisteredError(
                 f"The command admin '{name}' is not registered."
             )
 
@@ -88,7 +84,6 @@ class ManagementCommandAdminRegistry(object):
         :return: class module name + class name
         :rtype: str
         """
-
         return f"{command.__module__}.{command.__name__}"
 
     @property
@@ -99,14 +94,10 @@ class ManagementCommandAdminRegistry(object):
         :return: commands choices for admin
         :rtype: List[Tuple[str, str]]
         """
-
         return [(name, command.name) for name, command in self._registry.items()]
 
     def clean(self) -> None:
-        """
-        Clean registry.
-        """
-
+        """Clean registry."""
         self._registry = {}
 
 

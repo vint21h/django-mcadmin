@@ -4,18 +4,19 @@
 # mcadmin/management/commands/__init__.py
 
 
-from typing import Any, Dict, List  # pylint: disable=W0611
+from typing import Any, Dict, List
 
 from django.utils.translation import gettext_lazy as _
 from django.core.management.base import BaseCommand, CommandParser, no_translations
 
 
-__all__ = ["TaskCommand"]  # type: List[str]
+__all__: List[str] = ["TaskCommand"]
 
 
 class TaskCommand(BaseCommand):
     """
     Management commands admin base task command class.
+
     Can run management command as background task.
     """
 
@@ -26,7 +27,6 @@ class TaskCommand(BaseCommand):
         :param parser: command arguments parser instance
         :type parser: CommandParser
         """
-
         parser.add_argument(
             "--task",
             "-T",
@@ -50,7 +50,6 @@ class TaskCommand(BaseCommand):
         :return: command execution result
         :rtype: Any
         """
-
         if kwargs.get("as_task", False):
             return self._as_task(*args, **kwargs)
         else:
@@ -59,6 +58,7 @@ class TaskCommand(BaseCommand):
     def _local(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
         Run command locally.
+
         Must be implemented in child class.
 
         # noqa: DAR401
@@ -68,12 +68,12 @@ class TaskCommand(BaseCommand):
         :param kwargs: additional args
         :type kwargs: Dict[str, Any]
         """
-
         raise NotImplementedError
 
     def _as_task(self, *args: List[Any], **kwargs: Dict[str, Any]) -> None:
         """
         Run command as background task.
+
         Must be implemented in child class.
 
         # noqa: DAR401
@@ -83,5 +83,4 @@ class TaskCommand(BaseCommand):
         :param kwargs: additional args
         :type kwargs: Dict[str, Any]
         """
-
         raise NotImplementedError

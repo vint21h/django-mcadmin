@@ -4,7 +4,7 @@
 # mcadmin/loader.py
 
 
-from typing import Dict, List, Type, Union  # pylint: disable=W0611
+from typing import Dict, List, Type, Union
 
 from django.db.models import QuerySet
 
@@ -14,38 +14,30 @@ from mcadmin.models.command import Command
 from mcadmin.command import ManagementCommandAdmin
 
 
-__all__ = [
+__all__: List[str] = [
     "ManagementCommandsLoader",
-]  # type: List[str]
+]
 
 
-class ManagementCommandsLoader(object):
-    """
-    Load commands and group them.
-    """
+class ManagementCommandsLoader:
+    """Load commands and group them."""
 
-    commands = (
-        {}
-    )  # type: Dict[Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]]
-    registry = {}  # type: Dict[str, Type[ManagementCommandAdmin]]
+    commands: Dict[
+        Union[Group, None], Dict[str, Union[ManagementCommandAdmin, None]]
+    ] = {}
+    registry: Dict[str, Type[ManagementCommandAdmin]] = {}
 
     def __init__(self) -> None:
-        """
-        Init loader.
-        """
-
+        """Init loader."""
         self.registry = registry._registry
         self.load()
 
     def load(self) -> None:
-        """
-        Load and initialize commands from registry.
-        """
-
-        groups = Group.objects.filter(
+        """Load and initialize commands from registry."""
+        groups: QuerySet[Group] = Group.objects.filter(
             pk__in=Command.objects.all().values_list("group", flat=True)
-        )  # type: QuerySet[Group]
-        other = Command.objects.filter(group__isnull=True)  # type: QuerySet[Command]
+        )
+        other: QuerySet[Command] = Command.objects.filter(group__isnull=True)
 
         for group in groups:
             self.commands.update(
@@ -76,5 +68,4 @@ class ManagementCommandsLoader(object):
         :return: initialized command
         :rtype: Union[ManagementCommandAdmin, None]
         """
-
         return self.registry[name]() if name in self.registry else None

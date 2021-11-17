@@ -4,7 +4,7 @@
 # tests/test_registry.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.test import TestCase
 
@@ -12,51 +12,39 @@ from mcadmin.registry import registry
 from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.exceptions import (
-    NotManagementCommandAdmin,
-    ManagementCommandAdminNotRegistered,
-    ManagementCommandAdminAlreadyRegistered,
+    NotManagementCommandAdminError,
+    ManagementCommandAdminNotRegisteredError,
+    ManagementCommandAdminAlreadyRegisteredError,
 )
 
 
-__all__ = ["ManagementCommandAdminRegistryTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandAdminRegistryTest"]
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
-    """
-    Management command admin for tests.
-    """
+    """Management command admin for tests."""
 
-    command = "test-command"
-    name = "Test Command"
-    examples = [TestManagementCommandAdminExampleFile()]
+    command: str = "test-command"
+    name: str = "Test Command"
+    examples: List[ManagementCommandAdminExampleFile] = [TestManagementCommandAdminExampleFile()]  # noqa: E501
 
 
 class ManagementCommandAdminRegistryTest(TestCase):
-    """
-    Management commands admin registry tests.
-    """
+    """Management commands admin registry tests."""
 
     def setUp(self) -> None:
-        """
-        Set up.
-        """
-
+        """Set up."""
         registry.clean()
 
     def test_register(self) -> None:
-        """
-        register method must add command to registry.
-        """
-
+        """register method must add command to registry."""  # noqa: D403
         registry.register(TestManagementCommandAdmin)
 
         self.assertDictEqual(
@@ -67,30 +55,21 @@ class ManagementCommandAdminRegistryTest(TestCase):
         )
 
     def test_register_raises_not_management_command_admin_exception(self) -> None:
-        """
-        register method must raise "NotManagementCommandAdmin".
-        """
-
-        with self.assertRaises(NotManagementCommandAdmin):
+        """register method must raise "NotManagementCommandAdminError"."""  # noqa: D403
+        with self.assertRaises(NotManagementCommandAdminError):
             registry.register(object)  # type: ignore
 
     def test_register_raises_management_command_admin_already_registered_exception(
         self,
     ) -> None:
-        """
-        register method must raise "ManagementCommandAdminAlreadyRegistered".
-        """
-
+        """register method must raise "ManagementCommandAdminAlreadyRegisteredError"."""  # noqa: D403,E501
         registry.register(TestManagementCommandAdmin)
 
-        with self.assertRaises(ManagementCommandAdminAlreadyRegistered):
+        with self.assertRaises(ManagementCommandAdminAlreadyRegisteredError):
             registry.register(TestManagementCommandAdmin)
 
     def test_unregister(self) -> None:
-        """
-        unregister method must remove command from registry.
-        """
-
+        """unregister method must remove command from registry."""  # noqa: D403
         registry.register(TestManagementCommandAdmin)
         registry.unregister(TestManagementCommandAdmin)
 
@@ -100,28 +79,19 @@ class ManagementCommandAdminRegistryTest(TestCase):
         )
 
     def test_unregister_raises_not_management_command_admin_exception(self) -> None:
-        """
-        unregister method must raise "NotManagementCommandAdmin".
-        """
-
-        with self.assertRaises(NotManagementCommandAdmin):
+        """unregister method must raise "NotManagementCommandAdminError"."""  # noqa: D403,E501
+        with self.assertRaises(NotManagementCommandAdminError):
             registry.unregister(object)  # type: ignore
 
     def test_unregister_raises_management_command_admin_not_registered_exception(
         self,
     ) -> None:
-        """
-        unregister method must raise "ManagementCommandAdminNotRegistered".
-        """
-
-        with self.assertRaises(ManagementCommandAdminNotRegistered):
+        """unregister method must raise "ManagementCommandAdminNotRegisteredError"."""  # noqa: D403,E501
+        with self.assertRaises(ManagementCommandAdminNotRegisteredError):
             registry.unregister(TestManagementCommandAdmin)
 
     def test__get_command_key(self) -> None:
-        """
-        __get_command_key method must return command class key for registry.
-        """
-
+        """__get_command_key method must return command class key for registry."""
         self.assertEqual(
             first=registry._ManagementCommandAdminRegistry__get_command_key(  # type: ignore # noqa: E501
                 TestManagementCommandAdmin
@@ -130,10 +100,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         )
 
     def test_choices(self) -> None:
-        """
-        choices property must contain commands choices for admin.
-        """
-
+        """choices property must contain commands choices for admin."""  # noqa: D403
         registry.register(TestManagementCommandAdmin)
 
         self.assertListEqual(
@@ -142,10 +109,7 @@ class ManagementCommandAdminRegistryTest(TestCase):
         )
 
     def test_clean(self) -> None:
-        """
-        clean method must remove all command from registry.
-        """
-
+        """clean method must remove all command from registry."""  # noqa: D403
         registry.register(TestManagementCommandAdmin)
         registry.clean()
 

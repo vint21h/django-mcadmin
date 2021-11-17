@@ -6,8 +6,8 @@
 
 import os
 import tempfile
+from typing import List
 from pathlib import Path
-from typing import List  # pylint: disable=W0611
 
 from django import forms
 from django.test import TestCase
@@ -20,30 +20,23 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
 
-__all__ = ["ManagementCommandAdminFilesFormTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandAdminFilesFormTest"]
 
 
 class TestManagementCommandAdminForm(ManagementCommandAdminFilesForm):
-    """
-    Management command admin form for tests.
-    """
+    """Management command admin form for tests."""
 
     file = forms.FileField(allow_empty_file=True)
 
 
 class ManagementCommandAdminFilesFormTest(TestCase):
-    """
-    Management command admin form with files tests.
-    """
+    """Management command admin form with files tests."""
 
     def setUp(self) -> None:
-        """
-        Set up.
-        """
-
+        """Set up."""
         self.expected = str(
             Path(tempfile.gettempdir()).joinpath(
-                "uploads/TestManagementCommandAdminForm:1991-08-24 00:00:00-82241ccfdbe16cbef0abfafb2c56bd3b--test.csv"  # noqa: E501
+                "uploads/TestManagementCommandAdminForm:1991-08-24 00:00:00-3cb730604796d03262c8d6c6ab7f0dd6f12b28bf2e59fe3aa566a2d0607a54a3--test.csv"  # noqa: E501
             )
         )
 
@@ -59,21 +52,15 @@ class ManagementCommandAdminFilesFormTest(TestCase):
             )
 
     def tearDown(self) -> None:
-        """
-        Tear down.
-        """
-
-        try:
+        """Tear down."""
+        try:  # noqa: SIM105
             os.remove(self.expected)
         except Exception:  # nosec
             pass
 
     @freeze_time("1991-08-24 00:00:00")
     def test_get_filepath(self) -> None:
-        """
-        get_filepath method must return path for file.
-        """
-
+        """get_filepath method must return path for file."""
         form = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
         )
@@ -83,10 +70,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
     @freeze_time("1991-08-24 00:00:00")
     def test_save_file__path_attribute(self) -> None:
-        """
-        save_file method must change file field "path" attribute.
-        """
-
+        """save_file method must change file field "path" attribute."""
         form = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
         )
@@ -99,10 +83,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
     @freeze_time("1991-08-24 00:00:00")
     def test_save_file__existence(self) -> None:
-        """
-        save_file method must save file.
-        """
-
+        """save_file method must save file."""
         form = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
         )
@@ -115,10 +96,7 @@ class ManagementCommandAdminFilesFormTest(TestCase):
 
     @freeze_time("1991-08-24 00:00:00")
     def test_save_files__existence(self) -> None:
-        """
-        save_files method must save files.
-        """
-
+        """save_files method must save files."""
         form = TestManagementCommandAdminForm(
             data=self.request.POST, files=self.request.FILES
         )

@@ -4,8 +4,9 @@
 # tests/test_views.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List, Type
 
+from django.forms import Form
 from django.test import TestCase
 from django.shortcuts import resolve_url
 from django.test.client import RequestFactory
@@ -25,59 +26,46 @@ from mcadmin.models.permissions.command import CommandPermission
 from mcadmin.models.permissions.group import CommandGroupPermission
 
 
-__all__ = ["ManagementCommandsAdminIndexTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandsAdminIndexTest"]
 
 
 User = get_user_model()
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class TestManagementCommandAdminForm(ManagementCommandAdminTaskForm):
-    """
-    Management command admin form for tests.
-    """
+    """Management command admin form for tests."""
 
     ...
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
-    """
-    Management command admin for tests.
-    """
+    """Management command admin for tests."""
 
-    command = "test-command"
-    name = "Test Command"
-    form = TestManagementCommandAdminForm
-    examples = [TestManagementCommandAdminExampleFile()]
+    command: str = "test-command"
+    name: str = "Test Command"
+    form: Type[Form] = TestManagementCommandAdminForm
+    examples: List[ManagementCommandAdminExampleFile] = [TestManagementCommandAdminExampleFile()]  # noqa: E501
 
 
 class TestManagementCommandAdminInGroup(ManagementCommandAdmin):
-    """
-    Management command admin in group for tests.
-    """
+    """Management command admin in group for tests."""
 
     command = "test-command-in-group"
     name = "Test Command In Group"
 
 
 class ManagementCommandsAdminIndexTest(TestCase):
-    """
-    Management commands admin index view tests.
-    """
+    """Management commands admin index view tests."""
 
     def setUp(self) -> None:
-        """
-        Set up.
-        """
-
+        """Set up."""
         self.view = ManagementCommandsAdminIndex()
         self.request = RequestFactory().post(
             path=resolve_url(to="mcadmin-index"),
@@ -88,10 +76,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        """
-        Set up non-modified objects used by all test methods.
-        """
-
+        """Set up non-modified objects used by all test methods."""
         registry.register(TestManagementCommandAdmin)
         user = User.objects.create_user(
             username="test", password=User.objects.make_random_password()
@@ -107,17 +92,11 @@ class ManagementCommandsAdminIndexTest(TestCase):
         CommandPermission.objects.create(user=user, command=command)
 
     def test_loader(self) -> None:
-        """
-        loader property must return commands loader.
-        """
-
+        """loader property must return commands loader."""  # noqa: D403
         self.assertIsInstance(obj=self.view.loader, cls=ManagementCommandsLoader)
 
     def test_get_context_data(self) -> None:
-        """
-        get_context_data method must return view context data.
-        """
-
+        """get_context_data method must return view context data."""
         expected = {
             "title": "Management commands",
             "COMMANDS": self.view.loader.commands,
@@ -127,20 +106,14 @@ class ManagementCommandsAdminIndexTest(TestCase):
         self.assertDictEqual(d1=self.view.get_context_data(), d2=expected)
 
     def test_get_command_name(self) -> None:
-        """
-        get_command_name method must return command name from request POST data.
-        """
-
+        """get_command_name method must return command name from request POST data."""
         result = self.view.get_command_name(request=self.request)
         expected = "tests.test_views.TestManagementCommandAdmin"
 
         self.assertEqual(first=result, second=expected)
 
     def test_filter_by_permissions__without_use_permissions(self) -> None:
-        """
-        filter_by_permissions method must return commands not filtered by permissions.
-        """
-
+        """filter_by_permissions method must return commands not filtered by permissions."""  # noqa: E501
         result = self.view.filter_by_permissions(
             commands=self.view.loader.commands, request=self.request
         )
@@ -149,10 +122,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
     def test_filter_by_permissions__anonymous(self) -> None:
-        """
-        filter_by_permissions method must not return commands.
-        """
-
+        """filter_by_permissions method must not return commands."""
         user = AnonymousUser()
 
         self.request.user = user
@@ -165,10 +135,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
     def test_filter_by_permissions__superuser(self) -> None:
-        """
-        filter_by_permissions method must return not filtered permissions for superuser.
-        """
-
+        """filter_by_permissions method must return not filtered permissions for superuser."""  # noqa: E501
         user = User.objects.first()
 
         user.is_superuser = True  # type: ignore
@@ -182,10 +149,7 @@ class ManagementCommandsAdminIndexTest(TestCase):
 
     @override_settings(MCADMIN_USE_PERMISSIONS=True)
     def test_filter_by_permissions(self) -> None:
-        """
-        filter_by_permissions method must return filtered permissions.
-        """
-
+        """filter_by_permissions method must return filtered permissions."""
         user = User.objects.first()
 
         self.request.user = user  # type: ignore

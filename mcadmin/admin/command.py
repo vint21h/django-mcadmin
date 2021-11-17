@@ -4,30 +4,28 @@
 # mcadmin/admin/command.py
 
 
-from typing import List, Type  # pylint: disable=W0611
+from typing import List, Type
 
 from django.contrib import admin
 
 from mcadmin.forms.admin import CommandAdminForm
 
 
-__all__ = ["CommandAdmin"]  # type: List[str]
+__all__: List[str] = ["CommandAdmin"]
 
 
 class CommandAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize AdminCommand model for admin area.
-    """
+    """Customize AdminCommand model for admin area."""
 
-    list_display = [
+    list_display: List[str] = [
         "command",
         "group",
-    ]  # type: List[str]
-    list_filter = [
+    ]
+    list_filter: List[str] = [
         "group",
-    ]  # type: List[str]
-    search_fields = [
+    ]
+    search_fields: List[str] = [
         "command",
         "group__name",
-    ]  # type: List[str]
-    form = CommandAdminForm  # type: Type[CommandAdminForm]
+    ]
+    form: Type[CommandAdminForm] = CommandAdminForm

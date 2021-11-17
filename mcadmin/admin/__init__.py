@@ -4,7 +4,7 @@
 # mcadmin/admin/__init__.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
@@ -18,12 +18,12 @@ from mcadmin.admin.permissions.command import CommandPermissionAdmin
 from mcadmin.admin.permissions.group import CommandGroupPermissionAdmin
 
 
-__all__ = [
+__all__: List[str] = [
     "CommandAdmin",
     "GroupAdmin",
     "CommandGroupPermissionAdmin",
     "CommandPermissionAdmin",
-]  # type: List[str]
+]
 
 
 # registering admin custom classes

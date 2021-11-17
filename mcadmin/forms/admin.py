@@ -4,15 +4,7 @@
 # mcadmin/forms/admin.py
 
 
-from typing import (  # pylint: disable=W0611
-    Any,
-    Dict,
-    List,
-    Type,
-    Union,
-    Mapping,
-    Optional,
-)
+from typing import Any, Dict, List, Type, Union, Mapping, Optional
 
 from django import forms
 from django.core.files import File
@@ -24,17 +16,15 @@ from mcadmin.registry import registry
 from mcadmin.models.command import Command
 
 
-__all__ = [
+__all__: List[str] = [
     "CommandAdminForm",
-]  # type: List[str]
+]
 
 
-class CommandAdminForm(forms.ModelForm):
-    """
-    Management command model admin form.
-    """
+class CommandAdminForm(forms.ModelForm):  # type: ignore
+    """Management command model admin form."""
 
-    def __init__(
+    def __init__(  # noqa: CFQ002
         self,
         data: Optional[Mapping[str, Any]] = None,
         files: Optional[Mapping[str, File]] = None,
@@ -74,7 +64,6 @@ class CommandAdminForm(forms.ModelForm):
         :arg renderer: form renderer
         :type renderer: Any
         """
-
         super(CommandAdminForm, self).__init__(
             data=data,
             files=files,
@@ -100,12 +89,10 @@ class CommandAdminForm(forms.ModelForm):
     )
 
     class Meta:
-        """
-        Form settings.
-        """
+        """Form settings."""
 
-        model = Command  # type: Type[Command]
-        fields = [
+        model: Type[Command] = Command
+        fields: List[str] = [
             "command",
             "group",
-        ]  # type: List[str]
+        ]

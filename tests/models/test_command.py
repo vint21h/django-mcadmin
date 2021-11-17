@@ -4,7 +4,7 @@
 # tests/models/test_group.py
 
 
-from typing import List, Optional  # pylint: disable=W0611
+from typing import List, Optional
 
 from django.test import TestCase
 
@@ -14,50 +14,38 @@ from mcadmin.command import ManagementCommandAdmin
 from mcadmin.example import ManagementCommandAdminExampleFile
 
 
-__all__ = ["CommandModelTest"]  # type: List[str]
+__all__: List[str] = ["CommandModelTest"]
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
-    """
-    Management command admin for tests.
-    """
+    """Management command admin for tests."""
 
-    command = "test-command"
-    name = "Test Command"
-    examples = [TestManagementCommandAdminExampleFile()]
+    command: str = "test-command"
+    name: str = "Test Command"
+    examples: List[ManagementCommandAdminExampleFile] = [TestManagementCommandAdminExampleFile()]  # noqa: E501
 
 
 class CommandModelTest(TestCase):
-    """
-    Command model tests.
-    """
+    """Command model tests."""
 
     @classmethod
     def setUpTestData(cls) -> None:
-        """
-        Set up non-modified objects used by all test methods.
-        """
-
+        """Set up non-modified objects used by all test methods."""
         group = Group.objects.create(name="Test")
         Command.objects.create(
             command="tests.models.test_command.TestManagementCommandAdmin", group=group
         )
 
     def test___unicode__(self) -> None:
-        """
-        __unicode__ method must return group name.
-        """
-
-        command = Command.objects.first()  # type: Optional[Command]
+        """__unicode__ method must return group name."""
+        command: Optional[Command] = Command.objects.first()
 
         self.assertEqual(
             first=command.__unicode__(),  # type: ignore
@@ -65,11 +53,8 @@ class CommandModelTest(TestCase):
         )
 
     def test___repr__(self) -> None:
-        """
-        __repr__ method must return group name.
-        """
-
-        command = Command.objects.first()  # type: Optional[Command]
+        """__repr__ method must return group name."""
+        command: Optional[Command] = Command.objects.first()
 
         self.assertEqual(
             first=command.__repr__(),
@@ -77,11 +62,8 @@ class CommandModelTest(TestCase):
         )
 
     def test___str__(self) -> None:
-        """
-        __str__ method must return group name.
-        """
-
-        command = Command.objects.first()  # type: Optional[Command]
+        """__str__ method must return group name."""
+        command: Optional[Command] = Command.objects.first()
 
         self.assertEqual(
             first=command.__str__(),

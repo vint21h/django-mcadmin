@@ -4,36 +4,29 @@
 # mcadmin/exceptions.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 
-__all__ = [
-    "ManagementCommandAdminAlreadyRegistered",
-    "ManagementCommandAdminNotRegistered",
-    "NotManagementCommandAdmin",
-]  # type: List[str]
+__all__: List[str] = [
+    "ManagementCommandAdminAlreadyRegisteredError",
+    "ManagementCommandAdminNotRegisteredError",
+    "NotManagementCommandAdminError",
+]
 
 
-class ManagementCommandAdminAlreadyRegistered(Exception):
-    """
-    Management command admin already registered exception.
-    """
+class ManagementCommandAdminAlreadyRegisteredError(Exception):
+    """Management command admin already registered exception."""
 
     ...
 
 
-class ManagementCommandAdminNotRegistered(Exception):
-    """
-    Management command admin not registered exception.
-    """
+class ManagementCommandAdminNotRegisteredError(Exception):
+    """Management command admin not registered exception."""
 
     ...
 
 
-class NotManagementCommandAdmin(Exception):
-    """
-    Management command admin registry register command arg
-    is not a management command admin exception.
-    """
+class NotManagementCommandAdminError(Exception):
+    """Management command admin registry register command arg is not a management command admin exception."""  # noqa: E501
 
     ...

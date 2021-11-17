@@ -4,7 +4,7 @@
 # mcadmin/models/command.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -12,15 +12,13 @@ from django.utils.translation import gettext_lazy as _
 from mcadmin.registry import registry
 
 
-__all__ = [
+__all__: List[str] = [
     "Command",
-]  # type: List[str]
+]
 
 
-class Command(models.Model):
-    """
-    Management commands admin command.
-    """
+class Command(models.Model):  # noqa: DJ10,DJ11
+    """Management commands admin command."""
 
     command = models.CharField(
         max_length=256,
@@ -39,15 +37,19 @@ class Command(models.Model):
         null=True,
     )
 
-    def __unicode__(self) -> str:
-        """
-        Model representation.
+    class Meta:
+        """Model settings."""
 
-        :return: formatted string with command and group names
-        :rtype: str
-        """
-
-        return f"{self.command} - {self.group}" if self.group else self.command
+        app_label: str = "mcadmin"
+        unique_together: List[str] = [
+            "command",
+            "group",
+        ]
+        verbose_name: str = _("management command")
+        verbose_name_plural: str = _("management commands")
+        ordering: List[str] = [
+            "command",
+        ]
 
     def __str__(self) -> str:
         """
@@ -56,8 +58,16 @@ class Command(models.Model):
         :return: formatted string with command and group names
         :rtype: str
         """
-
         return self.__unicode__()
+
+    def __unicode__(self) -> str:
+        """
+        Model representation.
+
+        :return: formatted string with command and group names
+        :rtype: str
+        """
+        return f"{self.command} - {self.group}" if self.group else self.command
 
     def __repr__(self) -> str:
         """
@@ -66,21 +76,4 @@ class Command(models.Model):
         :return: formatted string with command and group names
         :rtype: str
         """
-
         return self.__unicode__()
-
-    class Meta:
-        """
-        Model settings.
-        """
-
-        app_label = "mcadmin"  # type: str
-        unique_together = [
-            "command",
-            "group",
-        ]  # type: List[str]
-        verbose_name = _("management command")  # type: str
-        verbose_name_plural = _("management commands")  # type: str
-        ordering = [
-            "command",
-        ]  # type: List[str]

@@ -4,7 +4,7 @@
 # tests/test_loader.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.test import TestCase
 
@@ -17,30 +17,24 @@ from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminTaskForm
 
 
-__all__ = ["ManagementCommandsLoaderTest"]  # type: List[str]
+__all__: List[str] = ["ManagementCommandsLoaderTest"]
 
 
 class TestManagementCommandAdminExampleFile(ManagementCommandAdminExampleFile):
-    """
-    Management command admin example file for tests.
-    """
+    """Management command admin example file for tests."""
 
-    path = "test.csv"
-    description = "Test file"
+    path: str = "test.csv"
+    description: str = "Test file"
 
 
 class TestManagementCommandAdminForm(ManagementCommandAdminTaskForm):
-    """
-    Management command admin form for tests.
-    """
+    """Management command admin form for tests."""
 
     ...
 
 
 class TestManagementCommandAdmin(ManagementCommandAdmin):
-    """
-    Management command admin for tests.
-    """
+    """Management command admin for tests."""
 
     command = "test-command"
     name = "Test Command"
@@ -49,16 +43,11 @@ class TestManagementCommandAdmin(ManagementCommandAdmin):
 
 
 class ManagementCommandsLoaderTest(TestCase):
-    """
-    Management commands loader tests.
-    """
+    """Management commands loader tests."""
 
     @classmethod
     def setUpTestData(cls) -> None:
-        """
-        Set up non-modified objects used by all test methods.
-        """
-
+        """Set up non-modified objects used by all test methods."""
         registry.register(TestManagementCommandAdmin)
         group = Group.objects.create(name="Test")
         Command.objects.create(
@@ -66,10 +55,7 @@ class ManagementCommandsLoaderTest(TestCase):
         )
 
     def test_load(self) -> None:
-        """
-        get_command method must return command from registry.
-        """
-
+        """get_command method must return command from registry."""
         loader = ManagementCommandsLoader()
         group = Group.objects.first()
         result = {
@@ -83,10 +69,7 @@ class ManagementCommandsLoaderTest(TestCase):
         self.assertDictEqual(d1=loader.commands, d2=result)
 
     def test_get_command(self) -> None:
-        """
-        get_command method must return command from registry.
-        """
-
+        """get_command method must return command from registry."""
         loader = ManagementCommandsLoader()
         result = loader.get_command(name="tests.test_loader.TestManagementCommandAdmin")
 

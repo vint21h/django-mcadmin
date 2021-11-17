@@ -4,23 +4,21 @@
 # mcadmin/admin/permissions/user.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.contrib import admin
 
 
-__all__ = ["CommandPermissionAdmin"]  # type: List[str]
+__all__: List[str] = ["CommandPermissionAdmin"]
 
 
 class CommandPermissionAdmin(admin.ModelAdmin):  # type: ignore
-    """
-    Customize CommandPermissionCommand model for admin area.
-    """
+    """Customize CommandPermissionCommand model for admin area."""
 
-    list_display = [
+    list_display: List[str] = [
         "user",
         "command",
-    ]  # type: List[str]
-    list_filter = [
+    ]
+    list_filter: List[str] = [
         "command",
-    ]  # type: List[str]
+    ]

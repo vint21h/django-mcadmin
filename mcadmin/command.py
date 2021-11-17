@@ -4,7 +4,7 @@
 # mcadmin/command.py
 
 
-from typing import Any, Dict, List, Type, Union, Optional  # pylint: disable=W0611
+from typing import Any, Dict, List, Type, Union, Optional
 
 from django.http import QueryDict, HttpRequest
 from django.core.management import call_command
@@ -14,22 +14,20 @@ from mcadmin.example import ManagementCommandAdminExampleFile
 from mcadmin.forms.helpers import ManagementCommandAdminFilesForm
 
 
-__all__ = [
+__all__: List[str] = [
     "ManagementCommandAdmin",
-]  # type: List[str]
+]
 
 
-class ManagementCommandAdmin(object):
-    """
-    Base management command admin class.
-    """
+class ManagementCommandAdmin:
+    """Base management command admin class."""
 
-    command = ""  # type: str
-    name = ""  # type: str
-    args = []  # type: List[Any]  # default options
-    kwargs = {}  # type: Dict[str, Any]  # default options
-    form = None  # type: Union[Type[Form], None]
-    examples = []  # type: List[ManagementCommandAdminExampleFile]
+    command: str = ""
+    name: str = ""
+    args: List[Any] = []  # default options
+    kwargs: Dict[str, Any] = {}  # default options
+    form: Union[Type[Form], None] = None
+    examples: List[ManagementCommandAdminExampleFile] = []
 
     def __eq__(self, other: Any) -> bool:
         """
@@ -40,7 +38,6 @@ class ManagementCommandAdmin(object):
         :return: is objects equal?
         :rtype: bool
         """
-
         return all(
             [
                 isinstance(other, ManagementCommandAdmin),
@@ -64,9 +61,8 @@ class ManagementCommandAdmin(object):
         :return: command kwargs
         :rtype: Dict[str, Any]
         """
-
         # set default options
-        kwargs = self.kwargs  # type: Dict[str, Any]
+        kwargs: Dict[str, Any] = self.kwargs
 
         for key in form.fields.keys():
             kwargs.update({key: self.form_value(form=form, key=key, data=data)})
@@ -84,9 +80,8 @@ class ManagementCommandAdmin(object):
         :return: command args
         :rtype: List[Any]
         """
-
         # set default options
-        args = self.args  # type: List[Any]
+        args: List[Any] = self.args
 
         for index, key in enumerate(form.fields.keys()):
             args.insert(index, self.form_value(form=form, key=key, data=data))
@@ -106,8 +101,7 @@ class ManagementCommandAdmin(object):
         :return: key value
         :rtype: Any
         """
-
-        if all(
+        if all(  # noqa: ECE001
             [
                 isinstance(form, ManagementCommandAdminFilesForm),
                 self.examples,
@@ -136,7 +130,6 @@ class ManagementCommandAdmin(object):
         :return: command execution result
         :rtype: Any
         """
-
         return call_command(self.command, *args, **kwargs)
 
     def get_form(self, request: Optional[HttpRequest]) -> Union[Form, None]:
@@ -148,7 +141,6 @@ class ManagementCommandAdmin(object):
         :return: form instance initialized with request data or None
         :rtype: Union[Form, None]
         """
-
         return (
             self.form(data=request.POST, files=request.FILES)  # type: ignore  # pylint: disable=E1102  # noqa: E501
             if request

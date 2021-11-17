@@ -4,28 +4,23 @@
 # mcadmin/apps.py
 
 
-from typing import List  # pylint: disable=W0611
+from typing import List
 
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-__all__ = ["DjangoManagementCommandsAdminConfig"]  # type: List[str]
+__all__: List[str] = ["DjangoManagementCommandsAdminConfig"]
 
 
 class DjangoManagementCommandsAdminConfig(AppConfig):
-    """
-    Application config.
-    """
+    """Application config."""
 
-    name = "mcadmin"
-    verbose_name = _("Management commands admin")
+    name: str = "mcadmin"
+    verbose_name: str = _("Management commands admin")
 
     def ready(self) -> None:
-        """
-        Application ready callback.
-        """
-
+        """Application ready callback."""
         super(DjangoManagementCommandsAdminConfig, self).ready()
 
         self.module.autodiscover()  # type: ignore

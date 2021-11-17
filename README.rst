@@ -69,7 +69,7 @@ For example, exists management command like this:
 
     class Command(BaseCommand):
 
-        help = "Useless management command"
+        help: str = "Useless management command"
 
         def add_arguments(self, parser):
 
@@ -115,9 +115,9 @@ And finally, write management command admin class and register it:
 
     class SomethingUselessManagementCommandAdmin(ManagementCommandAdmin):
 
-        command = "something-useless"
-        name = "Useless management command"
-        form = SomethingUselessManagementCommandAdminForm
+        command: str = "something-useless"
+        name: str = "Useless management command"
+        form: Type[Form] = SomethingUselessManagementCommandAdminForm
 
 
     # registering management command admin custom classes
@@ -136,7 +136,7 @@ Management command:
 
     class Command(TaskCommand):
 
-        help = "Useless management command which process file uploaded from a command from and can be executed directly or as background task"
+        help: str = "Useless management command which process file uploaded from a command from and can be executed directly or as background task"
 
         def add_arguments(self, parser):
 
@@ -216,8 +216,8 @@ Management command admin example file:
         ManagementCommandAdminExampleFile
     ):
 
-        description = "Management command with files example file"
-        path = "distributed-something-useless-with-file-example.csv"
+        description: str = "Management command with files example file"
+        path: str = "distributed-something-useless-with-file-example.csv"
 
 Or for the file which not served using Django but directly available for download via HTTP:
 
@@ -232,9 +232,9 @@ Or for the file which not served using Django but directly available for downloa
         ManagementCommandAdminExampleFile
     ):
 
-        description = "Management command with files example file"
-        path = "https://www.example.com/distributed-something-useless-with-file-example.csv"
-        raw = True
+        description: str = "Management command with files example file"
+        path: str = "https://www.example.com/distributed-something-useless-with-file-example.csv"
+        raw: bool = True
 
 Management command admin:
 
@@ -250,14 +250,58 @@ Management command admin:
 
     class DistributedSomethingUselessWithFileManagementCommandAdmin(ManagementCommandAdmin):
 
-        command = "distributed-something-useless-with-file"
-        name = "Distributed useless management command with file"
-        form = DistributedSomethingUselessWithFileManagementCommandAdminForm
-        examples = [DistributedSomethingUselessWithFileManagementCommandAdminExampleFile]
+        command: str = "distributed-something-useless-with-file"
+        name: str = "Distributed useless management command with file"
+        form: Type[Form] = DistributedSomethingUselessWithFileManagementCommandAdminForm
+        examples: Type[ManagementCommandAdminExampleFile] = [DistributedSomethingUselessWithFileManagementCommandAdminExampleFile]
 
 
     # registering management command admin custom classes
     registry.register(command=DistributedSomethingUselessWithFileManagementCommandAdmin)
+
+Contributing
+------------
+1. `Fork it <https://github.com/vint21h/django-mcadmin/>`_
+2. Install `GNU Make <https://www.gnu.org/software/make/>`_
+3. Install and configure `pyenv <https://github.com/pyenv/pyenv/>`_ and `pyenv-virtualenv plugin <https://github.com/pyenv/pyenv-virtualenv/>`_
+4. Install and configure `direnv <https://github.com/direnv/direnv/>`_
+5. Create environment config from example
+
+.. code-block:: bash
+
+    cp .env.example .env
+
+6. Install development dependencies:
+
+.. code-block:: bash
+
+    make install
+
+7. Create your fix/feature branch:
+
+.. code-block:: bash
+
+    git checkout -b my-new-fix-or-feature
+
+8. Check code style and moreover:
+
+.. code-block:: bash
+
+    make check
+
+9. Run tests:
+
+.. code-block:: bash
+
+    make test
+
+10. Push to the branch:
+
+.. code-block:: bash
+
+    git push origin my-new-fix-or-feature
+
+11. `Create a new Pull Request <https://github.com/vint21h/django-mcadmin/compare/>`_
 
 Licensing
 ---------
