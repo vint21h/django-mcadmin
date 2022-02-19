@@ -10,8 +10,8 @@ So, because this is not a thing that can produce security problems in the projec
 security policy is very simple: supported only the last major or minor branch.
 
 | Version | Supported          |
-| ------- | ------------------ |
-| 0.11.x  | :white_check_mark: |
+|---------|--------------------|
+| 0.12.x  | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
