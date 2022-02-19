@@ -21,7 +21,7 @@ class DjangoDjversionAppConf(AppConf):
     )
     UPLOADS_PATH: str = getattr(settings, "MCADMIN_UPLOADS_PATH", settings.MEDIA_ROOT)
     MODULE_NAME: str = getattr(settings, "MCADMIN_MODULE_NAME", "mcommands")
-    USE_PERMISSIONS: str = getattr(settings, "MCADMIN_USE_PERMISSIONS", False)
+    USE_PERMISSIONS: bool = getattr(settings, "MCADMIN_USE_PERMISSIONS", False)
 
     class Meta:
         """Config settings."""
